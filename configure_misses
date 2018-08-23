@@ -1,0 +1,3 @@
+Configure miss: whether sys/types.h defines makedev
+Configure miss: libdrm_freedreno
+Configure miss: colord >= 0.1.27

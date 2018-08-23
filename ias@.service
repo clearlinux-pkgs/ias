@@ -1,0 +1,30 @@
+#
+# ias.service
+#
+# enable ias to run as <user> by running
+# # systemctl enable ias@<user>.service
+#
+#
+# NOTE NOTE NOTE
+#
+# DO NOT USE THIS, THIS UNIT DOES NOT CREATE A PROPER
+# SESSION AND WILL NOT RESULT IN A SECURE SYSTEM
+#
+# NOTE NOTE NOTE
+#
+[Unit]
+Description=Start weston session on demand
+
+[Service]
+WorkingDirectory=/tmp
+Environment="XDG_CONFIG_HOME=/usr/share/xdg/weston" "XDG_RUNTIME_DIR=/run/wayland"
+ExecStartPre=-/bin/mkdir -p /run/wayland
+ExecStart=/usr/bin/weston-launch
+StandardInput=tty
+StandardOutput=journal
+StandardError=journal
+TTYPath=/dev/tty2
+SupplementaryGroups=input
+
+[Install]
+WantedBy=graphical.target

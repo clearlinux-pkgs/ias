@@ -1,0 +1,16 @@
+-disable-setuid-install
+--enable-ias-shell
+--disable-xkbcommon
+--enable-simple-clients
+--enable-clients
+--disable-wayland-compositor
+--disable-libunwind
+--disable-xwayland
+--disable-xwayland-test
+--disable-x11-compositor
+--disable-rpi-compositor
+--enable-ivi-plugin-manager
+--enable-layer-manager-control
+--disable-tracing
+--enable-shadergen
+--enable-demo-clients-install

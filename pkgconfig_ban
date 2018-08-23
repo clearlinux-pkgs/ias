@@ -1,0 +1,9 @@
+# This file contains pkgconfig build requirements that get picked up
+# but are undesirable. One entry per line, no whitespace.
+bcm_host
+colord
+freerdp2
+cairo-egl
+lcms2
+libsystemd-login
+libdrm_freedreno
