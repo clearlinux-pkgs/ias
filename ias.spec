@@ -4,18 +4,15 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 12
+Release  : 13
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias@.service
 Summary  : Weston Compositor
 Group    : Development/Tools
 License  : CC-BY-SA-3.0 MIT
-Requires: ias-bin
 Requires: ias-config
-Requires: ias-lib
 Requires: ias-license
-Requires: ias-man
 Requires: ias-data
 BuildRequires : Linux-PAM-dev
 BuildRequires : doxygen
@@ -61,18 +58,6 @@ BuildRequires : sed
 %description
 Weston compositor
 
-%package bin
-Summary: bin components for the ias package.
-Group: Binaries
-Requires: ias-data
-Requires: ias-config
-Requires: ias-license
-Requires: ias-man
-
-%description bin
-bin components for the ias package.
-
-
 %package config
 Summary: config components for the ias package.
 Group: Default
@@ -89,42 +74,12 @@ Group: Data
 data components for the ias package.
 
 
-%package dev
-Summary: dev components for the ias package.
-Group: Development
-Requires: ias-lib
-Requires: ias-bin
-Requires: ias-data
-Provides: ias-devel
-
-%description dev
-dev components for the ias package.
-
-
-%package lib
-Summary: lib components for the ias package.
-Group: Libraries
-Requires: ias-data
-Requires: ias-license
-
-%description lib
-lib components for the ias package.
-
-
 %package license
 Summary: license components for the ias package.
 Group: Default
 
 %description license
 license components for the ias package.
-
-
-%package man
-Summary: man components for the ias package.
-Group: Default
-
-%description man
-man components for the ias package.
 
 
 %prep
@@ -135,8 +90,19 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536082849
-%autogen --disable-static --prefix=/opt \
+export SOURCE_DATE_EPOCH=1536093086
+%autogen --disable-static --prefix=/opt/ias \
+--exec-prefix=/opt/ias \
+--bindir=/opt/ias/usr/bin \
+--sbindir=/opt/ias/usr/bin \
+--sysconfdir=/opt/ias/etc \
+--datadir=/opt/ias/usr/share \
+--includedir=/opt/ias/usr/include \
+--libdir=/opt/ias/usr/lib64 \
+--libexecdir=/opt/ias/usr/libexec \
+--localstatedir=/opt/ias/var \
+--sharedstatedir=/opt/ias/usr/com \
+--mandir=/opt/ias/usr/share/man \
 --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -163,7 +129,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1536082849
+export SOURCE_DATE_EPOCH=1536093086
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
@@ -179,71 +145,164 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 
 %files
 %defattr(-,root,root,-)
-/opt/share/doc/ias/compositor.h
-/opt/share/doc/ias/grid_layout.c
-/opt/share/doc/ias/ias-backend.xml
-/opt/share/doc/ias/ias-layout-manager.xml
-/opt/share/doc/ias/ias-plugin-framework.h
-/opt/share/doc/ias/ias-shell.xml
-/opt/share/doc/ias/ivi-application.xml
-/opt/share/doc/ias/ivi-controller.xml
-/opt/share/doc/ias/ivi-hmi-controller.xml
-/opt/share/doc/ias/ivi-input.xml
-/opt/share/doc/ias/layoutctrl.c
-/opt/share/doc/ias/plugin_samples/cpp_example/grid_layout.cc
-/opt/share/doc/ias/plugin_samples/extension_sample/extension_sample.c
-/opt/share/doc/ias/plugin_samples/extension_sample/extension_test_client.c
-/opt/share/doc/ias/plugin_samples/extension_sample/new-extension.xml
-/opt/share/doc/ias/plugin_samples/gamma_example/surface_gbc_control.c
-/opt/share/doc/ias/plugin_samples/input/input.c
-/opt/share/doc/ias/plugin_samples/sprite_example/sprite_example.c
-/opt/share/doc/ias/surfctrl.c
-
-%files bin
-%defattr(-,root,root,-)
-/usr/bin/extension_test_client
-/usr/bin/inputctrl
-/usr/bin/layoutctrl
-/usr/bin/surfctrl
-/usr/bin/traceinfo
-/usr/bin/wcap-decode
-/usr/bin/weston
-/usr/bin/weston-calibrator
-/usr/bin/weston-clickdot
-/usr/bin/weston-cliptest
-/usr/bin/weston-confine
-/usr/bin/weston-dnd
-/usr/bin/weston-editor
-/usr/bin/weston-es2gears
-/usr/bin/weston-eventdemo
-/usr/bin/weston-flower
-/usr/bin/weston-fullscreen
-/usr/bin/weston-image
-/usr/bin/weston-info
-/usr/bin/weston-launch
-/usr/bin/weston-multi-resource
-/usr/bin/weston-presentation-shm
-/usr/bin/weston-resizor
-/usr/bin/weston-scaler
-/usr/bin/weston-simple-clock
-/usr/bin/weston-simple-damage
-/usr/bin/weston-simple-dmabuf-drm
-/usr/bin/weston-simple-dmabuf-v4l
-/usr/bin/weston-simple-egl
-/usr/bin/weston-simple-shm
-/usr/bin/weston-simple-touch
-/usr/bin/weston-smoke
-/usr/bin/weston-stacking
-/usr/bin/weston-subsurfaces
-/usr/bin/weston-terminal
-/usr/bin/weston-transformed
-/usr/bin/wrandr
-/usr/libexec/ias-test-hmi
-/usr/libexec/weston-desktop-shell
-/usr/libexec/weston-ivi-shell-user-interface
-/usr/libexec/weston-keyboard
-/usr/libexec/weston-screenshooter
-/usr/libexec/weston-simple-im
+/opt/ias/share/doc/ias/compositor.h
+/opt/ias/share/doc/ias/grid_layout.c
+/opt/ias/share/doc/ias/ias-backend.xml
+/opt/ias/share/doc/ias/ias-layout-manager.xml
+/opt/ias/share/doc/ias/ias-plugin-framework.h
+/opt/ias/share/doc/ias/ias-shell.xml
+/opt/ias/share/doc/ias/ivi-application.xml
+/opt/ias/share/doc/ias/ivi-controller.xml
+/opt/ias/share/doc/ias/ivi-hmi-controller.xml
+/opt/ias/share/doc/ias/ivi-input.xml
+/opt/ias/share/doc/ias/layoutctrl.c
+/opt/ias/share/doc/ias/plugin_samples/cpp_example/grid_layout.cc
+/opt/ias/share/doc/ias/plugin_samples/extension_sample/extension_sample.c
+/opt/ias/share/doc/ias/plugin_samples/extension_sample/extension_test_client.c
+/opt/ias/share/doc/ias/plugin_samples/extension_sample/new-extension.xml
+/opt/ias/share/doc/ias/plugin_samples/gamma_example/surface_gbc_control.c
+/opt/ias/share/doc/ias/plugin_samples/input/input.c
+/opt/ias/share/doc/ias/plugin_samples/sprite_example/sprite_example.c
+/opt/ias/share/doc/ias/surfctrl.c
+/opt/ias/usr/bin/extension_test_client
+/opt/ias/usr/bin/inputctrl
+/opt/ias/usr/bin/layoutctrl
+/opt/ias/usr/bin/surfctrl
+/opt/ias/usr/bin/traceinfo
+/opt/ias/usr/bin/wcap-decode
+/opt/ias/usr/bin/weston
+/opt/ias/usr/bin/weston-calibrator
+/opt/ias/usr/bin/weston-clickdot
+/opt/ias/usr/bin/weston-cliptest
+/opt/ias/usr/bin/weston-confine
+/opt/ias/usr/bin/weston-dnd
+/opt/ias/usr/bin/weston-editor
+/opt/ias/usr/bin/weston-es2gears
+/opt/ias/usr/bin/weston-eventdemo
+/opt/ias/usr/bin/weston-flower
+/opt/ias/usr/bin/weston-fullscreen
+/opt/ias/usr/bin/weston-image
+/opt/ias/usr/bin/weston-info
+/opt/ias/usr/bin/weston-launch
+/opt/ias/usr/bin/weston-multi-resource
+/opt/ias/usr/bin/weston-presentation-shm
+/opt/ias/usr/bin/weston-resizor
+/opt/ias/usr/bin/weston-scaler
+/opt/ias/usr/bin/weston-simple-clock
+/opt/ias/usr/bin/weston-simple-damage
+/opt/ias/usr/bin/weston-simple-dmabuf-drm
+/opt/ias/usr/bin/weston-simple-dmabuf-v4l
+/opt/ias/usr/bin/weston-simple-egl
+/opt/ias/usr/bin/weston-simple-shm
+/opt/ias/usr/bin/weston-simple-touch
+/opt/ias/usr/bin/weston-smoke
+/opt/ias/usr/bin/weston-stacking
+/opt/ias/usr/bin/weston-subsurfaces
+/opt/ias/usr/bin/weston-terminal
+/opt/ias/usr/bin/weston-transformed
+/opt/ias/usr/bin/wrandr
+/opt/ias/usr/include/ias-shell-client-protocol.h
+/opt/ias/usr/include/libweston-4/compositor-drm.h
+/opt/ias/usr/include/libweston-4/compositor-fbdev.h
+/opt/ias/usr/include/libweston-4/compositor-headless.h
+/opt/ias/usr/include/libweston-4/compositor-ias.h
+/opt/ias/usr/include/libweston-4/compositor-rdp.h
+/opt/ias/usr/include/libweston-4/compositor-wayland.h
+/opt/ias/usr/include/libweston-4/compositor-x11.h
+/opt/ias/usr/include/libweston-4/compositor.h
+/opt/ias/usr/include/libweston-4/config-parser.h
+/opt/ias/usr/include/libweston-4/ias-common.h
+/opt/ias/usr/include/libweston-4/ias-plugin-framework-definitions.h
+/opt/ias/usr/include/libweston-4/ias-spug.h
+/opt/ias/usr/include/libweston-4/libweston-desktop.h
+/opt/ias/usr/include/libweston-4/matrix.h
+/opt/ias/usr/include/libweston-4/plugin-registry.h
+/opt/ias/usr/include/libweston-4/timeline-object.h
+/opt/ias/usr/include/libweston-4/version.h
+/opt/ias/usr/include/libweston-4/weston-egl-ext.h
+/opt/ias/usr/include/libweston-4/windowed-output-api.h
+/opt/ias/usr/include/libweston-4/zalloc.h
+/opt/ias/usr/include/weston/ivi-layout-export.h
+/opt/ias/usr/include/weston/weston.h
+/opt/ias/usr/lib64/ias/cpp_example.so
+/opt/ias/usr/lib64/ias/cpp_example.so.0
+/opt/ias/usr/lib64/ias/cpp_example.so.0.0.0
+/opt/ias/usr/lib64/ias/extension_sample.so
+/opt/ias/usr/lib64/ias/extension_sample.so.0
+/opt/ias/usr/lib64/ias/extension_sample.so.0.0.0
+/opt/ias/usr/lib64/ias/grid_layout.so
+/opt/ias/usr/lib64/ias/grid_layout.so.0
+/opt/ias/usr/lib64/ias/grid_layout.so.0.0.0
+/opt/ias/usr/lib64/ias/ias-shell-protocol.so
+/opt/ias/usr/lib64/ias/input.so
+/opt/ias/usr/lib64/ias/input.so.0
+/opt/ias/usr/lib64/ias/input.so.0.0.0
+/opt/ias/usr/lib64/ias/sprite_example.so
+/opt/ias/usr/lib64/ias/sprite_example.so.0
+/opt/ias/usr/lib64/ias/sprite_example.so.0.0.0
+/opt/ias/usr/lib64/ias/surface_gbc_control.so
+/opt/ias/usr/lib64/ias/surface_gbc_control.so.0
+/opt/ias/usr/lib64/ias/surface_gbc_control.so.0.0.0
+/opt/ias/usr/lib64/ias/thumbnail_layout.so
+/opt/ias/usr/lib64/ias/thumbnail_layout.so.0
+/opt/ias/usr/lib64/ias/thumbnail_layout.so.0.0.0
+/opt/ias/usr/lib64/libweston-4.so
+/opt/ias/usr/lib64/libweston-4.so.0
+/opt/ias/usr/lib64/libweston-4.so.0.0.0
+/opt/ias/usr/lib64/libweston-4/drm-backend.so
+/opt/ias/usr/lib64/libweston-4/fbdev-backend.so
+/opt/ias/usr/lib64/libweston-4/gl-renderer.so
+/opt/ias/usr/lib64/libweston-4/headless-backend.so
+/opt/ias/usr/lib64/libweston-4/ias-backend.so
+/opt/ias/usr/lib64/libweston-desktop-4.so
+/opt/ias/usr/lib64/libweston-desktop-4.so.0
+/opt/ias/usr/lib64/libweston-desktop-4.so.0.0.0
+/opt/ias/usr/lib64/pkgconfig/libweston-4.pc
+/opt/ias/usr/lib64/pkgconfig/libweston-desktop-4.pc
+/opt/ias/usr/lib64/pkgconfig/weston.pc
+/opt/ias/usr/lib64/weston/cms-static.so
+/opt/ias/usr/lib64/weston/desktop-shell.so
+/opt/ias/usr/lib64/weston/fullscreen-shell.so
+/opt/ias/usr/lib64/weston/hmi-controller.so
+/opt/ias/usr/lib64/weston/ias-shell.so
+/opt/ias/usr/lib64/weston/ias_plugin_framework.so
+/opt/ias/usr/lib64/weston/ivi-shell.so
+/opt/ias/usr/lib64/weston/ivi_plugin_framework.so
+/opt/ias/usr/libexec/ias-test-hmi
+/opt/ias/usr/libexec/weston-desktop-shell
+/opt/ias/usr/libexec/weston-ivi-shell-user-interface
+/opt/ias/usr/libexec/weston-keyboard
+/opt/ias/usr/libexec/weston-screenshooter
+/opt/ias/usr/libexec/weston-simple-im
+/opt/ias/usr/share/man/man1/weston.1
+/opt/ias/usr/share/man/man5/weston.ini.5
+/opt/ias/usr/share/man/man7/weston-drm.7
+/opt/ias/usr/share/wayland-sessions/weston.desktop
+/opt/ias/usr/share/weston/background.png
+/opt/ias/usr/share/weston/border.png
+/opt/ias/usr/share/weston/fullscreen.png
+/opt/ias/usr/share/weston/home.png
+/opt/ias/usr/share/weston/icon_editor.png
+/opt/ias/usr/share/weston/icon_flower.png
+/opt/ias/usr/share/weston/icon_ivi_clickdot.png
+/opt/ias/usr/share/weston/icon_ivi_flower.png
+/opt/ias/usr/share/weston/icon_ivi_simple-egl.png
+/opt/ias/usr/share/weston/icon_ivi_simple-shm.png
+/opt/ias/usr/share/weston/icon_ivi_smoke.png
+/opt/ias/usr/share/weston/icon_terminal.png
+/opt/ias/usr/share/weston/icon_window.png
+/opt/ias/usr/share/weston/intel.png
+/opt/ias/usr/share/weston/panel.png
+/opt/ias/usr/share/weston/pattern.png
+/opt/ias/usr/share/weston/random.png
+/opt/ias/usr/share/weston/sidebyside.png
+/opt/ias/usr/share/weston/sign_close.png
+/opt/ias/usr/share/weston/sign_maximize.png
+/opt/ias/usr/share/weston/sign_minimize.png
+/opt/ias/usr/share/weston/terminal.png
+/opt/ias/usr/share/weston/tiling.png
+/opt/ias/usr/share/weston/wayland.png
+/opt/ias/usr/share/weston/wayland.svg
 
 %files config
 %defattr(-,root,root,-)
@@ -251,115 +310,10 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/wayland-sessions/weston.desktop
-/usr/share/weston/background.png
-/usr/share/weston/border.png
-/usr/share/weston/fullscreen.png
-/usr/share/weston/home.png
-/usr/share/weston/icon_editor.png
-/usr/share/weston/icon_flower.png
-/usr/share/weston/icon_ivi_clickdot.png
-/usr/share/weston/icon_ivi_flower.png
-/usr/share/weston/icon_ivi_simple-egl.png
-/usr/share/weston/icon_ivi_simple-shm.png
-/usr/share/weston/icon_ivi_smoke.png
-/usr/share/weston/icon_terminal.png
-/usr/share/weston/icon_window.png
-/usr/share/weston/intel.png
-/usr/share/weston/panel.png
-/usr/share/weston/pattern.png
-/usr/share/weston/random.png
-/usr/share/weston/sidebyside.png
-/usr/share/weston/sign_close.png
-/usr/share/weston/sign_maximize.png
-/usr/share/weston/sign_minimize.png
-/usr/share/weston/terminal.png
-/usr/share/weston/tiling.png
-/usr/share/weston/wayland.png
-/usr/share/weston/wayland.svg
 /usr/share/xdg/weston/ias.conf
 /usr/share/xdg/weston/weston.ini
-
-%files dev
-%defattr(-,root,root,-)
-/usr/include/*.h
-/usr/include/libweston-4/compositor-drm.h
-/usr/include/libweston-4/compositor-fbdev.h
-/usr/include/libweston-4/compositor-headless.h
-/usr/include/libweston-4/compositor-ias.h
-/usr/include/libweston-4/compositor-rdp.h
-/usr/include/libweston-4/compositor-wayland.h
-/usr/include/libweston-4/compositor-x11.h
-/usr/include/libweston-4/compositor.h
-/usr/include/libweston-4/config-parser.h
-/usr/include/libweston-4/ias-common.h
-/usr/include/libweston-4/ias-plugin-framework-definitions.h
-/usr/include/libweston-4/ias-spug.h
-/usr/include/libweston-4/libweston-desktop.h
-/usr/include/libweston-4/matrix.h
-/usr/include/libweston-4/plugin-registry.h
-/usr/include/libweston-4/timeline-object.h
-/usr/include/libweston-4/version.h
-/usr/include/libweston-4/weston-egl-ext.h
-/usr/include/libweston-4/windowed-output-api.h
-/usr/include/libweston-4/zalloc.h
-/usr/include/weston/ivi-layout-export.h
-/usr/include/weston/weston.h
-/usr/lib64/libweston-4.so
-/usr/lib64/libweston-desktop-4.so
-/usr/lib64/pkgconfig/libweston-4.pc
-/usr/lib64/pkgconfig/libweston-desktop-4.pc
-/usr/lib64/pkgconfig/weston.pc
-
-%files lib
-%defattr(-,root,root,-)
-/usr/lib64/ias/cpp_example.so
-/usr/lib64/ias/cpp_example.so.0
-/usr/lib64/ias/cpp_example.so.0.0.0
-/usr/lib64/ias/extension_sample.so
-/usr/lib64/ias/extension_sample.so.0
-/usr/lib64/ias/extension_sample.so.0.0.0
-/usr/lib64/ias/grid_layout.so
-/usr/lib64/ias/grid_layout.so.0
-/usr/lib64/ias/grid_layout.so.0.0.0
-/usr/lib64/ias/ias-shell-protocol.so
-/usr/lib64/ias/input.so
-/usr/lib64/ias/input.so.0
-/usr/lib64/ias/input.so.0.0.0
-/usr/lib64/ias/sprite_example.so
-/usr/lib64/ias/sprite_example.so.0
-/usr/lib64/ias/sprite_example.so.0.0.0
-/usr/lib64/ias/surface_gbc_control.so
-/usr/lib64/ias/surface_gbc_control.so.0
-/usr/lib64/ias/surface_gbc_control.so.0.0.0
-/usr/lib64/ias/thumbnail_layout.so
-/usr/lib64/ias/thumbnail_layout.so.0
-/usr/lib64/ias/thumbnail_layout.so.0.0.0
-/usr/lib64/libweston-4.so.0
-/usr/lib64/libweston-4.so.0.0.0
-/usr/lib64/libweston-4/drm-backend.so
-/usr/lib64/libweston-4/fbdev-backend.so
-/usr/lib64/libweston-4/gl-renderer.so
-/usr/lib64/libweston-4/headless-backend.so
-/usr/lib64/libweston-4/ias-backend.so
-/usr/lib64/libweston-desktop-4.so.0
-/usr/lib64/libweston-desktop-4.so.0.0.0
-/usr/lib64/weston/cms-static.so
-/usr/lib64/weston/desktop-shell.so
-/usr/lib64/weston/fullscreen-shell.so
-/usr/lib64/weston/hmi-controller.so
-/usr/lib64/weston/ias-shell.so
-/usr/lib64/weston/ias_plugin_framework.so
-/usr/lib64/weston/ivi-shell.so
-/usr/lib64/weston/ivi_plugin_framework.so
 
 %files license
 %defattr(-,root,root,-)
 /usr/share/doc/ias/COPYING
 /usr/share/doc/ias/data_COPYING
-
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man1/weston.1
-/usr/share/man/man5/weston.ini.5
-/usr/share/man/man7/weston-drm.7
