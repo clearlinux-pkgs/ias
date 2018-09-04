@@ -1,3 +1,4 @@
+--prefix=/opt
 --disable-setuid-install
 --enable-ias-shell
 --disable-xkbcommon

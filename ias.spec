@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 11
+Release  : 12
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias@.service
@@ -101,15 +101,6 @@ Provides: ias-devel
 dev components for the ias package.
 
 
-%package doc
-Summary: doc components for the ias package.
-Group: Documentation
-Requires: ias-man
-
-%description doc
-doc components for the ias package.
-
-
 %package lib
 Summary: lib components for the ias package.
 Group: Libraries
@@ -144,8 +135,9 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536082354
-%autogen --disable-static --disable-setuid-install \
+export SOURCE_DATE_EPOCH=1536082849
+%autogen --disable-static --prefix=/opt \
+--disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
 --enable-simple-clients \
@@ -171,7 +163,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1536082354
+export SOURCE_DATE_EPOCH=1536082849
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
@@ -187,6 +179,25 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 
 %files
 %defattr(-,root,root,-)
+/opt/share/doc/ias/compositor.h
+/opt/share/doc/ias/grid_layout.c
+/opt/share/doc/ias/ias-backend.xml
+/opt/share/doc/ias/ias-layout-manager.xml
+/opt/share/doc/ias/ias-plugin-framework.h
+/opt/share/doc/ias/ias-shell.xml
+/opt/share/doc/ias/ivi-application.xml
+/opt/share/doc/ias/ivi-controller.xml
+/opt/share/doc/ias/ivi-hmi-controller.xml
+/opt/share/doc/ias/ivi-input.xml
+/opt/share/doc/ias/layoutctrl.c
+/opt/share/doc/ias/plugin_samples/cpp_example/grid_layout.cc
+/opt/share/doc/ias/plugin_samples/extension_sample/extension_sample.c
+/opt/share/doc/ias/plugin_samples/extension_sample/extension_test_client.c
+/opt/share/doc/ias/plugin_samples/extension_sample/new-extension.xml
+/opt/share/doc/ias/plugin_samples/gamma_example/surface_gbc_control.c
+/opt/share/doc/ias/plugin_samples/input/input.c
+/opt/share/doc/ias/plugin_samples/sprite_example/sprite_example.c
+/opt/share/doc/ias/surfctrl.c
 
 %files bin
 %defattr(-,root,root,-)
@@ -299,10 +310,6 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 /usr/lib64/pkgconfig/libweston-4.pc
 /usr/lib64/pkgconfig/libweston-desktop-4.pc
 /usr/lib64/pkgconfig/weston.pc
-
-%files doc
-%defattr(0644,root,root,0755)
-%doc /usr/share/doc/ias/*
 
 %files lib
 %defattr(-,root,root,-)
