@@ -4,15 +4,13 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 13
+Release  : 14
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias@.service
 Summary  : Weston Compositor
 Group    : Development/Tools
 License  : CC-BY-SA-3.0 MIT
-Requires: ias-config
-Requires: ias-license
 Requires: ias-data
 BuildRequires : Linux-PAM-dev
 BuildRequires : doxygen
@@ -58,28 +56,12 @@ BuildRequires : sed
 %description
 Weston compositor
 
-%package config
-Summary: config components for the ias package.
-Group: Default
-
-%description config
-config components for the ias package.
-
-
 %package data
 Summary: data components for the ias package.
 Group: Data
 
 %description data
 data components for the ias package.
-
-
-%package license
-Summary: license components for the ias package.
-Group: Default
-
-%description license
-license components for the ias package.
 
 
 %prep
@@ -90,20 +72,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536093086
-%autogen --disable-static --prefix=/opt/ias \
---exec-prefix=/opt/ias \
---bindir=/opt/ias/usr/bin \
---sbindir=/opt/ias/usr/bin \
---sysconfdir=/opt/ias/etc \
---datadir=/opt/ias/usr/share \
---includedir=/opt/ias/usr/include \
---libdir=/opt/ias/usr/lib64 \
---libexecdir=/opt/ias/usr/libexec \
---localstatedir=/opt/ias/var \
---sharedstatedir=/opt/ias/usr/com \
---mandir=/opt/ias/usr/share/man \
---disable-setuid-install \
+export SOURCE_DATE_EPOCH=1536094015
+%autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
 --enable-simple-clients \
@@ -129,7 +99,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1536093086
+export SOURCE_DATE_EPOCH=1536094015
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
@@ -138,6 +108,8 @@ cp data/COPYING %{buildroot}/usr/share/doc/ias/data_COPYING
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias@.service
 ## install_append content
+mkdir -p %{buildroot}/opt/ias
+mv %{buildroot}/usr %{buildroot}/opt/ias/
 mkdir -p %{buildroot}/usr/share/xdg/weston/
 install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
 install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
@@ -145,25 +117,6 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 
 %files
 %defattr(-,root,root,-)
-/opt/ias/share/doc/ias/compositor.h
-/opt/ias/share/doc/ias/grid_layout.c
-/opt/ias/share/doc/ias/ias-backend.xml
-/opt/ias/share/doc/ias/ias-layout-manager.xml
-/opt/ias/share/doc/ias/ias-plugin-framework.h
-/opt/ias/share/doc/ias/ias-shell.xml
-/opt/ias/share/doc/ias/ivi-application.xml
-/opt/ias/share/doc/ias/ivi-controller.xml
-/opt/ias/share/doc/ias/ivi-hmi-controller.xml
-/opt/ias/share/doc/ias/ivi-input.xml
-/opt/ias/share/doc/ias/layoutctrl.c
-/opt/ias/share/doc/ias/plugin_samples/cpp_example/grid_layout.cc
-/opt/ias/share/doc/ias/plugin_samples/extension_sample/extension_sample.c
-/opt/ias/share/doc/ias/plugin_samples/extension_sample/extension_test_client.c
-/opt/ias/share/doc/ias/plugin_samples/extension_sample/new-extension.xml
-/opt/ias/share/doc/ias/plugin_samples/gamma_example/surface_gbc_control.c
-/opt/ias/share/doc/ias/plugin_samples/input/input.c
-/opt/ias/share/doc/ias/plugin_samples/sprite_example/sprite_example.c
-/opt/ias/share/doc/ias/surfctrl.c
 /opt/ias/usr/bin/extension_test_client
 /opt/ias/usr/bin/inputctrl
 /opt/ias/usr/bin/layoutctrl
@@ -224,6 +177,7 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 /opt/ias/usr/include/libweston-4/zalloc.h
 /opt/ias/usr/include/weston/ivi-layout-export.h
 /opt/ias/usr/include/weston/weston.h
+/opt/ias/usr/lib/systemd/system/ias@.service
 /opt/ias/usr/lib64/ias/cpp_example.so
 /opt/ias/usr/lib64/ias/cpp_example.so.0
 /opt/ias/usr/lib64/ias/cpp_example.so.0.0.0
@@ -274,6 +228,27 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 /opt/ias/usr/libexec/weston-keyboard
 /opt/ias/usr/libexec/weston-screenshooter
 /opt/ias/usr/libexec/weston-simple-im
+/opt/ias/usr/share/doc/ias/COPYING
+/opt/ias/usr/share/doc/ias/compositor.h
+/opt/ias/usr/share/doc/ias/data_COPYING
+/opt/ias/usr/share/doc/ias/grid_layout.c
+/opt/ias/usr/share/doc/ias/ias-backend.xml
+/opt/ias/usr/share/doc/ias/ias-layout-manager.xml
+/opt/ias/usr/share/doc/ias/ias-plugin-framework.h
+/opt/ias/usr/share/doc/ias/ias-shell.xml
+/opt/ias/usr/share/doc/ias/ivi-application.xml
+/opt/ias/usr/share/doc/ias/ivi-controller.xml
+/opt/ias/usr/share/doc/ias/ivi-hmi-controller.xml
+/opt/ias/usr/share/doc/ias/ivi-input.xml
+/opt/ias/usr/share/doc/ias/layoutctrl.c
+/opt/ias/usr/share/doc/ias/plugin_samples/cpp_example/grid_layout.cc
+/opt/ias/usr/share/doc/ias/plugin_samples/extension_sample/extension_sample.c
+/opt/ias/usr/share/doc/ias/plugin_samples/extension_sample/extension_test_client.c
+/opt/ias/usr/share/doc/ias/plugin_samples/extension_sample/new-extension.xml
+/opt/ias/usr/share/doc/ias/plugin_samples/gamma_example/surface_gbc_control.c
+/opt/ias/usr/share/doc/ias/plugin_samples/input/input.c
+/opt/ias/usr/share/doc/ias/plugin_samples/sprite_example/sprite_example.c
+/opt/ias/usr/share/doc/ias/surfctrl.c
 /opt/ias/usr/share/man/man1/weston.1
 /opt/ias/usr/share/man/man5/weston.ini.5
 /opt/ias/usr/share/man/man7/weston-drm.7
@@ -304,16 +279,7 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 /opt/ias/usr/share/weston/wayland.png
 /opt/ias/usr/share/weston/wayland.svg
 
-%files config
-%defattr(-,root,root,-)
-/usr/lib/systemd/system/ias@.service
-
 %files data
 %defattr(-,root,root,-)
 /usr/share/xdg/weston/ias.conf
 /usr/share/xdg/weston/weston.ini
-
-%files license
-%defattr(-,root,root,-)
-/usr/share/doc/ias/COPYING
-/usr/share/doc/ias/data_COPYING
