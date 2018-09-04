@@ -1,4 +1,4 @@
--disable-setuid-install
+--disable-setuid-install
 --enable-ias-shell
 --disable-xkbcommon
 --enable-simple-clients
