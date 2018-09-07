@@ -1,6 +1,3 @@
-mkdir -p %{buildroot}/opt/ias
-mv %{buildroot}/usr %{buildroot}/opt/ias/
-
 mkdir -p %{buildroot}/usr/share/xdg/weston/
 install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
 install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
