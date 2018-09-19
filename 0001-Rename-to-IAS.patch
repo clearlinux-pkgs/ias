@@ -1,0 +1,4023 @@
+From 976f50b581920d5beac37cd08184b752a2ed1057 Mon Sep 17 00:00:00 2001
+From: Kevron Rees <kevron.m.rees@intel.com>
+Date: Wed, 19 Sep 2018 11:36:14 -0700
+Subject: [PATCH 1/1] Rename to IAS
+
+Signed-off-by: Kevron Rees <kevron.m.rees@intel.com>
+---
+ Makefile.am                                   | 1150 ++++++++---------
+ clients/cliptest.c                            |    2 +-
+ clients/desktop-shell.c                       |    2 +-
+ clients/{weston-info.c => ias-info.c}         |    0
+ clients/nested.c                              |    2 +-
+ clients/screenshot.c                          |    2 +-
+ clients/simple-egl.c                          |    2 +-
+ compositor/cms-colord.c                       |    2 +-
+ compositor/cms-static.c                       |    2 +-
+ ...on-screenshooter.c => ias-screenshooter.c} |    4 +-
+ compositor/{weston.desktop => ias.desktop}    |    0
+ compositor/{weston.h => ias.h}                |    0
+ compositor/{weston.pc.in => ias.pc.in}        |    0
+ compositor/main.c                             |    4 +-
+ compositor/screen-share.c                     |    2 +-
+ compositor/systemd-notify.c                   |    2 +-
+ compositor/text-backend.c                     |    2 +-
+ compositor/xwayland.c                         |    2 +-
+ configure.ac                                  |  122 +-
+ desktop-shell/shell.c                         |    6 +-
+ desktop-shell/shell.h                         |    2 +-
+ fullscreen-shell/fullscreen-shell.c           |    2 +-
+ weston.ini.in => ias.ini.in                   |    0
+ weston.ini.ivihmi => ias.ini.ivihmi           |    0
+ weston.service => ias.service                 |    0
+ ...service.snbvmware => ias.service.snbvmware |    0
+ ivi-shell/hmi-controller.c                    |    2 +-
+ ivi-shell/{weston.ini.in => ias.ini.in}       |    0
+ ivi-shell/ivi-layout.c                        |    2 +-
+ ivi-shell/ivi-shell.c                         |    2 +-
+ .../client.c                                  |    2 +-
+ .../internal.h                                |    0
+ .../libias-desktop-uninstalled.pc.in          |    0
+ .../libias-desktop.c                          |    2 +-
+ .../libias-desktop.h                          |    0
+ .../libias-desktop.pc.in                      |    0
+ {libweston-desktop => libias-desktop}/seat.c  |    2 +-
+ .../surface.c                                 |    2 +-
+ .../wl-shell.c                                |    2 +-
+ .../xdg-shell-v6.c                            |    2 +-
+ .../xwayland.c                                |    2 +-
+ {libweston => libias}/animation.c             |    0
+ {libweston => libias}/backend-classic.c       |    0
+ {libweston => libias}/backend-flexible.c      |    0
+ {libweston => libias}/bindings.c              |    0
+ {libweston => libias}/capture-proxy.c         |    0
+ {libweston => libias}/capture-proxy.h         |    0
+ {libweston => libias}/clipboard.c             |    0
+ {libweston => libias}/compositor-drm.c        |    2 +-
+ {libweston => libias}/compositor-drm.h        |    0
+ {libweston => libias}/compositor-fbdev.c      |    0
+ {libweston => libias}/compositor-fbdev.h      |    0
+ {libweston => libias}/compositor-headless.c   |    0
+ {libweston => libias}/compositor-headless.h   |    0
+ {libweston => libias}/compositor-ias.c        |    0
+ {libweston => libias}/compositor-ias.h        |    0
+ {libweston => libias}/compositor-rdp.c        |    0
+ {libweston => libias}/compositor-rdp.h        |    0
+ {libweston => libias}/compositor-wayland.c    |    2 +-
+ {libweston => libias}/compositor-wayland.h    |    0
+ {libweston => libias}/compositor-x11.c        |    2 +-
+ {libweston => libias}/compositor-x11.h        |    0
+ {libweston => libias}/compositor.c            |    0
+ {libweston => libias}/compositor.h            |    0
+ {libweston => libias}/data-device.c           |    0
+ {libweston => libias}/dbus.c                  |    0
+ {libweston => libias}/dbus.h                  |    0
+ {libweston => libias}/gl-renderer.c           |    2 +-
+ {libweston => libias}/gl-renderer.h           |    2 +-
+ {libweston => libias}/ias-backend.h           |    0
+ {libweston => libias}/ias-common.c            |    0
+ {libweston => libias}/ias-common.h            |    2 +-
+ {libweston => libias}/ias-config.c            |    0
+ {libweston => libias}/ias-hmi.c               |    0
+ {libweston => libias}/ias-hmi.h               |    0
+ .../weston-launch.c => libias/ias-launch.c    |    2 +-
+ .../weston-launch.h => libias/ias-launch.h    |    0
+ .../ias-plugin-framework-definitions.h        |    0
+ .../ias-plugin-framework-private.h            |    0
+ {libweston => libias}/ias-plugin-framework.c  |    0
+ {libweston => libias}/ias-plugin-framework.h  |    2 +-
+ {libweston => libias}/ias-relay-input.c       |    0
+ {libweston => libias}/ias-relay-input.h       |    0
+ {libweston => libias}/ias-shell-config.c      |    0
+ {libweston => libias}/ias-shell.c             |    0
+ {libweston => libias}/ias-shell.h             |    0
+ {libweston => libias}/ias-sprite.c            |    0
+ {libweston => libias}/ias-sprite.h            |    0
+ {libweston => libias}/ias-spug.c              |    0
+ {libweston => libias}/ias-spug.h              |    0
+ .../ias-sync-file.h                           |    0
+ {libweston => libias}/input.c                 |    0
+ {libweston => libias}/ivi-plugin-framework.c  |    0
+ {libweston => libias}/launcher-direct.c       |    0
+ .../launcher-ias-launch.c                     |    2 +-
+ {libweston => libias}/launcher-impl.h         |    0
+ {libweston => libias}/launcher-logind.c       |    0
+ {libweston => libias}/launcher-util.c         |    0
+ {libweston => libias}/launcher-util.h         |    0
+ {libweston => libias}/libbacklight.c          |    0
+ {libweston => libias}/libbacklight.h          |    0
+ .../libias-uninstalled.pc.in                  |    0
+ .../libweston.pc.in => libias/libias.pc.in    |    0
+ {libweston => libias}/libinput-device.c       |    0
+ {libweston => libias}/libinput-device.h       |    0
+ {libweston => libias}/libinput-seat.c         |    0
+ {libweston => libias}/libinput-seat.h         |    0
+ {libweston => libias}/linux-dmabuf.c          |    0
+ {libweston => libias}/linux-dmabuf.h          |    0
+ {libweston => libias}/log.c                   |    0
+ {libweston => libias}/noop-renderer.c         |    0
+ {libweston => libias}/pixel-formats.c         |    2 +-
+ {libweston => libias}/pixel-formats.h         |    0
+ {libweston => libias}/pixman-renderer.c       |    0
+ {libweston => libias}/pixman-renderer.h       |    0
+ {libweston => libias}/plugin-registry.c       |    0
+ {libweston => libias}/plugin-registry.h       |    0
+ {libweston => libias}/screenshooter.c         |    0
+ {libweston => libias}/spring-tool.c           |    0
+ {libweston => libias}/timeline-object.h       |    0
+ {libweston => libias}/timeline.c              |    0
+ {libweston => libias}/timeline.h              |    0
+ {libweston => libias}/trace-reporter.c        |    0
+ {libweston => libias}/trace-reporter.h        |    0
+ {libweston => libias}/vaapi-recorder.c        |    0
+ {libweston => libias}/vaapi-recorder.h        |    0
+ {libweston => libias}/version.h.in            |    0
+ {libweston => libias}/vertex-clipping.c       |    0
+ {libweston => libias}/vertex-clipping.h       |    0
+ {libweston => libias}/vm-shared.h             |    0
+ {libweston => libias}/vm.c                    |    0
+ {libweston => libias}/vm.h                    |    0
+ {libweston => libias}/vm_comm.h               |    0
+ {libweston => libias}/vm_network.c            |    0
+ {libweston => libias}/vm_xen.c                |    0
+ {libweston => libias}/windowed-output-api.h   |    0
+ {libweston => libias}/zoom.c                  |    0
+ m4/{weston.m4 => ias.m4}                      |    0
+ man/{weston-drm.man => ias-drm.man}           |    0
+ man/{weston-rdp.man => ias-rdp.man}           |    0
+ man/{weston.ini.man => ias.ini.man}           |    0
+ man/{weston.man => ias.man}                   |    0
+ packaging/{weston.spec => ias.spec}           |    0
+ ...esktop-shell.xml => ias-desktop-shell.xml} |    0
+ ...creenshooter.xml => ias-screenshooter.xml} |    0
+ protocol/{weston-test.xml => ias-test.xml}    |    0
+ shared/{weston-egl-ext.h => ias-egl-ext.h}    |    0
+ shared/platform.h                             |    2 +-
+ tests/bad-buffer-test.c                       |    2 +-
+ tests/devices-test.c                          |    2 +-
+ tests/event-test.c                            |    2 +-
+ ...ient-helper.c => ias-test-client-helper.c} |    2 +-
+ ...ient-helper.h => ias-test-client-helper.h} |    4 +-
+ ...sktop-shell.c => ias-test-desktop-shell.c} |    4 +-
+ ...weston-test-runner.c => ias-test-runner.c} |    2 +-
+ ...weston-test-runner.h => ias-test-runner.h} |    0
+ tests/{weston-test.c => ias-test.c}           |    6 +-
+ tests/{weston-tests-env => ias-tests-env}     |    0
+ tests/input-timestamps-helper.c               |    2 +-
+ tests/internal-screenshot-test.c              |    2 +-
+ tests/ivi-shell-app-test.c                    |    2 +-
+ tests/ivi_layout-internal-test.c              |    2 +-
+ tests/ivi_layout-test-plugin.c                |    4 +-
+ tests/ivi_layout-test.c                       |    2 +-
+ tests/keyboard-test.c                         |    2 +-
+ tests/plugin-registry-test.c                  |    2 +-
+ tests/pointer-test.c                          |    2 +-
+ tests/presentation-test.c                     |    2 +-
+ tests/roles-test.c                            |    2 +-
+ tests/string-test.c                           |    2 +-
+ tests/subsurface-shot-test.c                  |    2 +-
+ tests/subsurface-test.c                       |    2 +-
+ tests/surface-global-test.c                   |    2 +-
+ tests/surface-screenshot.c                    |    2 +-
+ tests/surface-test.c                          |    2 +-
+ tests/text-test.c                             |    2 +-
+ tests/touch-test.c                            |    2 +-
+ tests/vertex-clip-test.c                      |    2 +-
+ tests/viewporter-test.c                       |    2 +-
+ tests/xwayland-test.c                         |    2 +-
+ xwayland/launcher.c                           |    2 +-
+ xwayland/xwayland.h                           |    2 +-
+ 182 files changed, 714 insertions(+), 714 deletions(-)
+ rename clients/{weston-info.c => ias-info.c} (100%)
+ rename compositor/{weston-screenshooter.c => ias-screenshooter.c} (98%)
+ rename compositor/{weston.desktop => ias.desktop} (100%)
+ rename compositor/{weston.h => ias.h} (100%)
+ rename compositor/{weston.pc.in => ias.pc.in} (100%)
+ rename weston.ini.in => ias.ini.in (100%)
+ rename weston.ini.ivihmi => ias.ini.ivihmi (100%)
+ rename weston.service => ias.service (100%)
+ rename weston.service.snbvmware => ias.service.snbvmware (100%)
+ rename ivi-shell/{weston.ini.in => ias.ini.in} (100%)
+ rename {libweston-desktop => libias-desktop}/client.c (99%)
+ rename {libweston-desktop => libias-desktop}/internal.h (100%)
+ rename libweston-desktop/libweston-desktop-uninstalled.pc.in => libias-desktop/libias-desktop-uninstalled.pc.in (100%)
+ rename libweston-desktop/libweston-desktop.c => libias-desktop/libias-desktop.c (99%)
+ rename libweston-desktop/libweston-desktop.h => libias-desktop/libias-desktop.h (100%)
+ rename libweston-desktop/libweston-desktop.pc.in => libias-desktop/libias-desktop.pc.in (100%)
+ rename {libweston-desktop => libias-desktop}/seat.c (99%)
+ rename {libweston-desktop => libias-desktop}/surface.c (99%)
+ rename {libweston-desktop => libias-desktop}/wl-shell.c (99%)
+ rename {libweston-desktop => libias-desktop}/xdg-shell-v6.c (99%)
+ rename {libweston-desktop => libias-desktop}/xwayland.c (99%)
+ rename {libweston => libias}/animation.c (100%)
+ rename {libweston => libias}/backend-classic.c (100%)
+ rename {libweston => libias}/backend-flexible.c (100%)
+ rename {libweston => libias}/bindings.c (100%)
+ rename {libweston => libias}/capture-proxy.c (100%)
+ rename {libweston => libias}/capture-proxy.h (100%)
+ rename {libweston => libias}/clipboard.c (100%)
+ rename {libweston => libias}/compositor-drm.c (99%)
+ rename {libweston => libias}/compositor-drm.h (100%)
+ rename {libweston => libias}/compositor-fbdev.c (100%)
+ rename {libweston => libias}/compositor-fbdev.h (100%)
+ rename {libweston => libias}/compositor-headless.c (100%)
+ rename {libweston => libias}/compositor-headless.h (100%)
+ rename {libweston => libias}/compositor-ias.c (100%)
+ rename {libweston => libias}/compositor-ias.h (100%)
+ rename {libweston => libias}/compositor-rdp.c (100%)
+ rename {libweston => libias}/compositor-rdp.h (100%)
+ rename {libweston => libias}/compositor-wayland.c (99%)
+ rename {libweston => libias}/compositor-wayland.h (100%)
+ rename {libweston => libias}/compositor-x11.c (99%)
+ rename {libweston => libias}/compositor-x11.h (100%)
+ rename {libweston => libias}/compositor.c (100%)
+ rename {libweston => libias}/compositor.h (100%)
+ rename {libweston => libias}/data-device.c (100%)
+ rename {libweston => libias}/dbus.c (100%)
+ rename {libweston => libias}/dbus.h (100%)
+ rename {libweston => libias}/gl-renderer.c (99%)
+ rename {libweston => libias}/gl-renderer.h (99%)
+ rename {libweston => libias}/ias-backend.h (100%)
+ rename {libweston => libias}/ias-common.c (100%)
+ rename {libweston => libias}/ias-common.h (99%)
+ rename {libweston => libias}/ias-config.c (100%)
+ rename {libweston => libias}/ias-hmi.c (100%)
+ rename {libweston => libias}/ias-hmi.h (100%)
+ rename libweston/weston-launch.c => libias/ias-launch.c (99%)
+ rename libweston/weston-launch.h => libias/ias-launch.h (100%)
+ rename {libweston => libias}/ias-plugin-framework-definitions.h (100%)
+ rename {libweston => libias}/ias-plugin-framework-private.h (100%)
+ rename {libweston => libias}/ias-plugin-framework.c (100%)
+ rename {libweston => libias}/ias-plugin-framework.h (98%)
+ rename {libweston => libias}/ias-relay-input.c (100%)
+ rename {libweston => libias}/ias-relay-input.h (100%)
+ rename {libweston => libias}/ias-shell-config.c (100%)
+ rename {libweston => libias}/ias-shell.c (100%)
+ rename {libweston => libias}/ias-shell.h (100%)
+ rename {libweston => libias}/ias-sprite.c (100%)
+ rename {libweston => libias}/ias-sprite.h (100%)
+ rename {libweston => libias}/ias-spug.c (100%)
+ rename {libweston => libias}/ias-spug.h (100%)
+ rename libweston/weston-sync-file.h => libias/ias-sync-file.h (100%)
+ rename {libweston => libias}/input.c (100%)
+ rename {libweston => libias}/ivi-plugin-framework.c (100%)
+ rename {libweston => libias}/launcher-direct.c (100%)
+ rename libweston/launcher-weston-launch.c => libias/launcher-ias-launch.c (99%)
+ rename {libweston => libias}/launcher-impl.h (100%)
+ rename {libweston => libias}/launcher-logind.c (100%)
+ rename {libweston => libias}/launcher-util.c (100%)
+ rename {libweston => libias}/launcher-util.h (100%)
+ rename {libweston => libias}/libbacklight.c (100%)
+ rename {libweston => libias}/libbacklight.h (100%)
+ rename libweston/libweston-uninstalled.pc.in => libias/libias-uninstalled.pc.in (100%)
+ rename libweston/libweston.pc.in => libias/libias.pc.in (100%)
+ rename {libweston => libias}/libinput-device.c (100%)
+ rename {libweston => libias}/libinput-device.h (100%)
+ rename {libweston => libias}/libinput-seat.c (100%)
+ rename {libweston => libias}/libinput-seat.h (100%)
+ rename {libweston => libias}/linux-dmabuf.c (100%)
+ rename {libweston => libias}/linux-dmabuf.h (100%)
+ rename {libweston => libias}/log.c (100%)
+ rename {libweston => libias}/noop-renderer.c (100%)
+ rename {libweston => libias}/pixel-formats.c (99%)
+ rename {libweston => libias}/pixel-formats.h (100%)
+ rename {libweston => libias}/pixman-renderer.c (100%)
+ rename {libweston => libias}/pixman-renderer.h (100%)
+ rename {libweston => libias}/plugin-registry.c (100%)
+ rename {libweston => libias}/plugin-registry.h (100%)
+ rename {libweston => libias}/screenshooter.c (100%)
+ rename {libweston => libias}/spring-tool.c (100%)
+ rename {libweston => libias}/timeline-object.h (100%)
+ rename {libweston => libias}/timeline.c (100%)
+ rename {libweston => libias}/timeline.h (100%)
+ rename {libweston => libias}/trace-reporter.c (100%)
+ rename {libweston => libias}/trace-reporter.h (100%)
+ rename {libweston => libias}/vaapi-recorder.c (100%)
+ rename {libweston => libias}/vaapi-recorder.h (100%)
+ rename {libweston => libias}/version.h.in (100%)
+ rename {libweston => libias}/vertex-clipping.c (100%)
+ rename {libweston => libias}/vertex-clipping.h (100%)
+ rename {libweston => libias}/vm-shared.h (100%)
+ rename {libweston => libias}/vm.c (100%)
+ rename {libweston => libias}/vm.h (100%)
+ rename {libweston => libias}/vm_comm.h (100%)
+ rename {libweston => libias}/vm_network.c (100%)
+ rename {libweston => libias}/vm_xen.c (100%)
+ rename {libweston => libias}/windowed-output-api.h (100%)
+ rename {libweston => libias}/zoom.c (100%)
+ rename m4/{weston.m4 => ias.m4} (100%)
+ rename man/{weston-drm.man => ias-drm.man} (100%)
+ rename man/{weston-rdp.man => ias-rdp.man} (100%)
+ rename man/{weston.ini.man => ias.ini.man} (100%)
+ rename man/{weston.man => ias.man} (100%)
+ rename packaging/{weston.spec => ias.spec} (100%)
+ rename protocol/{weston-desktop-shell.xml => ias-desktop-shell.xml} (100%)
+ rename protocol/{weston-screenshooter.xml => ias-screenshooter.xml} (100%)
+ rename protocol/{weston-test.xml => ias-test.xml} (100%)
+ rename shared/{weston-egl-ext.h => ias-egl-ext.h} (100%)
+ rename tests/{weston-test-client-helper.c => ias-test-client-helper.c} (99%)
+ rename tests/{weston-test-client-helper.h => ias-test-client-helper.h} (98%)
+ rename tests/{weston-test-desktop-shell.c => ias-test-desktop-shell.c} (98%)
+ rename tests/{weston-test-runner.c => ias-test-runner.c} (99%)
+ rename tests/{weston-test-runner.h => ias-test-runner.h} (100%)
+ rename tests/{weston-test.c => ias-test.c} (99%)
+ rename tests/{weston-tests-env => ias-tests-env} (100%)
+
+diff --git a/Makefile.am b/Makefile.am
+index c550339..fad36c0 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -3,10 +3,10 @@ ACLOCAL_AMFLAGS = -I m4
+ bin_PROGRAMS =
+ noinst_PROGRAMS =
+ libexec_PROGRAMS =
+-moduledir = $(libdir)/weston
++moduledir = $(libdir)/ias
+ module_LTLIBRARIES =
+-libweston_moduledir = $(libdir)/libweston-$(LIBWESTON_MAJOR)
+-libweston_module_LTLIBRARIES =
++libias_moduledir = $(libdir)/libias-$(LIBWESTON_MAJOR)
++libias_module_LTLIBRARIES =
+ noinst_LTLIBRARIES =
+ plugindir = $(libdir)/ias
+ plugin_LTLIBRARIES =
+@@ -14,16 +14,16 @@ BUILT_SOURCES = plugins
+ 
+ AM_DISTCHECK_CONFIGURE_FLAGS = --disable-setuid-install
+ 
+-EXTRA_DIST = weston.ini.in ivi-shell/weston.ini.in
++EXTRA_DIST = ias.ini.in ivi-shell/ias.ini.in
+ 
+-weston.ini : $(srcdir)/weston.ini.in
++ias.ini : $(srcdir)/ias.ini.in
+ 	$(AM_V_GEN)$(SED) \
+ 		-e 's|@bindir[@]|$(bindir)|g' \
+ 		-e 's|@abs_top_builddir[@]|$(abs_top_builddir)|g' \
+ 		-e 's|@libexecdir[@]|$(libexecdir)|g' \
+ 		$< > $@
+ 
+-ivi-shell/weston.ini : $(srcdir)/ivi-shell/weston.ini.in
++ivi-shell/ias.ini : $(srcdir)/ivi-shell/ias.ini.in
+ 	$(AM_V_GEN)$(MKDIR_P) $(dir $@) && $(SED) \
+ 		-e 's|@bindir[@]|$(bindir)|g' \
+ 		-e 's|@abs_top_builddir[@]|$(abs_top_builddir)|g' \
+@@ -32,112 +32,112 @@ ivi-shell/weston.ini : $(srcdir)/ivi-shell/weston.ini.in
+ 		-e 's|@plugin_prefix[@]||g' \
+ 		$< > $@
+ 
+-all-local : weston.ini ivi-shell/weston.ini
++all-local : ias.ini ivi-shell/ias.ini
+ 
+ AM_CFLAGS = $(GCC_CFLAGS)
+ 
+ AM_CPPFLAGS = 					\
+-	-I$(top_builddir)/libweston		\
+-	-I$(top_srcdir)/libweston		\
++	-I$(top_builddir)/libias		\
++	-I$(top_srcdir)/libias		\
+ 	-I$(top_builddir)/clients		\
+ 	-I$(top_builddir)/tests			\
+ 	-I$(top_srcdir)/shared			\
+ 	-I$(top_builddir)/protocol		\
+-	-DLIBWESTON_MODULEDIR='"$(libweston_moduledir)"' \
++	-DLIBWESTON_MODULEDIR='"$(libias_moduledir)"' \
+ 	-DLIBEXECDIR='"$(libexecdir)"'		\
+ 	-DBINDIR='"$(bindir)"'
+ 
+-CLEANFILES = weston.ini				\
+-	ivi-shell/weston.ini			\
++CLEANFILES = ias.ini				\
++	ivi-shell/ias.ini			\
+ 	internal-screenshot-00.png		\
+ 	$(BUILT_SOURCES)
+ 
+ # Libtool race fix
+-# libweston-desktop depends on libweston, and desktop-shell depends on both.
++# libias-desktop depends on libias, and desktop-shell depends on both.
+ # This leads to a libtool race at installation, because libtool re-links
+ # everything.
+ # If you add more fixes, you may need a workaround to keep automake generated
+ # targets. See http://debbugs.gnu.org/cgi/bugreport.cgi?bug=7328
+-install-libweston_moduleLTLIBRARIES install-moduleLTLIBRARIES: install-libLTLIBRARIES
++install-libias_moduleLTLIBRARIES install-moduleLTLIBRARIES: install-libLTLIBRARIES
+ 
+-lib_LTLIBRARIES = libweston-@LIBWESTON_MAJOR@.la
+-libweston_@LIBWESTON_MAJOR@_la_CPPFLAGS = $(AM_CPPFLAGS) -DIN_WESTON
+-libweston_@LIBWESTON_MAJOR@_la_CFLAGS = $(AM_CFLAGS) \
++lib_LTLIBRARIES = libias-@LIBWESTON_MAJOR@.la
++libias_@LIBWESTON_MAJOR@_la_CPPFLAGS = $(AM_CPPFLAGS) -DIN_WESTON
++libias_@LIBWESTON_MAJOR@_la_CFLAGS = $(AM_CFLAGS) \
+ 	$(COMPOSITOR_CFLAGS) $(EGL_CFLAGS) $(LIBDRM_CFLAGS)
+-libweston_@LIBWESTON_MAJOR@_la_LIBADD = $(COMPOSITOR_LIBS) \
++libias_@LIBWESTON_MAJOR@_la_LIBADD = $(COMPOSITOR_LIBS) \
+ 	$(DL_LIBS) -lm $(CLOCK_GETTIME_LIBS) \
+ 	$(LIBINPUT_BACKEND_LIBS) libshared.la
+-libweston_@LIBWESTON_MAJOR@_la_LDFLAGS = -version-info $(LT_VERSION_INFO)
+-
+-libweston_@LIBWESTON_MAJOR@_la_SOURCES =			\
+-	libweston/git-version.h				\
+-	libweston/log.c					\
+-	libweston/compositor.c				\
+-	libweston/compositor.h				\
+-	libweston/compositor-drm.h			\
+-	libweston/compositor-fbdev.h			\
+-	libweston/compositor-headless.h			\
+-	libweston/compositor-rdp.h			\
+-	libweston/compositor-wayland.h			\
+-	libweston/compositor-x11.h			\
+-	libweston/input.c				\
+-	libweston/data-device.c				\
+-	libweston/screenshooter.c			\
+-	libweston/clipboard.c				\
+-	libweston/zoom.c				\
+-	libweston/bindings.c				\
+-	libweston/animation.c				\
+-	libweston/noop-renderer.c			\
+-	libweston/pixman-renderer.c			\
+-	libweston/pixman-renderer.h			\
+-	libweston/plugin-registry.c				\
+-	libweston/plugin-registry.h				\
+-	libweston/timeline.c				\
+-	libweston/timeline.h				\
+-	libweston/timeline-object.h			\
+-	libweston/linux-dmabuf.c			\
+-	libweston/linux-dmabuf.h			\
+-	libweston/pixel-formats.c			\
+-	libweston/pixel-formats.h			\
++libias_@LIBWESTON_MAJOR@_la_LDFLAGS = -version-info $(LT_VERSION_INFO)
++
++libias_@LIBWESTON_MAJOR@_la_SOURCES =			\
++	libias/git-version.h				\
++	libias/log.c					\
++	libias/compositor.c				\
++	libias/compositor.h				\
++	libias/compositor-drm.h			\
++	libias/compositor-fbdev.h			\
++	libias/compositor-headless.h			\
++	libias/compositor-rdp.h			\
++	libias/compositor-wayland.h			\
++	libias/compositor-x11.h			\
++	libias/input.c				\
++	libias/data-device.c				\
++	libias/screenshooter.c			\
++	libias/clipboard.c				\
++	libias/zoom.c				\
++	libias/bindings.c				\
++	libias/animation.c				\
++	libias/noop-renderer.c			\
++	libias/pixman-renderer.c			\
++	libias/pixman-renderer.h			\
++	libias/plugin-registry.c				\
++	libias/plugin-registry.h				\
++	libias/timeline.c				\
++	libias/timeline.h				\
++	libias/timeline-object.h			\
++	libias/linux-dmabuf.c			\
++	libias/linux-dmabuf.h			\
++	libias/pixel-formats.c			\
++	libias/pixel-formats.h			\
+ 	shared/helpers.h				\
+ 	shared/matrix.c					\
+ 	shared/matrix.h					\
+ 	shared/timespec-util.h				\
+ 	shared/zalloc.h					\
+ 	shared/platform.h				\
+-	shared/weston-egl-ext.h
++	shared/ias-egl-ext.h
+ 
+-lib_LTLIBRARIES += libweston-desktop-@LIBWESTON_MAJOR@.la
+-libweston_desktop_@LIBWESTON_MAJOR@_la_CPPFLAGS = $(AM_CPPFLAGS) -DIN_WESTON
+-libweston_desktop_@LIBWESTON_MAJOR@_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+-libweston_desktop_@LIBWESTON_MAJOR@_la_LIBADD =		\
+-	libweston-@LIBWESTON_MAJOR@.la			\
++lib_LTLIBRARIES += libias-desktop-@LIBWESTON_MAJOR@.la
++libias_desktop_@LIBWESTON_MAJOR@_la_CPPFLAGS = $(AM_CPPFLAGS) -DIN_WESTON
++libias_desktop_@LIBWESTON_MAJOR@_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
++libias_desktop_@LIBWESTON_MAJOR@_la_LIBADD =		\
++	libias-@LIBWESTON_MAJOR@.la			\
+ 	$(COMPOSITOR_LIBS)
+-libweston_desktop_@LIBWESTON_MAJOR@_la_LDFLAGS = -version-info $(LT_VERSION_INFO)
+-
+-libweston_desktop_@LIBWESTON_MAJOR@_la_SOURCES =	\
+-	libweston-desktop/client.c			\
+-	libweston-desktop/internal.h			\
+-	libweston-desktop/libweston-desktop.c		\
+-	libweston-desktop/libweston-desktop.h		\
+-	libweston-desktop/seat.c			\
+-	libweston-desktop/surface.c			\
+-	libweston-desktop/wl-shell.c			\
+-	libweston-desktop/xdg-shell-v6.c		\
+-	libweston-desktop/xwayland.c
+-
+-nodist_libweston_desktop_@LIBWESTON_MAJOR@_la_SOURCES =		\
++libias_desktop_@LIBWESTON_MAJOR@_la_LDFLAGS = -version-info $(LT_VERSION_INFO)
++
++libias_desktop_@LIBWESTON_MAJOR@_la_SOURCES =	\
++	libias-desktop/client.c			\
++	libias-desktop/internal.h			\
++	libias-desktop/libias-desktop.c		\
++	libias-desktop/libias-desktop.h		\
++	libias-desktop/seat.c			\
++	libias-desktop/surface.c			\
++	libias-desktop/wl-shell.c			\
++	libias-desktop/xdg-shell-v6.c		\
++	libias-desktop/xwayland.c
++
++nodist_libias_desktop_@LIBWESTON_MAJOR@_la_SOURCES =		\
+ 	protocol/xdg-shell-unstable-v6-protocol.c		\
+ 	protocol/xdg-shell-unstable-v6-server-protocol.h
+ 
+-BUILT_SOURCES += $(nodist_libweston_desktop_@LIBWESTON_MAJOR@_la_SOURCES)
++BUILT_SOURCES += $(nodist_libias_desktop_@LIBWESTON_MAJOR@_la_SOURCES)
+ 
+-libweston-desktop-@LIBWESTON_MAJOR@.la libweston-desktop/libweston_desktop_@LIBWESTON_MAJOR@_la-xdg-shell-v6.lo: protocol/xdg-shell-unstable-v6-server-protocol.h
++libias-desktop-@LIBWESTON_MAJOR@.la libias-desktop/libias_desktop_@LIBWESTON_MAJOR@_la-xdg-shell-v6.lo: protocol/xdg-shell-unstable-v6-server-protocol.h
+ 
+ if SYSTEMD_NOTIFY_SUPPORT
+ module_LTLIBRARIES += systemd-notify.la
+ systemd_notify_la_LDFLAGS = -module -avoid-version
+-systemd_notify_la_LIBADD = libweston-@LIBWESTON_MAJOR@.la $(SYSTEMD_DAEMON_LIBS)
++systemd_notify_la_LIBADD = libias-@LIBWESTON_MAJOR@.la $(SYSTEMD_DAEMON_LIBS)
+ systemd_notify_la_CFLAGS =			\
+ 	$(COMPOSITOR_CFLAGS)			\
+ 	$(SYSTEMD_DAEMON_CFLAGS)		\
+@@ -147,12 +147,12 @@ systemd_notify_la_SOURCES =			\
+ 	compositor/systemd-notify.c		\
+ 	shared/helpers.h			\
+ 	shared/zalloc.h				\
+-	libweston/compositor.h
++	libias/compositor.h
+ endif
+ 
+-nodist_libweston_@LIBWESTON_MAJOR@_la_SOURCES =				\
+-	protocol/weston-screenshooter-protocol.c			\
+-	protocol/weston-screenshooter-server-protocol.h			\
++nodist_libias_@LIBWESTON_MAJOR@_la_SOURCES =				\
++	protocol/ias-screenshooter-protocol.c			\
++	protocol/ias-screenshooter-server-protocol.h			\
+ 	protocol/text-cursor-position-protocol.c	\
+ 	protocol/text-cursor-position-server-protocol.h	\
+ 	protocol/text-input-unstable-v1-protocol.c			\
+@@ -172,24 +172,24 @@ nodist_libweston_@LIBWESTON_MAJOR@_la_SOURCES =				\
+ 	protocol/input-timestamps-unstable-v1-protocol.c		\
+ 	protocol/input-timestamps-unstable-v1-server-protocol.h
+ 
+-BUILT_SOURCES += $(nodist_libweston_@LIBWESTON_MAJOR@_la_SOURCES)
++BUILT_SOURCES += $(nodist_libias_@LIBWESTON_MAJOR@_la_SOURCES)
+ 
+-bin_PROGRAMS += weston
++bin_PROGRAMS += ias
+ 
+-weston_LDFLAGS = -export-dynamic -pie
+-weston_CPPFLAGS = $(AM_CPPFLAGS) -DIN_WESTON 		\
++ias_LDFLAGS = -export-dynamic -pie
++ias_CPPFLAGS = $(AM_CPPFLAGS) -DIN_WESTON 		\
+ 				 -DMODULEDIR='"$(moduledir)"' \
+ 				 -DXSERVER_PATH='"@XSERVER_PATH@"'
+-weston_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS) $(LIBINPUT_BACKEND_CFLAGS) -fPIE
+-weston_LDADD = libshared.la libweston-@LIBWESTON_MAJOR@.la \
++ias_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS) $(LIBINPUT_BACKEND_CFLAGS) -fPIE
++ias_LDADD = libshared.la libias-@LIBWESTON_MAJOR@.la \
+ 	$(COMPOSITOR_LIBS) \
+ 	$(DL_LIBS) $(LIBINPUT_BACKEND_LIBS) \
+ 	$(CLOCK_GETRES_LIBS) \
+ 	-lm
+ 
+-weston_SOURCES = 					\
++ias_SOURCES = 					\
+ 	compositor/main.c				\
+-	compositor/weston-screenshooter.c		\
++	compositor/ias-screenshooter.c		\
+ 	compositor/text-backend.c			\
+ 	compositor/xwayland.c
+ 
+@@ -197,21 +197,21 @@ weston_SOURCES = 					\
+ # add BUILT_SOURCES to CLEANFILES, but we want to keep git-version.h
+ # in case we're building from tarballs.
+ 
+-compositor/main.c : $(top_builddir)/libweston/git-version.h
+-libweston/compositor.c : $(top_builddir)/libweston/git-version.h
++compositor/main.c : $(top_builddir)/libias/git-version.h
++libias/compositor.c : $(top_builddir)/libias/git-version.h
+ 
+ noinst_LTLIBRARIES +=				\
+ 	libsession-helper.la
+ 
+ libsession_helper_la_SOURCES =			\
+-	libweston/launcher-util.c		\
+-	libweston/launcher-util.h		\
+-	libweston/launcher-impl.h		\
+-	libweston/weston-launch.h		\
+-	libweston/launcher-weston-launch.c	\
+-	libweston/launcher-direct.c
++	libias/launcher-util.c		\
++	libias/launcher-util.h		\
++	libias/launcher-impl.h		\
++	libias/ias-launch.h		\
++	libias/launcher-ias-launch.c	\
++	libias/launcher-direct.c
+ libsession_helper_la_CFLAGS = $(AM_CFLAGS) $(LIBDRM_CFLAGS) $(PIXMAN_CFLAGS) $(COMPOSITOR_CFLAGS)
+-libsession_helper_la_LIBADD = libweston-@LIBWESTON_MAJOR@.la
++libsession_helper_la_LIBADD = libias-@LIBWESTON_MAJOR@.la
+ 
+ if ENABLE_DRM_COMPOSITOR
+ libsession_helper_la_LIBADD += $(LIBDRM_LIBS)
+@@ -220,19 +220,19 @@ endif
+ if ENABLE_DBUS
+ if HAVE_SYSTEMD_LOGIN
+ libsession_helper_la_SOURCES +=			\
+-	libweston/dbus.h			\
+-	libweston/dbus.c			\
+-	libweston/launcher-logind.c
++	libias/dbus.h			\
++	libias/dbus.c			\
++	libias/launcher-logind.c
+ libsession_helper_la_CFLAGS += $(SYSTEMD_LOGIN_CFLAGS) $(DBUS_CFLAGS)
+ libsession_helper_la_LIBADD += $(SYSTEMD_LOGIN_LIBS) $(DBUS_LIBS)
+ endif
+ endif
+ 
+ if HAVE_GIT_REPO
+-libweston/git-version.h : $(top_srcdir)/.git/logs/HEAD
++libias/git-version.h : $(top_srcdir)/.git/logs/HEAD
+ 	$(AM_V_GEN)echo "#define BUILD_ID \"$(shell git --git-dir=$(top_srcdir)/.git describe --always --dirty) $(shell git --git-dir=$(top_srcdir)/.git log -1 --format='%s (%ci)')\"" > $@
+ else
+-libweston/git-version.h :
++libias/git-version.h :
+ 	$(AM_V_GEN)echo "#define BUILD_ID \"unknown (not built from git or tarball)\"" > $@
+ 
+ endif
+@@ -240,30 +240,30 @@ endif
+ .FORCE :
+ 
+ if BUILD_WESTON_LAUNCH
+-bin_PROGRAMS += weston-launch
+-weston_launch_SOURCES = libweston/weston-launch.c libweston/weston-launch.h
+-weston_launch_CPPFLAGS = -DBINDIR='"$(bindir)"'
+-weston_launch_CFLAGS=				\
++bin_PROGRAMS += ias-launch
++ias_launch_SOURCES = libias/ias-launch.c libias/ias-launch.h
++ias_launch_CPPFLAGS = -DBINDIR='"$(bindir)"'
++ias_launch_CFLAGS=				\
+ 	$(AM_CFLAGS)				\
+ 	$(PAM_CFLAGS)				\
+ 	$(SYSTEMD_LOGIN_CFLAGS)			\
+ 	$(LIBDRM_CFLAGS)			\
+ 	-fPIE
+-weston_launch_LDADD = $(PAM_LIBS) $(SYSTEMD_LOGIN_LIBS)
+-weston_launch_LDFLAGS = -pie
++ias_launch_LDADD = $(PAM_LIBS) $(SYSTEMD_LOGIN_LIBS)
++ias_launch_LDFLAGS = -pie
+ 
+ if ENABLE_DRM_COMPOSITOR
+-weston_launch_LDADD += $(LIBDRM_LIBS)
++ias_launch_LDADD += $(LIBDRM_LIBS)
+ endif
+ 
+ if ENABLE_SETUID_INSTALL
+ install-exec-hook:
+ 	can_suid_files=no; \
+-	chown root $(DESTDIR)$(bindir)/weston-launch \
+-		&& chmod u+s $(DESTDIR)$(bindir)/weston-launch \
++	chown root $(DESTDIR)$(bindir)/ias-launch \
++		&& chmod u+s $(DESTDIR)$(bindir)/ias-launch \
+ 		&& can_suid_files=yes;\
+ 	if test $$can_suid_files = no; then \
+-		echo 'Error: unable to unable to change ownership/setuid on weston-launch.'; \
++		echo 'Error: unable to unable to change ownership/setuid on ias-launch.'; \
+ 		echo 'To skip this step, re-run ./configure using --disable-setuid-install'; \
+ 		false; \
+ 	fi
+@@ -273,51 +273,51 @@ endif # BUILD_WESTON_LAUNCH
+ 
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = \
+-	libweston/libweston-${LIBWESTON_MAJOR}.pc \
+-	libweston-desktop/libweston-desktop-${LIBWESTON_MAJOR}.pc \
+-	compositor/weston.pc
++	libias/libias-${LIBWESTON_MAJOR}.pc \
++	libias-desktop/libias-desktop-${LIBWESTON_MAJOR}.pc \
++	compositor/ias.pc
+ 
+ wayland_sessiondir = $(datadir)/wayland-sessions
+-dist_wayland_session_DATA = compositor/weston.desktop
+-
+-libwestonincludedir = $(includedir)/libweston-${LIBWESTON_MAJOR}
+-libwestoninclude_HEADERS =				\
+-	libweston/version.h				\
+-	libweston/compositor.h			\
+-	libweston/ias-plugin-framework-definitions.h \
+-	libweston/ias-spug.h				\
+-	libweston/ias-common.h \
+-	libweston/compositor-ias.h			\
+-	libweston/compositor-drm.h			\
+-	libweston/compositor-fbdev.h			\
+-	libweston/compositor-headless.h		\
+-	libweston/compositor-rdp.h			\
+-	libweston/compositor-wayland.h		\
+-	libweston/compositor-x11.h		\
+-	libweston/windowed-output-api.h		\
+-	libweston/plugin-registry.h		\
+-	libweston/timeline-object.h		\
+-	shared/weston-egl-ext.h \
++dist_wayland_session_DATA = compositor/ias.desktop
++
++libiasincludedir = $(includedir)/libias-${LIBWESTON_MAJOR}
++libiasinclude_HEADERS =				\
++	libias/version.h				\
++	libias/compositor.h			\
++	libias/ias-plugin-framework-definitions.h \
++	libias/ias-spug.h				\
++	libias/ias-common.h \
++	libias/compositor-ias.h			\
++	libias/compositor-drm.h			\
++	libias/compositor-fbdev.h			\
++	libias/compositor-headless.h		\
++	libias/compositor-rdp.h			\
++	libias/compositor-wayland.h		\
++	libias/compositor-x11.h		\
++	libias/windowed-output-api.h		\
++	libias/plugin-registry.h		\
++	libias/timeline-object.h		\
++	shared/ias-egl-ext.h \
+ 	shared/matrix.h				\
+ 	shared/config-parser.h			\
+ 	shared/zalloc.h
+ 
+-libwestoninclude_HEADERS +=			\
+-	libweston-desktop/libweston-desktop.h
++libiasinclude_HEADERS +=			\
++	libias-desktop/libias-desktop.h
+ 
+-westonincludedir = $(includedir)/weston
+-westoninclude_HEADERS = compositor/weston.h
++iasincludedir = $(includedir)/ias
++iasinclude_HEADERS = compositor/ias.h
+ 
+ if ENABLE_IVI_SHELL
+-westoninclude_HEADERS +=				\
++iasinclude_HEADERS +=				\
+ 	ivi-shell/ivi-layout-export.h
+ endif
+ 
+ if ENABLE_EGL
+-libweston_module_LTLIBRARIES += gl-renderer.la
++libias_module_LTLIBRARIES += gl-renderer.la
+ gl_renderer_la_LDFLAGS = -module -avoid-version
+ gl_renderer_la_LIBADD =				\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(EGL_LIBS)				\
+ 	$(COMPOSITOR_LIBS)
+ gl_renderer_la_CFLAGS =				\
+@@ -326,37 +326,37 @@ gl_renderer_la_CFLAGS =				\
+ 	$(LIBDRM_CFLAGS)			\
+ 	$(AM_CFLAGS)
+ gl_renderer_la_SOURCES =			\
+-	libweston/gl-renderer.h			\
+-	libweston/gl-renderer.c			\
+-	libweston/vertex-clipping.c		\
+-	libweston/vertex-clipping.h		\
+-	libweston/weston-sync-file.h
++	libias/gl-renderer.h			\
++	libias/gl-renderer.c			\
++	libias/vertex-clipping.c		\
++	libias/vertex-clipping.h		\
++	libias/ias-sync-file.h
+ if ENABLE_VM
+ gl_renderer_la_SOURCES +=			\
+-	libweston/vm-shared.h				\
+-	libweston/vm.h				\
+-	libweston/vm.c
++	libias/vm-shared.h				\
++	libias/vm.h				\
++	libias/vm.c
+ 
+ if ENABLE_XEN_COMM_CHANNEL
+ module_LTLIBRARIES += vm-comm-xen.la
+ vm_comm_xen_la_LDFLAGS = -module -avoid-version
+ vm_comm_xen_la_LIBADD = -lxenvchan -lxenstore -lxenctrl
+-vm_comm_xen_la_SOURCES = libweston/vm_xen.c
++vm_comm_xen_la_SOURCES = libias/vm_xen.c
+ endif
+ 
+ module_LTLIBRARIES += vm-comm-network.la
+ vm_comm_network_la_LDFLAGS = -module -avoid-version
+-vm_comm_network_la_SOURCES = libweston/vm_network.c
++vm_comm_network_la_SOURCES = libias/vm_network.c
+ endif
+ 
+ endif
+ 
+ if ENABLE_X11_COMPOSITOR
+-libweston_module_LTLIBRARIES += x11-backend.la
++libias_module_LTLIBRARIES += x11-backend.la
+ x11_backend_la_LDFLAGS = -module -avoid-version
+ x11_backend_la_LIBADD =				\
+ 	libshared-cairo.la			\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(X11_COMPOSITOR_LIBS)			\
+ 	$(COMPOSITOR_LIBS)
+ x11_backend_la_CFLAGS =				\
+@@ -367,26 +367,26 @@ x11_backend_la_CFLAGS =				\
+ 	$(CAIRO_CFLAGS)				\
+ 	$(X11_COMPOSITOR_CFLAGS)
+ x11_backend_la_SOURCES = 			\
+-	libweston/compositor-x11.c		\
+-	libweston/compositor-x11.h		\
++	libias/compositor-x11.c		\
++	libias/compositor-x11.h		\
+ 	shared/helpers.h
+ endif
+ 
+ INPUT_BACKEND_CFLAGS = $(LIBINPUT_BACKEND_CFLAGS)
+ INPUT_BACKEND_LIBS = $(LIBINPUT_BACKEND_LIBS)
+ INPUT_BACKEND_SOURCES =				\
+-	libweston/libinput-seat.c		\
+-	libweston/libinput-seat.h		\
+-	libweston/libinput-device.c		\
+-	libweston/libinput-device.h		\
++	libias/libinput-seat.c		\
++	libias/libinput-seat.h		\
++	libias/libinput-device.c		\
++	libias/libinput-device.h		\
+ 	shared/helpers.h
+ 
+ if ENABLE_DRM_COMPOSITOR
+-libweston_module_LTLIBRARIES += drm-backend.la
++libias_module_LTLIBRARIES += drm-backend.la
+ drm_backend_la_LDFLAGS = -module -avoid-version
+ drm_backend_la_LIBADD =				\
+ 	libsession-helper.la			\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)			\
+ 	$(DRM_COMPOSITOR_LIBS)			\
+ 	$(INPUT_BACKEND_LIBS)			\
+@@ -399,16 +399,16 @@ drm_backend_la_CFLAGS =				\
+ 	$(INPUT_BACKEND_CFLAGS)			\
+ 	$(AM_CFLAGS)
+ drm_backend_la_SOURCES =			\
+-	libweston/compositor-drm.c		\
+-	libweston/compositor-drm.h		\
++	libias/compositor-drm.c		\
++	libias/compositor-drm.h		\
+ 	$(INPUT_BACKEND_SOURCES)		\
+ 	shared/helpers.h			\
+ 	shared/timespec-util.h			\
+-	libweston/libbacklight.c		\
+-	libweston/libbacklight.h
++	libias/libbacklight.c		\
++	libias/libbacklight.h
+ 
+ if ENABLE_VAAPI_RECORDER
+-drm_backend_la_SOURCES += libweston/vaapi-recorder.c libweston/vaapi-recorder.h
++drm_backend_la_SOURCES += libias/vaapi-recorder.c libias/vaapi-recorder.h
+ drm_backend_la_LIBADD += $(LIBVA_LIBS)
+ drm_backend_la_LDFLAGS += -pthread
+ drm_backend_la_CFLAGS += $(LIBVA_CFLAGS)
+@@ -416,7 +416,7 @@ endif
+ endif
+ 
+ if ENABLE_IAS_COMPOSITOR
+-libweston_module_LTLIBRARIES += ias-backend.la
++libias_module_LTLIBRARIES += ias-backend.la
+ ias_backend_la_LDFLAGS = -module -avoid-version
+ ias_backend_la_LIBADD =                        \
+        $(COMPOSITOR_LIBS)                      \
+@@ -431,23 +431,23 @@ ias_backend_la_CFLAGS =                                \
+        $(IAS_COMPOSITOR_CFLAGS)                \
+        $(GCC_CFLAGS)
+ ias_backend_la_SOURCES =                       \
+-       libweston/compositor-ias.c                                \
+-       libweston/compositor-ias.h			\
++       libias/compositor-ias.c                                \
++       libias/compositor-ias.h			\
+ 	   $(INPUT_BACKEND_SOURCES)					\
+        protocol/ias-backend-protocol.c                  \
+        protocol/ias-backend-server-protocol.h   \
+-       libweston/ias-config.c							\
+-       libweston/ias-common.c							\
+-       libweston/ias-common.h							\
+-       libweston/ias-sprite.c							\
+-       libweston/ias-sprite.h							\
+-       libweston/ias-backend.h						\
+-       libweston/backend-classic.c					\
+-       libweston/backend-flexible.c
++       libias/ias-config.c							\
++       libias/ias-common.c							\
++       libias/ias-common.h							\
++       libias/ias-sprite.c							\
++       libias/ias-sprite.h							\
++       libias/ias-backend.h						\
++       libias/backend-classic.c					\
++       libias/backend-flexible.c
+ if ENABLE_FRAME_CAPTURE
+ ias_backend_la_SOURCES +=  \
+-       libweston/capture-proxy.c						\
+-       libweston/capture-proxy.h						\
++       libias/capture-proxy.c						\
++       libias/capture-proxy.h						\
+        protocol/ias-shell-protocol.c			\
+        protocol/ias-shell-server-protocol.h
+ ias_backend_la_LIBADD += $(LIBVA_LIBS)
+@@ -456,11 +456,11 @@ endif
+ endif
+ 
+ if ENABLE_WAYLAND_COMPOSITOR
+-libweston_module_LTLIBRARIES += wayland-backend.la
++libias_module_LTLIBRARIES += wayland-backend.la
+ wayland_backend_la_LDFLAGS = -module -avoid-version
+ wayland_backend_la_LIBADD =			\
+ 	libshared-cairo.la			\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)			\
+ 	$(WAYLAND_COMPOSITOR_EGL_LIBS)		\
+ 	$(WAYLAND_COMPOSITOR_LIBS)
+@@ -472,8 +472,8 @@ wayland_backend_la_CFLAGS =			\
+ 	$(WAYLAND_COMPOSITOR_CFLAGS)		\
+ 	$(AM_CFLAGS)
+ wayland_backend_la_SOURCES = 					\
+-	libweston/compositor-wayland.c				\
+-	libweston/compositor-wayland.h				\
++	libias/compositor-wayland.c				\
++	libias/compositor-wayland.h				\
+ 	shared/helpers.h
+ nodist_wayland_backend_la_SOURCES =				\
+ 	protocol/fullscreen-shell-unstable-v1-protocol.c	\
+@@ -483,26 +483,26 @@ nodist_wayland_backend_la_SOURCES =				\
+ endif
+ 
+ if ENABLE_HEADLESS_COMPOSITOR
+-libweston_module_LTLIBRARIES += headless-backend.la
++libias_module_LTLIBRARIES += headless-backend.la
+ headless_backend_la_LDFLAGS = -module -avoid-version
+ headless_backend_la_LIBADD =			\
+ 	libshared.la				\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)
+ headless_backend_la_CFLAGS = $(COMPOSITOR_CFLAGS) $(AM_CFLAGS)
+ headless_backend_la_SOURCES = 			\
+-	libweston/compositor-headless.c		\
+-	libweston/compositor-headless.h		\
++	libias/compositor-headless.c		\
++	libias/compositor-headless.h		\
+ 	shared/helpers.h
+ endif
+ 
+ if ENABLE_FBDEV_COMPOSITOR
+-libweston_module_LTLIBRARIES += fbdev-backend.la
++libias_module_LTLIBRARIES += fbdev-backend.la
+ fbdev_backend_la_LDFLAGS = -module -avoid-version
+ fbdev_backend_la_LIBADD =			\
+ 	libshared.la				\
+ 	libsession-helper.la			\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)			\
+ 	$(FBDEV_COMPOSITOR_LIBS)		\
+ 	$(INPUT_BACKEND_LIBS)
+@@ -514,18 +514,18 @@ fbdev_backend_la_CFLAGS =			\
+ 	$(INPUT_BACKEND_CFLAGS)			\
+ 	$(AM_CFLAGS)
+ fbdev_backend_la_SOURCES =			\
+-	libweston/compositor-fbdev.c		\
+-	libweston/compositor-fbdev.h		\
++	libias/compositor-fbdev.c		\
++	libias/compositor-fbdev.h		\
+ 	shared/helpers.h			\
+ 	$(INPUT_BACKEND_SOURCES)
+ endif
+ 
+ if ENABLE_RDP_COMPOSITOR
+-libweston_module_LTLIBRARIES += rdp-backend.la
++libias_module_LTLIBRARIES += rdp-backend.la
+ rdp_backend_la_LDFLAGS = -module -avoid-version
+ rdp_backend_la_LIBADD =				\
+ 	libshared.la				\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)		\
+ 	$(RDP_COMPOSITOR_LIBS)
+ rdp_backend_la_CFLAGS =				\
+@@ -533,8 +533,8 @@ rdp_backend_la_CFLAGS =				\
+ 	$(RDP_COMPOSITOR_CFLAGS)		\
+ 	$(AM_CFLAGS)
+ rdp_backend_la_SOURCES = 			\
+-	libweston/compositor-rdp.c		\
+-	libweston/compositor-rdp.h		\
++	libias/compositor-rdp.c		\
++	libias/compositor-rdp.h		\
+ 	shared/helpers.h
+ endif
+ 
+@@ -543,7 +543,7 @@ module_LTLIBRARIES += cms-static.la
+ cms_static_la_LDFLAGS = -module -avoid-version
+ cms_static_la_LIBADD =				\
+ 	libshared.la				\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(LCMS_LIBS)				\
+ 	$(COMPOSITOR_LIBS)
+ cms_static_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS) $(LCMS_CFLAGS)
+@@ -557,7 +557,7 @@ module_LTLIBRARIES += cms-colord.la
+ cms_colord_la_LDFLAGS = -module -avoid-version
+ cms_colord_la_LIBADD =				\
+ 	libshared.la				\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COLORD_LIBS)				\
+ 	$(LCMS_LIBS)				\
+ 	$(COMPOSITOR_LIBS)
+@@ -578,16 +578,16 @@ ias_shell_la_LDFLAGS = -module -avoid-version
+ ias_shell_la_LIBADD = $(COMPOSITOR_LIBS) -lexpat libshared.la
+ ias_shell_la_CFLAGS = $(GCC_CFLAGS) $(COMPOSITOR_CFLAGS) $(LIBDRM_CFLAGS)
+ ias_shell_la_SOURCES =                 	\
+-    libweston/ias-shell.c                     \
+-    libweston/ias-relay-input.h               \
+-    libweston/ias-relay-input.c               \
+-    libweston/ias-hmi.c                       \
+-    libweston/ias-shell-config.c              \
+-    libweston/ias-shell.h                     \
+-    libweston/ias-hmi.h                       \
+-    libweston/ias-common.h                    \
+-    libweston/ias-common.c                    \
+-    libweston/ias-config.c
++    libias/ias-shell.c                     \
++    libias/ias-relay-input.h               \
++    libias/ias-relay-input.c               \
++    libias/ias-hmi.c                       \
++    libias/ias-shell-config.c              \
++    libias/ias-shell.h                     \
++    libias/ias-hmi.h                       \
++    libias/ias-common.h                    \
++    libias/ias-common.c                    \
++    libias/ias-config.c
+ nodist_ias_shell_la_SOURCES =				\
+ 	protocol/ias-shell-server-protocol.h    \
+ 	protocol/ias-shell-protocol.c
+@@ -605,10 +605,10 @@ ias_plugin_framework_la_LIBADD = $(COMPOSITOR_LIBS) \
+ 			       -lexpat \
+ 			       libshared.la
+ ias_plugin_framework_la_CFLAGS = $(GCC_CFLAGS) $(COMPOSITOR_CFLAGS) $(LIBDRM_CFLAGS) $(GLIB_CFLAGS)
+-ias_plugin_framework_la_SOURCES = libweston/ias-plugin-framework.c \
+-				libweston/ias-plugin-framework.h \
+-				libweston/ias-spug.c \
+-				libweston/ias-config.c
++ias_plugin_framework_la_SOURCES = libias/ias-plugin-framework.c \
++				libias/ias-plugin-framework.h \
++				libias/ias-spug.c \
++				libias/ias-config.c
+ nodist_ias_plugin_framework_la_SOURCES =	protocol/ias-layout-manager-protocol.c \
+ 				protocol/ias-layout-manager-server-protocol.h\
+ 				protocol/ias-input-manager-protocol.c \
+@@ -641,10 +641,10 @@ ivi_plugin_framework_la_CFLAGS = $(GCC_CFLAGS) \
+ 				$(LIBDRM_CFLAGS) \
+ 				$(GLIB_CFLAGS) \
+ 				-Iivi-shell
+-ivi_plugin_framework_la_SOURCES = libweston/ivi-plugin-framework.c \
+-				libweston/ias-plugin-framework.h \
+-				libweston/ias-spug.c \
+-				libweston/ias-config.c
++ivi_plugin_framework_la_SOURCES = libias/ivi-plugin-framework.c \
++				libias/ias-plugin-framework.h \
++				libias/ias-spug.c \
++				libias/ias-config.c
+ nodist_ivi_plugin_framework_la_SOURCES =	protocol/ias-layout-manager-protocol.c \
+ 				protocol/ias-layout-manager-server-protocol.h\
+ 				protocol/ias-input-manager-protocol.c \
+@@ -661,7 +661,7 @@ module_LTLIBRARIES += trace-reporter.la
+ trace_reporter_la_LDFLAGS = -module -avoid-version
+ trace_reporter_la_LIBADD = $(COMPOSITOR_LIBS)
+ trace_reporter_la_CFLAGS = $(GCC_CFLAGS) $(COMPOSITOR_CFLAGS)
+-trace_reporter_la_SOURCES = libweston/trace-reporter.c
++trace_reporter_la_SOURCES = libias/trace-reporter.c
+ nodist_trace_reporter_la_SOURCES =				 \
+ 	protocol/trace-reporter-protocol.c \
+ 	protocol/trace-reporter-server-protocol.h
+@@ -699,18 +699,18 @@ endif
+ 
+ # Stick a copy of compositor.h and the public plugin framework headers under
+ # {datadir}/doc/ias
+-ias_doc_DATA = libweston/ias-plugin-framework.h libweston/compositor.h
++ias_doc_DATA = libias/ias-plugin-framework.h libias/compositor.h
+ ias_docdir = ${datarootdir}/doc/ias
+ 
+ noinst_PROGRAMS += spring-tool
+ spring_tool_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+ spring_tool_LDADD = $(COMPOSITOR_LIBS) -lm
+ spring_tool_SOURCES =				\
+-	libweston/spring-tool.c			\
+-	libweston/animation.c			\
++	libias/spring-tool.c			\
++	libias/animation.c			\
+ 	shared/matrix.c				\
+ 	shared/matrix.h				\
+-	libweston/compositor.h
++	libias/compositor.h
+ 
+ plugin_LTLIBRARIES += ias-shell-protocol.la
+ ias_shell_protocol_la_LDFLAGS = -module -avoid-version -shared
+@@ -743,7 +743,7 @@ BUILT_SOURCES += plugins/cpp_example/cursor_image.h \
+ EXTRA_DIST += cpp_example.diff
+ 
+ # Explicitly pass the name of file to be patched to avoid race condition when
+-# building weston with multiple worker threads
++# building ias with multiple worker threads
+ plugins/cpp_example/grid_layout.cc: plugins/grid_layout.c
+ 	cp plugins/grid_layout.c grid_layout_cpp_example.c
+ 	patch -p0 grid_layout_cpp_example.c plugins/cpp_example/cpp_example.diff
+@@ -798,7 +798,7 @@ plugins/extension_sample/new-extension-protocol.c: plugins/extension_sample/new-
+ 	@wayland_scanner@ code < $< > $@
+ 
+ # Explicitly pass the name of file to be patched to avoid race condition when
+-# building weston with multiple worker threads
++# building ias with multiple worker threads
+ plugins/extension_sample/extension_sample.c: plugins/grid_layout.c
+ 	cp plugins/grid_layout.c grid_layout_extension_sample.c
+ 	patch -p0 grid_layout_extension_sample.c plugins/extension_sample/extension_sample.diff
+@@ -852,36 +852,36 @@ thumbnail_layout_la_LDFLAGS = -module -L$(WLD)/lib
+ 
+ if BUILD_CLIENTS
+ 
+-bin_PROGRAMS += weston-terminal weston-info
++bin_PROGRAMS += ias-terminal ias-info
+ 
+ libexec_PROGRAMS +=				\
+-	weston-desktop-shell			\
+-	weston-screenshooter			\
+-	weston-keyboard				\
+-	weston-simple-im			\
++	ias-desktop-shell			\
++	ias-screenshooter			\
++	ias-keyboard				\
++	ias-simple-im			\
+ 	ias-test-hmi
+ 
+ if ENABLE_IVI_SHELL
+ libexec_PROGRAMS +=				\
+-	weston-ivi-shell-user-interface
++	ias-ivi-shell-user-interface
+ endif
+ 
+ demo_clients =					\
+-	weston-flower				\
+-	weston-image				\
+-	weston-cliptest				\
+-	weston-dnd				\
+-	weston-smoke				\
+-	weston-resizor				\
+-	weston-eventdemo			\
+-	weston-clickdot				\
+-	weston-confine				\
+-	weston-transformed			\
+-	weston-fullscreen			\
+-	weston-stacking				\
+-	weston-calibrator			\
+-	weston-scaler				\
+-	weston-simple-clock
++	ias-flower				\
++	ias-image				\
++	ias-cliptest				\
++	ias-dnd				\
++	ias-smoke				\
++	ias-resizor				\
++	ias-eventdemo			\
++	ias-clickdot				\
++	ias-confine				\
++	ias-transformed			\
++	ias-fullscreen			\
++	ias-stacking				\
++	ias-calibrator			\
++	ias-scaler				\
++	ias-simple-clock
+ 
+ if INSTALL_DEMO_CLIENTS
+ bin_PROGRAMS += $(demo_clients)
+@@ -892,11 +892,11 @@ endif
+ 
+ if BUILD_SIMPLE_CLIENTS
+ demo_clients +=					\
+-	weston-simple-shm			\
+-	weston-simple-damage			\
+-	weston-simple-touch			\
+-	weston-presentation-shm			\
+-	weston-multi-resource		\
++	ias-simple-shm			\
++	ias-simple-damage			\
++	ias-simple-touch			\
++	ias-presentation-shm			\
++	ias-multi-resource		\
+ 	wrandr						\
+ 	surfctrl					\
+ 	layoutctrl					\
+@@ -907,8 +907,8 @@ if ENABLE_REMOTE_DISPLAY
+ demo_clients += remote-display
+ endif
+ 
+-weston_simple_shm_SOURCES = clients/simple-shm.c
+-nodist_weston_simple_shm_SOURCES =		\
++ias_simple_shm_SOURCES = clients/simple-shm.c
++nodist_ias_simple_shm_SOURCES =		\
+ 	protocol/xdg-shell-unstable-v6-protocol.c		\
+ 	protocol/xdg-shell-unstable-v6-client-protocol.h	\
+ 	protocol/ias-shell-protocol.c		\
+@@ -917,48 +917,48 @@ nodist_weston_simple_shm_SOURCES =		\
+ 	protocol/fullscreen-shell-unstable-v1-client-protocol.h	\
+ 	protocol/ivi-application-protocol.c		\
+ 	protocol/ivi-application-client-protocol.h
+-weston_simple_shm_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
+-weston_simple_shm_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la
+-weston_simple_shm_LDFLAGS = -pie
++ias_simple_shm_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
++ias_simple_shm_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la
++ias_simple_shm_LDFLAGS = -pie
+ 
+-weston_simple_damage_SOURCES = clients/simple-damage.c
+-nodist_weston_simple_damage_SOURCES =		\
++ias_simple_damage_SOURCES = clients/simple-damage.c
++nodist_ias_simple_damage_SOURCES =		\
+ 	protocol/viewporter-protocol.c		\
+ 	protocol/viewporter-client-protocol.h	\
+ 	protocol/xdg-shell-unstable-v6-protocol.c		\
+ 	protocol/xdg-shell-unstable-v6-client-protocol.h	\
+ 	protocol/fullscreen-shell-unstable-v1-protocol.c	\
+ 	protocol/fullscreen-shell-unstable-v1-client-protocol.h
+-weston_simple_damage_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
+-weston_simple_damage_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la
+-weston_simple_damage_LDFLAGS = -pie
++ias_simple_damage_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
++ias_simple_damage_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la
++ias_simple_damage_LDFLAGS = -pie
+ 
+-weston_simple_touch_SOURCES = 			\
++ias_simple_touch_SOURCES = 			\
+ 	clients/simple-touch.c			\
+ 	shared/helpers.h
+-nodist_weston_simple_touch_SOURCES =			\
++nodist_ias_simple_touch_SOURCES =			\
+ 	protocol/ias-shell-protocol.c			\
+ 	protocol/ias-shell-client-protocol.h 		\
+ 	protocol/ivi-application-protocol.c             \
+ 	protocol/ivi-application-client-protocol.h
+-weston_simple_touch_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
+-weston_simple_touch_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la
+-weston_simple_touch_LDFLAGS = -pie
++ias_simple_touch_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
++ias_simple_touch_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la
++ias_simple_touch_LDFLAGS = -pie
+ 
+-weston_presentation_shm_SOURCES = 			\
++ias_presentation_shm_SOURCES = 			\
+ 	clients/presentation-shm.c			\
+ 	shared/helpers.h
+-nodist_weston_presentation_shm_SOURCES =		\
++nodist_ias_presentation_shm_SOURCES =		\
+ 	protocol/presentation-time-protocol.c		\
+ 	protocol/presentation-time-client-protocol.h
+-weston_presentation_shm_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
+-weston_presentation_shm_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la -lm $(CLOCK_GETTIME_LIBS)
+-weston_presentation_shm_LDFLAGS = -pie
++ias_presentation_shm_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
++ias_presentation_shm_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la -lm $(CLOCK_GETTIME_LIBS)
++ias_presentation_shm_LDFLAGS = -pie
+ 
+-weston_multi_resource_SOURCES = clients/multi-resource.c
+-weston_multi_resource_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
+-weston_multi_resource_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la $(CLOCK_GETTIME_LIBS) -lm
+-weston_multi_resource_LDFLAGS = -pie
++ias_multi_resource_SOURCES = clients/multi-resource.c
++ias_multi_resource_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) -fPIE
++ias_multi_resource_LDADD = $(SIMPLE_CLIENT_LIBS) libshared.la $(CLOCK_GETTIME_LIBS) -lm
++ias_multi_resource_LDFLAGS = -pie
+ 
+ wrandr_SOURCES = clients/wrandr.c
+ nodist_wrandr_SOURCES =		\
+@@ -1008,16 +1008,16 @@ nodist_remote_display_SOURCES =		\
+ remote_display_CFLAGS = $(AM_CFLAGS) $(SIMPLE_CLIENT_CFLAGS) $(LIBVA_CFLAGS)
+ remote_display_LDADD = $(LIBDRM_LIBS) $(SIMPLE_CLIENT_LIBS) $(LIBVA_LIBS) libshared.la -lm -ldrm_intel
+ 
+-weston_clock_SOURCES = 				\
++ias_clock_SOURCES = 				\
+ 	clients/clock.c				\
+ 	shared/helpers.h
+-weston_clock_LDADD = libtoytoolkit.la
+-weston_clock_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS)
++ias_clock_LDADD = libtoytoolkit.la
++ias_clock_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS)
+ 
+-weston_simple_clock_SOURCES = clients/simple-clock.c
+-weston_simple_clock_LDADD = libtoytoolkit.la
+-weston_simple_clock_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_simple_clock_LDFLAGS = -pie
++ias_simple_clock_SOURCES = clients/simple-clock.c
++ias_simple_clock_LDADD = libtoytoolkit.la
++ias_simple_clock_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_simple_clock_LDFLAGS = -pie
+ 
+ inputctrl_SOURCES = clients/inputctrl.c
+ nodist_inputctrl_SOURCES =		\
+@@ -1039,73 +1039,73 @@ traceinfo_LDFLAGS = -pie
+ endif
+ 
+ if BUILD_SIMPLE_EGL_CLIENTS
+-demo_clients += weston-simple-egl
+-weston_simple_egl_SOURCES = clients/simple-egl.c
+-nodist_weston_simple_egl_SOURCES =		\
++demo_clients += ias-simple-egl
++ias_simple_egl_SOURCES = clients/simple-egl.c
++nodist_ias_simple_egl_SOURCES =		\
+ 	protocol/xdg-shell-unstable-v6-protocol.c		\
+ 	protocol/xdg-shell-unstable-v6-client-protocol.h	\
+ 	protocol/ivi-application-protocol.c		\
+ 	protocol/ivi-application-client-protocol.h	\
+ 	protocol/ias-shell-protocol.c		\
+ 	protocol/ias-shell-client-protocol.h
+-weston_simple_egl_CFLAGS = $(AM_CFLAGS) $(SIMPLE_EGL_CLIENT_CFLAGS) -fPIE
+-weston_simple_egl_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm
+-weston_simple_egl_LDFLAGS = -pie
++ias_simple_egl_CFLAGS = $(AM_CFLAGS) $(SIMPLE_EGL_CLIENT_CFLAGS) -fPIE
++ias_simple_egl_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm
++ias_simple_egl_LDFLAGS = -pie
+ endif
+ 
+-demo_clients += weston-es2gears
+-weston_es2gears_SOURCES = clients/es2gears.c
+-weston_es2gears_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_es2gears_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm libtoytoolkit.la
+-weston_es2gears_LDFLAGS = -pie
++demo_clients += ias-es2gears
++ias_es2gears_SOURCES = clients/es2gears.c
++ias_es2gears_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_es2gears_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm libtoytoolkit.la
++ias_es2gears_LDFLAGS = -pie
+ 
+ if BUILD_IVI_SHARE_ENABLE
+-demo_clients += weston-simple-ivi-share
+-weston_simple_ivi_share_SOURCES = clients/simple-ivi-share.c
+-nodist_weston_simple_ivi_share_SOURCES =		\
++demo_clients += ias-simple-ivi-share
++ias_simple_ivi_share_SOURCES = clients/simple-ivi-share.c
++nodist_ias_simple_ivi_share_SOURCES =		\
+ 	protocol/ivi-application-protocol.c		\
+ 	protocol/ivi-application-client-protocol.h	\
+ 	protocol/ivi-share-protocol.c		\
+ 	protocol/ivi-shell-client-protocol.h
+-weston_simple_ivi_share_CFLAGS = $(AM_CFLAGS) $(SIMPLE_EGL_CLIENT_CFLAGS) -fPIE
+-weston_simple_ivi_share_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm
+-weston_simple_ivi_share_LDFLAGS = -pie
++ias_simple_ivi_share_CFLAGS = $(AM_CFLAGS) $(SIMPLE_EGL_CLIENT_CFLAGS) -fPIE
++ias_simple_ivi_share_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm
++ias_simple_ivi_share_LDFLAGS = -pie
+ 
+ endif
+ 
+ if BUILD_SIMPLE_DMABUF_DRM_CLIENT
+-demo_clients += weston-simple-dmabuf-drm
+-weston_simple_dmabuf_drm_SOURCES =			\
++demo_clients += ias-simple-dmabuf-drm
++ias_simple_dmabuf_drm_SOURCES =			\
+ 	clients/simple-dmabuf-drm.c			\
+ 	clients/simple-dmabuf-drm-data.h
+-nodist_weston_simple_dmabuf_drm_SOURCES =		\
++nodist_ias_simple_dmabuf_drm_SOURCES =		\
+ 	protocol/xdg-shell-unstable-v6-protocol.c		\
+ 	protocol/xdg-shell-unstable-v6-client-protocol.h	\
+ 	protocol/fullscreen-shell-unstable-v1-protocol.c	\
+ 	protocol/fullscreen-shell-unstable-v1-client-protocol.h \
+ 	protocol/linux-dmabuf-unstable-v1-protocol.c \
+ 	protocol/linux-dmabuf-unstable-v1-client-protocol.h
+-weston_simple_dmabuf_drm_CFLAGS = $(AM_CFLAGS) $(SIMPLE_DMABUF_DRM_CLIENT_CFLAGS) -fPIE
+-weston_simple_dmabuf_drm_LDADD = $(SIMPLE_DMABUF_DRM_CLIENT_LIBS) \
++ias_simple_dmabuf_drm_CFLAGS = $(AM_CFLAGS) $(SIMPLE_DMABUF_DRM_CLIENT_CFLAGS) -fPIE
++ias_simple_dmabuf_drm_LDADD = $(SIMPLE_DMABUF_DRM_CLIENT_LIBS) \
+ 	$(LIBDRM_PLATFORM_FREEDRENO_LIBS) \
+ 	$(LIBDRM_PLATFORM_INTEL_LIBS)     \
+ 	libshared.la
+-weston_simple_dmabuf_drm_LDFLAGS = -pie
++ias_simple_dmabuf_drm_LDFLAGS = -pie
+ endif
+ 
+ if BUILD_SIMPLE_DMABUF_V4L_CLIENT
+-demo_clients += weston-simple-dmabuf-v4l
+-weston_simple_dmabuf_v4l_SOURCES = clients/simple-dmabuf-v4l.c
+-nodist_weston_simple_dmabuf_v4l_SOURCES =		\
++demo_clients += ias-simple-dmabuf-v4l
++ias_simple_dmabuf_v4l_SOURCES = clients/simple-dmabuf-v4l.c
++nodist_ias_simple_dmabuf_v4l_SOURCES =		\
+ 	protocol/xdg-shell-unstable-v6-protocol.c		\
+ 	protocol/xdg-shell-unstable-v6-client-protocol.h	\
+ 	protocol/fullscreen-shell-unstable-v1-protocol.c	\
+ 	protocol/fullscreen-shell-unstable-v1-client-protocol.h \
+ 	protocol/linux-dmabuf-unstable-v1-protocol.c \
+ 	protocol/linux-dmabuf-unstable-v1-client-protocol.h
+-weston_simple_dmabuf_v4l_CFLAGS = $(AM_CFLAGS) $(SIMPLE_DMABUF_V4L_CLIENT_CFLAGS) -fPIE
+-weston_simple_dmabuf_v4l_LDADD = $(SIMPLE_DMABUF_V4L_CLIENT_LIBS) libshared.la
+-weston_simple_dmabuf_v4l_LDFLAGS = -pie
++ias_simple_dmabuf_v4l_CFLAGS = $(AM_CFLAGS) $(SIMPLE_DMABUF_V4L_CLIENT_CFLAGS) -fPIE
++ias_simple_dmabuf_v4l_LDADD = $(SIMPLE_DMABUF_V4L_CLIENT_LIBS) libshared.la
++ias_simple_dmabuf_v4l_LDFLAGS = -pie
+ endif
+ 
+ noinst_LTLIBRARIES += libtoytoolkit.la
+@@ -1144,172 +1144,172 @@ libtoytoolkit_la_LIBADD =			\
+ 	libshared-cairo.la $(CLOCK_GETTIME_LIBS) -lm
+ libtoytoolkit_la_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) $(CAIRO_EGL_CFLAGS)
+ 
+-weston_flower_SOURCES = clients/flower.c
+-weston_flower_LDADD = libtoytoolkit.la
+-weston_flower_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_flower_LDFLAGS = -pie
++ias_flower_SOURCES = clients/flower.c
++ias_flower_LDADD = libtoytoolkit.la
++ias_flower_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_flower_LDFLAGS = -pie
+ 
+-weston_screenshooter_SOURCES =				\
++ias_screenshooter_SOURCES =				\
+ 	clients/screenshot.c
+-nodist_weston_screenshooter_SOURCES =			\
+-	protocol/weston-screenshooter-protocol.c	\
+-	protocol/weston-screenshooter-client-protocol.h
+-weston_screenshooter_LDADD = $(CLIENT_LIBS) libshared.la
+-weston_screenshooter_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_screenshooter_LDFLAGS = -pie
+-
+-weston_terminal_SOURCES = 				\
++nodist_ias_screenshooter_SOURCES =			\
++	protocol/ias-screenshooter-protocol.c	\
++	protocol/ias-screenshooter-client-protocol.h
++ias_screenshooter_LDADD = $(CLIENT_LIBS) libshared.la
++ias_screenshooter_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_screenshooter_LDFLAGS = -pie
++
++ias_terminal_SOURCES = 				\
+ 	clients/terminal.c				\
+ 	shared/helpers.h
+-weston_terminal_LDADD = libtoytoolkit.la -lutil
+-weston_terminal_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_terminal_LDFLAGS = -pie
++ias_terminal_LDADD = libtoytoolkit.la -lutil
++ias_terminal_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_terminal_LDFLAGS = -pie
+ 
+-weston_image_SOURCES = clients/image.c
+-weston_image_LDADD = libtoytoolkit.la
+-weston_image_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_image_LDFLAGS = -pie
++ias_image_SOURCES = clients/image.c
++ias_image_LDADD = libtoytoolkit.la
++ias_image_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_image_LDFLAGS = -pie
+ 
+-weston_cliptest_SOURCES =				\
++ias_cliptest_SOURCES =				\
+ 	clients/cliptest.c				\
+-	libweston/vertex-clipping.c			\
+-	libweston/vertex-clipping.h
+-weston_cliptest_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_cliptest_LDADD = libtoytoolkit.la
+-weston_cliptest_LDFLAGS = -pie
++	libias/vertex-clipping.c			\
++	libias/vertex-clipping.h
++ias_cliptest_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_cliptest_LDADD = libtoytoolkit.la
++ias_cliptest_LDFLAGS = -pie
+ 
+-weston_dnd_SOURCES = 					\
++ias_dnd_SOURCES = 					\
+ 	clients/dnd.c					\
+ 	shared/helpers.h
+-weston_dnd_LDADD = libtoytoolkit.la
+-weston_dnd_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_dnd_LDFLAGS = -pie
++ias_dnd_LDADD = libtoytoolkit.la
++ias_dnd_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_dnd_LDFLAGS = -pie
+ 
+-weston_smoke_SOURCES = clients/smoke.c
+-weston_smoke_LDADD = libtoytoolkit.la
+-weston_smoke_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_smoke_LDFLAGS = -pie
++ias_smoke_SOURCES = clients/smoke.c
++ias_smoke_LDADD = libtoytoolkit.la
++ias_smoke_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_smoke_LDFLAGS = -pie
+ 
+-weston_resizor_SOURCES = clients/resizor.c
+-weston_resizor_LDADD = libtoytoolkit.la
+-weston_resizor_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_resizor_LDFLAGS = -pie
++ias_resizor_SOURCES = clients/resizor.c
++ias_resizor_LDADD = libtoytoolkit.la
++ias_resizor_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_resizor_LDFLAGS = -pie
+ 
+-weston_scaler_SOURCES = clients/scaler.c
+-weston_scaler_LDADD = libtoytoolkit.la
+-weston_scaler_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_scaler_LDFLAGS = -pie
++ias_scaler_SOURCES = clients/scaler.c
++ias_scaler_LDADD = libtoytoolkit.la
++ias_scaler_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_scaler_LDFLAGS = -pie
+ 
+ if HAVE_CAIRO_GLESV2
+-demo_clients += weston-nested weston-nested-client
++demo_clients += ias-nested ias-nested-client
+ 
+-weston_nested_SOURCES = 				\
++ias_nested_SOURCES = 				\
+ 	clients/nested.c				\
+ 	shared/helpers.h
+-weston_nested_LDADD = libtoytoolkit.la $(SERVER_LIBS)
+-weston_nested_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_nested_LDFLAGS = -pie
+-
+-weston_nested_client_SOURCES = clients/nested-client.c
+-weston_nested_client_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm
+-weston_nested_client_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_nested_client_LDFLAGS = -pie
++ias_nested_LDADD = libtoytoolkit.la $(SERVER_LIBS)
++ias_nested_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_nested_LDFLAGS = -pie
++
++ias_nested_client_SOURCES = clients/nested-client.c
++ias_nested_client_LDADD = $(SIMPLE_EGL_CLIENT_LIBS) -lm
++ias_nested_client_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_nested_client_LDFLAGS = -pie
+ endif
+ 
+-weston_eventdemo_SOURCES = 				\
++ias_eventdemo_SOURCES = 				\
+ 	clients/eventdemo.c				\
+ 	shared/helpers.h
+-weston_eventdemo_LDADD = libtoytoolkit.la
+-weston_eventdemo_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_eventdemo_LDFLAGS = -pie
++ias_eventdemo_LDADD = libtoytoolkit.la
++ias_eventdemo_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_eventdemo_LDFLAGS = -pie
+ 
+-weston_clickdot_SOURCES = 				\
++ias_clickdot_SOURCES = 				\
+ 	clients/clickdot.c				\
+ 	shared/helpers.h
+-weston_clickdot_LDADD = libtoytoolkit.la
+-weston_clickdot_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_clickdot_LDFLAGS = -pie
++ias_clickdot_LDADD = libtoytoolkit.la
++ias_clickdot_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_clickdot_LDFLAGS = -pie
+ 
+-weston_confine_SOURCES = 				\
++ias_confine_SOURCES = 				\
+ 	clients/confine.c				\
+ 	shared/helpers.h
+-weston_confine_LDADD = libtoytoolkit.la
+-weston_confine_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_confine_LDFLAGS = -pie
++ias_confine_LDADD = libtoytoolkit.la
++ias_confine_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_confine_LDFLAGS = -pie
+ 
+-weston_transformed_SOURCES = clients/transformed.c
+-weston_transformed_LDADD = libtoytoolkit.la
+-weston_transformed_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_transformed_LDFLAGS = -pie
++ias_transformed_SOURCES = clients/transformed.c
++ias_transformed_LDADD = libtoytoolkit.la
++ias_transformed_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_transformed_LDFLAGS = -pie
+ 
+-weston_fullscreen_SOURCES = clients/fullscreen.c
+-nodist_weston_fullscreen_SOURCES =			\
++ias_fullscreen_SOURCES = clients/fullscreen.c
++nodist_ias_fullscreen_SOURCES =			\
+ 	protocol/fullscreen-shell-unstable-v1-protocol.c		\
+ 	protocol/fullscreen-shell-unstable-v1-client-protocol.h
+-weston_fullscreen_LDADD = libtoytoolkit.la
+-weston_fullscreen_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_fullscreen_LDFLAGS = -pie
++ias_fullscreen_LDADD = libtoytoolkit.la
++ias_fullscreen_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_fullscreen_LDFLAGS = -pie
+ 
+-weston_stacking_SOURCES = 				\
++ias_stacking_SOURCES = 				\
+ 	clients/stacking.c				\
+ 	shared/helpers.h
+-weston_stacking_LDADD = libtoytoolkit.la
+-weston_stacking_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_stacking_LDFLAGS = -pie
++ias_stacking_LDADD = libtoytoolkit.la
++ias_stacking_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_stacking_LDFLAGS = -pie
+ 
+-weston_calibrator_SOURCES = 				\
++ias_calibrator_SOURCES = 				\
+ 	clients/calibrator.c				\
+ 	shared/helpers.h				\
+ 	shared/matrix.c					\
+ 	shared/matrix.h
+-weston_calibrator_LDADD = libtoytoolkit.la
+-weston_calibrator_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_calibrator_LDFLAGS = -pie
++ias_calibrator_LDADD = libtoytoolkit.la
++ias_calibrator_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_calibrator_LDFLAGS = -pie
+ 
+ if BUILD_SUBSURFACES_CLIENT
+-demo_clients += weston-subsurfaces
+-weston_subsurfaces_SOURCES = 			\
++demo_clients += ias-subsurfaces
++ias_subsurfaces_SOURCES = 			\
+ 	clients/subsurfaces.c			\
+ 	shared/helpers.h
+-weston_subsurfaces_CFLAGS =			\
++ias_subsurfaces_CFLAGS =			\
+ 	$(AM_CFLAGS)				\
+ 	$(SIMPLE_EGL_CLIENT_CFLAGS)		\
+ 	$(CLIENT_CFLAGS)			\
+ 	-fPIE
+-weston_subsurfaces_LDADD = libtoytoolkit.la $(SIMPLE_EGL_CLIENT_LIBS) -lm
+-weston_subsurfaces_LDFLAGS = -pie
++ias_subsurfaces_LDADD = libtoytoolkit.la $(SIMPLE_EGL_CLIENT_LIBS) -lm
++ias_subsurfaces_LDFLAGS = -pie
+ endif
+ 
+ if HAVE_PANGO
+-demo_clients += weston-editor
+-weston_editor_SOURCES = 			\
++demo_clients += ias-editor
++ias_editor_SOURCES = 			\
+ 	clients/editor.c			\
+ 	shared/helpers.h
+-nodist_weston_editor_SOURCES =			\
++nodist_ias_editor_SOURCES =			\
+ 	protocol/text-input-unstable-v1-protocol.c		\
+ 	protocol/text-input-unstable-v1-client-protocol.h
+-weston_editor_LDADD = libtoytoolkit.la $(PANGO_LIBS)
+-weston_editor_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) $(PANGO_CFLAGS) -fPIE
+-weston_editor_LDFLAGS = -pie
++ias_editor_LDADD = libtoytoolkit.la $(PANGO_LIBS)
++ias_editor_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) $(PANGO_CFLAGS) -fPIE
++ias_editor_LDFLAGS = -pie
+ endif
+ 
+-weston_keyboard_SOURCES = clients/keyboard.c
+-nodist_weston_keyboard_SOURCES =				\
+-	protocol/weston-desktop-shell-client-protocol.h		\
+-	protocol/weston-desktop-shell-protocol.c		\
++ias_keyboard_SOURCES = clients/keyboard.c
++nodist_ias_keyboard_SOURCES =				\
++	protocol/ias-desktop-shell-client-protocol.h		\
++	protocol/ias-desktop-shell-protocol.c		\
+ 	protocol/input-method-unstable-v1-protocol.c		\
+ 	protocol/input-method-unstable-v1-client-protocol.h
+-weston_keyboard_LDADD = libtoytoolkit.la
+-weston_keyboard_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_keyboard_LDFLAGS = -pie
++ias_keyboard_LDADD = libtoytoolkit.la
++ias_keyboard_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_keyboard_LDFLAGS = -pie
+ 
+-weston_simple_im_SOURCES = clients/simple-im.c
+-nodist_weston_simple_im_SOURCES =		\
++ias_simple_im_SOURCES = clients/simple-im.c
++nodist_ias_simple_im_SOURCES =		\
+ 	protocol/input-method-unstable-v1-protocol.c		\
+ 	protocol/input-method-unstable-v1-client-protocol.h
+-weston_simple_im_LDADD = $(CLIENT_LIBS)
+-weston_simple_im_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_simple_im_LDFLAGS = -pie
++ias_simple_im_LDADD = $(CLIENT_LIBS)
++ias_simple_im_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_simple_im_LDFLAGS = -pie
+ 
+ ias_test_hmi_SOURCES = clients/ias-test-hmi.c
+ nodist_ias_test_hmi_SOURCES =		\
+@@ -1319,48 +1319,48 @@ ias_test_hmi_LDADD = $(CLIENT_LIBS) libtoytoolkit.la
+ ias_test_hmi_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -DDATADIR='"$(datadir)"' -fPIE
+ ias_test_hmi_LDFLAGS = -pie
+ 
+-weston_info_SOURCES = 					\
+-	clients/weston-info.c				\
++ias_info_SOURCES = 					\
++	clients/ias-info.c				\
+ 	shared/helpers.h
+-nodist_weston_info_SOURCES =				\
++nodist_ias_info_SOURCES =				\
+ 	protocol/presentation-time-protocol.c		\
+ 	protocol/presentation-time-client-protocol.h	\
+ 	protocol/linux-dmabuf-unstable-v1-protocol.c	\
+ 	protocol/linux-dmabuf-unstable-v1-client-protocol.h
+-weston_info_LDADD = $(WESTON_INFO_LIBS) libshared.la
+-weston_info_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_info_LDFLAGS = -pie
++ias_info_LDADD = $(WESTON_INFO_LIBS) libshared.la
++ias_info_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_info_LDFLAGS = -pie
+ 
+-weston_desktop_shell_SOURCES = 				\
++ias_desktop_shell_SOURCES = 				\
+ 	clients/desktop-shell.c				\
+ 	shared/helpers.h
+-nodist_weston_desktop_shell_SOURCES =			\
+-	protocol/weston-desktop-shell-client-protocol.h	\
+-	protocol/weston-desktop-shell-protocol.c
+-weston_desktop_shell_LDADD = libtoytoolkit.la
+-weston_desktop_shell_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_desktop_shell_LDFLAGS = -pie
++nodist_ias_desktop_shell_SOURCES =			\
++	protocol/ias-desktop-shell-client-protocol.h	\
++	protocol/ias-desktop-shell-protocol.c
++ias_desktop_shell_LDADD = libtoytoolkit.la
++ias_desktop_shell_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_desktop_shell_LDFLAGS = -pie
+ 
+ if ENABLE_IVI_SHELL
+-weston_ivi_shell_user_interface_SOURCES = 				\
++ias_ivi_shell_user_interface_SOURCES = 				\
+ 	clients/ivi-shell-user-interface.c				\
+ 	shared/helpers.h
+-nodist_weston_ivi_shell_user_interface_SOURCES =			\
++nodist_ias_ivi_shell_user_interface_SOURCES =			\
+ 	protocol/ivi-hmi-controller-client-protocol.h			\
+ 	protocol/ivi-hmi-controller-protocol.c				\
+ 	protocol/ivi-application-client-protocol.h			\
+         protocol/ivi-application-protocol.c
+-weston_ivi_shell_user_interface_LDADD = libtoytoolkit.la
+-weston_ivi_shell_user_interface_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_ivi_shell_user_interface_LDFLAGS = -pie
++ias_ivi_shell_user_interface_LDADD = libtoytoolkit.la
++ias_ivi_shell_user_interface_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_ivi_shell_user_interface_LDFLAGS = -pie
+ endif
+ 
+ if BUILD_FULL_GL_CLIENTS
+-demo_clients += weston-gears
+-weston_gears_SOURCES = clients/gears.c
+-weston_gears_LDADD = libtoytoolkit.la
+-weston_gears_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
+-weston_gears_LDFLAGS = -pie
++demo_clients += ias-gears
++ias_gears_SOURCES = clients/gears.c
++ias_gears_LDADD = libtoytoolkit.la
++ias_gears_CFLAGS = $(AM_CFLAGS) $(CLIENT_CFLAGS) -fPIE
++ias_gears_LDFLAGS = -pie
+ endif
+ 
+ endif
+@@ -1368,8 +1368,8 @@ endif
+ BUILT_SOURCES +=					\
+ 	protocol/ias-backend-server-protocol.h		\
+ 	protocol/ias-backend-client-protocol.h		\
+-	protocol/weston-screenshooter-protocol.c			\
+-	protocol/weston-screenshooter-client-protocol.h			\
++	protocol/ias-screenshooter-protocol.c			\
++	protocol/ias-screenshooter-client-protocol.h			\
+ 	protocol/ias-backend-protocol.c				\
+ 	protocol/ias-shell-server-protocol.h	\
+ 	protocol/ias-shell-protocol.c		\
+@@ -1383,8 +1383,8 @@ BUILT_SOURCES +=					\
+ 	protocol/text-input-unstable-v1-client-protocol.h		\
+ 	protocol/input-method-unstable-v1-protocol.c			\
+ 	protocol/input-method-unstable-v1-client-protocol.h		\
+-	protocol/weston-desktop-shell-client-protocol.h			\
+-	protocol/weston-desktop-shell-protocol.c			\
++	protocol/ias-desktop-shell-client-protocol.h			\
++	protocol/ias-desktop-shell-protocol.c			\
+ 	protocol/viewporter-client-protocol.h		\
+ 	protocol/viewporter-protocol.c			\
+ 	protocol/presentation-time-protocol.c				\
+@@ -1404,8 +1404,8 @@ BUILT_SOURCES +=					\
+ 	protocol/input-timestamps-unstable-v1-protocol.c		\
+ 	protocol/input-timestamps-unstable-v1-client-protocol.h
+ 
+-westondatadir = $(datadir)/weston
+-dist_westondata_DATA =				\
++iasdatadir = $(datadir)/ias
++dist_iasdata_DATA =				\
+ 	data/wayland.svg			\
+ 	data/wayland.png			\
+ 	data/pattern.png			\
+@@ -1421,7 +1421,7 @@ dist_westondata_DATA =				\
+ 	data/sign_minimize.png
+ 
+ if ENABLE_IVI_SHELL
+-dist_westondata_DATA +=				\
++dist_iasdata_DATA +=				\
+ 	data/background.png                     \
+ 	data/tiling.png                         \
+ 	data/fullscreen.png                     \
+@@ -1458,15 +1458,15 @@ module_LTLIBRARIES += desktop-shell.la
+ desktop_shell_la_CPPFLAGS =			\
+ 	-I$(top_builddir)/protocol		\
+ 	-I$(top_srcdir)/shared			\
+-	-I$(top_builddir)/libweston		\
+-	-I$(top_srcdir)/libweston		\
++	-I$(top_builddir)/libias		\
++	-I$(top_srcdir)/libias		\
+ 	-I$(top_builddir)/desktop-shell		\
+ 	-DMODULEDIR='"$(moduledir)"'		\
+ 	-DLIBEXECDIR='"$(libexecdir)"'		\
+ 	-DIN_WESTON
+ 
+ desktop_shell_la_LDFLAGS = -module -avoid-version
+-desktop_shell_la_LIBADD = libshared.la libweston-desktop-@LIBWESTON_MAJOR@.la $(COMPOSITOR_LIBS)
++desktop_shell_la_LIBADD = libshared.la libias-desktop-@LIBWESTON_MAJOR@.la $(COMPOSITOR_LIBS)
+ desktop_shell_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+ desktop_shell_la_SOURCES =				\
+ 	desktop-shell/shell.h				\
+@@ -1475,8 +1475,8 @@ desktop_shell_la_SOURCES =				\
+ 	desktop-shell/input-panel.c			\
+ 	shared/helpers.h
+ nodist_desktop_shell_la_SOURCES =			\
+-	protocol/weston-desktop-shell-protocol.c	\
+-	protocol/weston-desktop-shell-server-protocol.h
++	protocol/ias-desktop-shell-protocol.c	\
++	protocol/ias-desktop-shell-server-protocol.h
+ 
+ BUILT_SOURCES += $(nodist_desktop_shell_la_SOURCES)
+ endif
+@@ -1488,13 +1488,13 @@ module_LTLIBRARIES += fullscreen-shell.la
+ fullscreen_shell_la_CPPFLAGS =			\
+ 	-I$(top_builddir)/protocol		\
+ 	-I$(top_srcdir)/shared			\
+-	-I$(top_builddir)/libweston		\
+-	-I$(top_srcdir)/libweston		\
++	-I$(top_builddir)/libias		\
++	-I$(top_srcdir)/libias		\
+ 	-DIN_WESTON
+ 
+ fullscreen_shell_la_LDFLAGS = -module -avoid-version
+ fullscreen_shell_la_LIBADD =			\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)
+ fullscreen_shell_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+ fullscreen_shell_la_SOURCES =			\
+@@ -1522,7 +1522,7 @@ ivi_shell = ivi-shell.la
+ ivi_shell_la_LDFLAGS = -module -avoid-version
+ ivi_shell_la_LIBADD =				\
+ 	libshared.la				\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)
+ ivi_shell_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+ ivi_shell_la_SOURCES =				\
+@@ -1545,7 +1545,7 @@ hmi_controller = hmi-controller.la
+ hmi_controller_la_LDFLAGS = -module -avoid-version
+ hmi_controller_la_LIBADD =			\
+ 	libshared.la				\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)
+ hmi_controller_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+ hmi_controller_la_SOURCES =				\
+@@ -1569,7 +1569,7 @@ screen_share_la_CPPFLAGS = $(AM_CPPFLAGS) -DBINDIR='"$(bindir)"'
+ screen_share_la_LDFLAGS = -module -avoid-version
+ screen_share_la_LIBADD =			\
+ 	libshared-cairo.la			\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(COMPOSITOR_LIBS)			\
+ 	$(SCREEN_SHARE_LIBS)
+ screen_share_la_CFLAGS =			\
+@@ -1587,13 +1587,13 @@ endif
+ 
+ if ENABLE_XWAYLAND
+ 
+-libweston_module_LTLIBRARIES += xwayland.la
++libias_module_LTLIBRARIES += xwayland.la
+ 
+ xwayland_la_CPPFLAGS =				\
+ 	-I$(top_builddir)/protocol		\
+ 	-I$(top_srcdir)/shared			\
+-	-I$(top_builddir)/libweston		\
+-	-I$(top_srcdir)/libweston		\
++	-I$(top_builddir)/libias		\
++	-I$(top_srcdir)/libias		\
+ 	-I$(top_builddir)/xwayland		\
+ 	-DMODULEDIR='"$(moduledir)"'		\
+ 	-DLIBEXECDIR='"$(libexecdir)"'
+@@ -1601,7 +1601,7 @@ xwayland_la_CPPFLAGS =				\
+ xwayland_la_LDFLAGS = -module -avoid-version
+ xwayland_la_LIBADD =				\
+ 	libshared-cairo.la			\
+-	libweston-@LIBWESTON_MAJOR@.la		\
++	libias-@LIBWESTON_MAJOR@.la		\
+ 	$(XWAYLAND_LIBS)
+ xwayland_la_CFLAGS =				\
+ 	$(AM_CFLAGS)				\
+@@ -1619,7 +1619,7 @@ xwayland_la_SOURCES =				\
+ 	xwayland/hash.h				\
+ 	shared/helpers.h
+ 
+-libwestoninclude_HEADERS += xwayland/xwayland-api.h
++libiasinclude_HEADERS += xwayland/xwayland-api.h
+ 
+ endif
+ 
+@@ -1723,10 +1723,10 @@ libzunitcmain_la_LIBADD =	\
+ # tests subdirectory
+ #
+ 
+-TESTS = $(internal_tests) $(shared_tests) $(module_tests) $(weston_tests) $(ivi_tests)
++TESTS = $(internal_tests) $(shared_tests) $(module_tests) $(ias_tests) $(ivi_tests)
+ 
+ internal_tests = 				\
+-	internal-screenshot.weston
++	internal-screenshot.ias
+ 
+ shared_tests =					\
+ 	config-parser.test			\
+@@ -1740,27 +1740,27 @@ module_tests =					\
+ 	surface-test.la				\
+ 	surface-global-test.la
+ 
+-weston_tests =					\
+-	bad_buffer.weston			\
+-	keyboard.weston				\
+-	event.weston				\
+-	pointer.weston				\
+-	text.weston				\
+-	presentation.weston			\
+-	viewporter.weston			\
+-	roles.weston				\
+-	subsurface.weston			\
+-	subsurface-shot.weston			\
+-	devices.weston				\
+-	touch.weston
++ias_tests =					\
++	bad_buffer.ias			\
++	keyboard.ias				\
++	event.ias				\
++	pointer.ias				\
++	text.ias				\
++	presentation.ias			\
++	viewporter.ias			\
++	roles.ias				\
++	subsurface.ias			\
++	subsurface-shot.ias			\
++	devices.ias				\
++	touch.ias
+ 
+ AM_TESTS_ENVIRONMENT = \
+ 	abs_builddir='$(abs_builddir)'; export abs_builddir; \
+ 	abs_top_srcdir='$(abs_top_srcdir)'; export abs_top_srcdir;
+ 
+-TEST_EXTENSIONS = .la .weston
+-LA_LOG_COMPILER = $(srcdir)/tests/weston-tests-env
+-WESTON_LOG_COMPILER = $(srcdir)/tests/weston-tests-env
++TEST_EXTENSIONS = .la .ias
++LA_LOG_COMPILER = $(srcdir)/tests/ias-tests-env
++WESTON_LOG_COMPILER = $(srcdir)/tests/ias-tests-env
+ 
+ clean-local:
+ 	-rm -rf logs
+@@ -1770,8 +1770,8 @@ clean-local:
+ export abs_builddir
+ 
+ noinst_LTLIBRARIES +=			\
+-	weston-test.la			\
+-	weston-test-desktop-shell.la	\
++	ias-test.la			\
++	ias-test-desktop-shell.la	\
+ 	$(module_tests)			\
+ 	libtest-runner.la		\
+ 	libtest-client.la
+@@ -1780,13 +1780,13 @@ noinst_PROGRAMS +=			\
+ 	$(setbacklight)			\
+ 	$(internal_tests)		\
+ 	$(shared_tests)			\
+-	$(weston_tests)			\
++	$(ias_tests)			\
+ 	$(ivi_tests)			\
+ 	matrix-test
+ 
+ test_module_ldflags = -module -avoid-version -rpath $(libdir)
+ test_module_libadd =			\
+-	libweston-@LIBWESTON_MAJOR@.la	\
++	libias-@LIBWESTON_MAJOR@.la	\
+ 	$(COMPOSITOR_LIBS)
+ 
+ plugin_registry_test_la_SOURCES = tests/plugin-registry-test.c
+@@ -1804,31 +1804,31 @@ surface_test_la_LIBADD = $(test_module_libadd)
+ surface_test_la_LDFLAGS = $(test_module_ldflags)
+ surface_test_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+ 
+-weston_test_la_LIBADD = libshared.la $(test_module_libadd)
+-weston_test_la_LDFLAGS = $(test_module_ldflags)
+-weston_test_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+-weston_test_la_SOURCES = 			\
+-	tests/weston-test.c			\
++ias_test_la_LIBADD = libshared.la $(test_module_libadd)
++ias_test_la_LDFLAGS = $(test_module_ldflags)
++ias_test_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
++ias_test_la_SOURCES = 			\
++	tests/ias-test.c			\
+ 	shared/helpers.h
+-nodist_weston_test_la_SOURCES =			\
+-	protocol/weston-test-protocol.c	\
+-	protocol/weston-test-server-protocol.h
+-
+-weston_test_desktop_shell_la_LIBADD = libshared.la libweston-desktop-@LIBWESTON_MAJOR@.la $(COMPOSITOR_LIBS)
+-weston_test_desktop_shell_la_LDFLAGS = $(test_module_ldflags)
+-weston_test_desktop_shell_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+-weston_test_desktop_shell_la_SOURCES = 			\
+-	tests/weston-test-desktop-shell.c		\
++nodist_ias_test_la_SOURCES =			\
++	protocol/ias-test-protocol.c	\
++	protocol/ias-test-server-protocol.h
++
++ias_test_desktop_shell_la_LIBADD = libshared.la libias-desktop-@LIBWESTON_MAJOR@.la $(COMPOSITOR_LIBS)
++ias_test_desktop_shell_la_LDFLAGS = $(test_module_ldflags)
++ias_test_desktop_shell_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
++ias_test_desktop_shell_la_SOURCES = 			\
++	tests/ias-test-desktop-shell.c		\
+ 	shared/helpers.h
+ 
+ if ENABLE_EGL
+-weston_test_la_CFLAGS += $(EGL_TESTS_CFLAGS)
+-weston_test_la_LDFLAGS += $(EGL_TESTS_LIBS)
++ias_test_la_CFLAGS += $(EGL_TESTS_CFLAGS)
++ias_test_la_LDFLAGS += $(EGL_TESTS_LIBS)
+ endif
+ 
+ libtest_runner_la_SOURCES =			\
+-	tests/weston-test-runner.c		\
+-	tests/weston-test-runner.h
++	tests/ias-test-runner.c		\
++	tests/ias-test-runner.h
+ libtest_runner_la_CFLAGS = $(AM_CFLAGS) $(COMPOSITOR_CFLAGS)
+ 
+ config_parser_test_SOURCES = tests/config-parser-test.c
+@@ -1859,18 +1859,18 @@ string_test_LDADD =	libtest-client.la
+ vertex_clip_test_SOURCES =			\
+ 	tests/vertex-clip-test.c		\
+ 	shared/helpers.h			\
+-	libweston/vertex-clipping.c		\
+-	libweston/vertex-clipping.h
++	libias/vertex-clipping.c		\
++	libias/vertex-clipping.h
+ vertex_clip_test_LDADD = libtest-runner.la -lm $(CLOCK_GETTIME_LIBS)
+ 
+ libtest_client_la_SOURCES =			\
+-	tests/weston-test-client-helper.c	\
+-	tests/weston-test-client-helper.h	\
++	tests/ias-test-client-helper.c	\
++	tests/ias-test-client-helper.h	\
+ 	tests/input-timestamps-helper.c		\
+ 	tests/input-timestamps-helper.h
+ nodist_libtest_client_la_SOURCES =				\
+-	protocol/weston-test-protocol.c				\
+-	protocol/weston-test-client-protocol.h			\
++	protocol/ias-test-protocol.c				\
++	protocol/ias-test-client-protocol.h			\
+ 	protocol/input-timestamps-unstable-v1-protocol.c	\
+ 	protocol/input-timestamps-unstable-v1-client-protocol.h
+ libtest_client_la_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS) $(CAIRO_CFLAGS)
+@@ -1881,82 +1881,82 @@ libtest_client_la_LIBADD = libshared.la libtest-runner.la $(TEST_CLIENT_LIBS) $(
+ # Internal tests - tests functionality of the testsuite itself
+ #
+ 
+-internal_screenshot_weston_SOURCES = tests/internal-screenshot-test.c
+-internal_screenshot_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-internal_screenshot_weston_LDADD = libtest-client.la
++internal_screenshot_ias_SOURCES = tests/internal-screenshot-test.c
++internal_screenshot_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++internal_screenshot_ias_LDADD = libtest-client.la
+ 
+ 
+ #
+-# Weston Tests
++# IAS Tests
+ #
+ 
+-bad_buffer_weston_SOURCES = tests/bad-buffer-test.c
+-bad_buffer_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-bad_buffer_weston_LDADD = libtest-client.la
++bad_buffer_ias_SOURCES = tests/bad-buffer-test.c
++bad_buffer_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++bad_buffer_ias_LDADD = libtest-client.la
+ 
+-keyboard_weston_SOURCES = tests/keyboard-test.c
+-keyboard_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-keyboard_weston_LDADD = libtest-client.la
++keyboard_ias_SOURCES = tests/keyboard-test.c
++keyboard_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++keyboard_ias_LDADD = libtest-client.la
+ 
+-event_weston_SOURCES = tests/event-test.c
+-event_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-event_weston_LDADD = libtest-client.la
++event_ias_SOURCES = tests/event-test.c
++event_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++event_ias_LDADD = libtest-client.la
+ 
+-pointer_weston_SOURCES = tests/pointer-test.c
+-pointer_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-pointer_weston_LDADD = libtest-client.la
++pointer_ias_SOURCES = tests/pointer-test.c
++pointer_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++pointer_ias_LDADD = libtest-client.la
+ 
+-devices_weston_SOURCES = tests/devices-test.c
+-devices_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-devices_weston_LDADD = libtest-client.la
++devices_ias_SOURCES = tests/devices-test.c
++devices_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++devices_ias_LDADD = libtest-client.la
+ 
+-text_weston_SOURCES = tests/text-test.c
+-nodist_text_weston_SOURCES =			\
++text_ias_SOURCES = tests/text-test.c
++nodist_text_ias_SOURCES =			\
+ 	protocol/text-input-unstable-v1-protocol.c		\
+ 	protocol/text-input-unstable-v1-client-protocol.h
+-text_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-text_weston_LDADD = libtest-client.la
++text_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++text_ias_LDADD = libtest-client.la
+ 
+-subsurface_weston_SOURCES = tests/subsurface-test.c
+-subsurface_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-subsurface_weston_LDADD = libtest-client.la
++subsurface_ias_SOURCES = tests/subsurface-test.c
++subsurface_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++subsurface_ias_LDADD = libtest-client.la
+ 
+-subsurface_shot_weston_SOURCES = tests/subsurface-shot-test.c
+-subsurface_shot_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-subsurface_shot_weston_LDADD = libtest-client.la
++subsurface_shot_ias_SOURCES = tests/subsurface-shot-test.c
++subsurface_shot_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++subsurface_shot_ias_LDADD = libtest-client.la
+ 
+-presentation_weston_SOURCES = 			\
++presentation_ias_SOURCES = 			\
+ 	tests/presentation-test.c		\
+ 	shared/helpers.h
+-nodist_presentation_weston_SOURCES =		\
++nodist_presentation_ias_SOURCES =		\
+ 	protocol/presentation-time-protocol.c	\
+ 	protocol/presentation-time-client-protocol.h
+-presentation_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-presentation_weston_LDADD = libtest-client.la
++presentation_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++presentation_ias_LDADD = libtest-client.la
+ 
+-roles_weston_SOURCES = tests/roles-test.c
+-roles_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-roles_weston_LDADD = libtest-client.la
++roles_ias_SOURCES = tests/roles-test.c
++roles_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++roles_ias_LDADD = libtest-client.la
+ 
+-viewporter_weston_SOURCES = 			\
++viewporter_ias_SOURCES = 			\
+ 	tests/viewporter-test.c		\
+ 	shared/helpers.h
+-nodist_viewporter_weston_SOURCES =		\
++nodist_viewporter_ias_SOURCES =		\
+ 	protocol/viewporter-protocol.c	\
+ 	protocol/viewporter-client-protocol.h
+-viewporter_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-viewporter_weston_LDADD = libtest-client.la
++viewporter_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++viewporter_ias_LDADD = libtest-client.la
+ 
+-touch_weston_SOURCES = tests/touch-test.c
+-touch_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-touch_weston_LDADD = libtest-client.la
++touch_ias_SOURCES = tests/touch-test.c
++touch_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++touch_ias_LDADD = libtest-client.la
+ 
+ if ENABLE_XWAYLAND_TEST
+-weston_tests +=	xwayland-test.weston
+-xwayland_test_weston_SOURCES = tests/xwayland-test.c
+-xwayland_test_weston_CFLAGS = \
++ias_tests +=	xwayland-test.ias
++xwayland_test_ias_SOURCES = tests/xwayland-test.c
++xwayland_test_ias_CFLAGS = \
+ 	$(AM_CFLAGS) $(XWAYLAND_TEST_CFLAGS) -DXSERVER_PATH='"@XSERVER_PATH@"'
+-xwayland_test_weston_LDADD = libtest-client.la $(XWAYLAND_TEST_LIBS)
++xwayland_test_ias_LDADD = libtest-client.la $(XWAYLAND_TEST_LIBS)
+ endif
+ 
+ matrix_test_SOURCES =				\
+@@ -1985,18 +1985,18 @@ ivi_layout_test_la_SOURCES =			\
+ 	tests/ivi-test.h			\
+ 	shared/helpers.h
+ nodist_ivi_layout_test_la_SOURCES =		\
+-	protocol/weston-test-protocol.c		\
+-	protocol/weston-test-server-protocol.h
++	protocol/ias-test-protocol.c		\
++	protocol/ias-test-server-protocol.h
+ 
+ ivi_tests =					\
+-	ivi-shell-app.weston
++	ivi-shell-app.ias
+ 
+-ivi_shell_app_weston_SOURCES = tests/ivi-shell-app-test.c
+-nodist_ivi_shell_app_weston_SOURCES =		\
++ivi_shell_app_ias_SOURCES = tests/ivi-shell-app-test.c
++nodist_ivi_shell_app_ias_SOURCES =		\
+ 	protocol/ivi-application-protocol.c	\
+ 	protocol/ivi-application-client-protocol.h
+-ivi_shell_app_weston_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
+-ivi_shell_app_weston_LDADD = libtest-client.la
++ivi_shell_app_ias_CFLAGS = $(AM_CFLAGS) $(TEST_CLIENT_CFLAGS)
++ivi_shell_app_ias_LDADD = libtest-client.la
+ 
+ noinst_PROGRAMS += ivi-layout.ivi
+ 
+@@ -2015,8 +2015,8 @@ if BUILD_SETBACKLIGHT
+ noinst_PROGRAMS += setbacklight
+ setbacklight_SOURCES =				\
+ 	tests/setbacklight.c			\
+-	libweston/libbacklight.c		\
+-	libweston/libbacklight.h
++	libias/libbacklight.c		\
++	libias/libbacklight.h
+ setbacklight_CFLAGS = $(AM_CFLAGS) $(SETBACKLIGHT_CFLAGS)
+ setbacklight_LDADD = $(SETBACKLIGHT_LIBS)
+ endif
+@@ -2046,21 +2046,21 @@ EXTRA_DIST +=							\
+ 	tests/reference/subsurface_z_order-02.png		\
+ 	tests/reference/subsurface_z_order-03.png		\
+ 	tests/reference/subsurface_z_order-04.png		\
+-	tests/weston-tests-env
++	tests/ias-tests-env
+ 
+ BUILT_SOURCES +=				\
+-	protocol/weston-test-protocol.c	\
+-	protocol/weston-test-server-protocol.h	\
+-	protocol/weston-test-client-protocol.h	\
++	protocol/ias-test-protocol.c	\
++	protocol/ias-test-server-protocol.h	\
++	protocol/ias-test-client-protocol.h	\
+ 	protocol/text-input-unstable-v1-protocol.c		\
+ 	protocol/text-input-unstable-v1-client-protocol.h
+ 
+ EXTRA_DIST +=					\
+-	protocol/weston-desktop-shell.xml	\
++	protocol/ias-desktop-shell.xml	\
+ 	protocol/ias-shell.xml		\
+-	protocol/weston-screenshooter.xml	\
++	protocol/ias-screenshooter.xml	\
+ 	protocol/text-cursor-position.xml	\
+-	protocol/weston-test.xml		\
++	protocol/ias-test.xml		\
+ 	protocol/ias-backend.xml		\
+ 	protocol/ias-layout-manager.xml		\
+ 	protocol/ias-input-manager.xml		\
+@@ -2085,20 +2085,20 @@ surface_screenshot_la_SOURCES = tests/surface-screenshot.c
+ # Documentation
+ #
+ 
+-man_MANS = weston.1 weston.ini.5
++man_MANS = ias.1 ias.ini.5
+ 
+ if ENABLE_DRM_COMPOSITOR
+-man_MANS += weston-drm.7
++man_MANS += ias-drm.7
+ endif
+ 
+ if ENABLE_RDP_COMPOSITOR
+-man_MANS += weston-rdp.7
++man_MANS += ias-rdp.7
+ endif
+ 
+ MAN_SUBSTS =								\
+-	-e 's|__weston_native_backend__|$(WESTON_NATIVE_BACKEND)|g'	\
+-	-e 's|__weston_modules_dir__|$(pkglibdir)|g'			\
+-	-e 's|__weston_shell_client__|$(WESTON_SHELL_CLIENT)|g'		\
++	-e 's|__ias_native_backend__|$(WESTON_NATIVE_BACKEND)|g'	\
++	-e 's|__ias_modules_dir__|$(pkglibdir)|g'			\
++	-e 's|__ias_shell_client__|$(WESTON_SHELL_CLIENT)|g'		\
+ 	-e 's|__version__|$(PACKAGE_VERSION)|g'
+ 
+ SUFFIXES = .1 .5 .7 .man
+@@ -2107,10 +2107,10 @@ SUFFIXES = .1 .5 .7 .man
+ 	$(AM_V_GEN)$(SED) $(MAN_SUBSTS) < $< > $@
+ 
+ EXTRA_DIST +=					\
+-	man/weston.man				\
+-	man/weston-drm.man			\
+-	man/weston-rdp.man			\
+-	man/weston.ini.man
++	man/ias.man				\
++	man/ias-drm.man			\
++	man/ias-rdp.man			\
++	man/ias.ini.man
+ 
+ CLEANFILES += $(man_MANS)
+ 
+diff --git a/clients/cliptest.c b/clients/cliptest.c
+index 99d7b1b..ce1b735 100644
+--- a/clients/cliptest.c
++++ b/clients/cliptest.c
+@@ -49,7 +49,7 @@
+ #include <linux/input.h>
+ #include <wayland-client.h>
+ 
+-#include "libweston/vertex-clipping.h"
++#include "libias/vertex-clipping.h"
+ #include "shared/xalloc.h"
+ #include "window.h"
+ 
+diff --git a/clients/desktop-shell.c b/clients/desktop-shell.c
+index f3363d7..027f689 100644
+--- a/clients/desktop-shell.c
++++ b/clients/desktop-shell.c
+@@ -49,7 +49,7 @@
+ #include "shared/zalloc.h"
+ #include "shared/file-util.h"
+ 
+-#include "weston-desktop-shell-client-protocol.h"
++#include "ias-desktop-shell-client-protocol.h"
+ 
+ #define DEFAULT_CLOCK_FORMAT CLOCK_FORMAT_MINUTES
+ 
+diff --git a/clients/weston-info.c b/clients/ias-info.c
+similarity index 100%
+rename from clients/weston-info.c
+rename to clients/ias-info.c
+diff --git a/clients/nested.c b/clients/nested.c
+index e2bdf68..5581fb6 100644
+--- a/clients/nested.c
++++ b/clients/nested.c
+@@ -50,7 +50,7 @@
+ #include "shared/xalloc.h"
+ #include "window.h"
+ 
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ 
+ 
+ static int option_blit;
+diff --git a/clients/screenshot.c b/clients/screenshot.c
+index 78a5d42..d7fc0f6 100644
+--- a/clients/screenshot.c
++++ b/clients/screenshot.c
+@@ -36,7 +36,7 @@
+ #include <cairo.h>
+ 
+ #include <wayland-client.h>
+-#include "weston-screenshooter-client-protocol.h"
++#include "ias-screenshooter-client-protocol.h"
+ #include "shared/os-compatibility.h"
+ #include "shared/xalloc.h"
+ #include "shared/file-util.h"
+diff --git a/clients/simple-egl.c b/clients/simple-egl.c
+index db0d339..cb1260d 100644
+--- a/clients/simple-egl.c
++++ b/clients/simple-egl.c
+@@ -51,7 +51,7 @@
+ 
+ #include "shared/helpers.h"
+ #include "shared/platform.h"
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ 
+ struct window;
+ struct seat;
+diff --git a/compositor/cms-colord.c b/compositor/cms-colord.c
+index 0daa2a7..b71ce17 100644
+--- a/compositor/cms-colord.c
++++ b/compositor/cms-colord.c
+@@ -34,7 +34,7 @@
+ #include <colord.h>
+ 
+ #include "compositor.h"
+-#include "weston.h"
++#include "ias.h"
+ #include "cms-helper.h"
+ #include "shared/helpers.h"
+ 
+diff --git a/compositor/cms-static.c b/compositor/cms-static.c
+index e24501b..0ad7d15 100644
+--- a/compositor/cms-static.c
++++ b/compositor/cms-static.c
+@@ -31,7 +31,7 @@
+ #include "compositor.h"
+ #include "cms-helper.h"
+ #include "shared/helpers.h"
+-#include "weston.h"
++#include "ias.h"
+ 
+ struct cms_static {
+ 	struct weston_compositor	*ec;
+diff --git a/compositor/weston-screenshooter.c b/compositor/ias-screenshooter.c
+similarity index 98%
+rename from compositor/weston-screenshooter.c
+rename to compositor/ias-screenshooter.c
+index 167596b..01339eb 100644
+--- a/compositor/weston-screenshooter.c
++++ b/compositor/ias-screenshooter.c
+@@ -29,8 +29,8 @@
+ #include <linux/input.h>
+ 
+ #include "compositor.h"
+-#include "weston.h"
+-#include "weston-screenshooter-server-protocol.h"
++#include "ias.h"
++#include "ias-screenshooter-server-protocol.h"
+ #include "shared/helpers.h"
+ 
+ struct screenshooter {
+diff --git a/compositor/weston.desktop b/compositor/ias.desktop
+similarity index 100%
+rename from compositor/weston.desktop
+rename to compositor/ias.desktop
+diff --git a/compositor/weston.h b/compositor/ias.h
+similarity index 100%
+rename from compositor/weston.h
+rename to compositor/ias.h
+diff --git a/compositor/weston.pc.in b/compositor/ias.pc.in
+similarity index 100%
+rename from compositor/weston.pc.in
+rename to compositor/ias.pc.in
+diff --git a/compositor/main.c b/compositor/main.c
+index db9d20e..37ead45 100644
+--- a/compositor/main.c
++++ b/compositor/main.c
+@@ -43,7 +43,7 @@
+ #include <sys/time.h>
+ #include <linux/limits.h>
+ 
+-#include "weston.h"
++#include "ias.h"
+ #include "compositor.h"
+ #include "../shared/os-compatibility.h"
+ #include "../shared/helpers.h"
+@@ -51,7 +51,7 @@
+ #include "git-version.h"
+ #include "version.h"
+ #include "trace-reporter.h"
+-#include "weston.h"
++#include "ias.h"
+ 
+ #include "compositor-ias.h"
+ #include "compositor-drm.h"
+diff --git a/compositor/screen-share.c b/compositor/screen-share.c
+index 33de2b1..4b06693 100644
+--- a/compositor/screen-share.c
++++ b/compositor/screen-share.c
+@@ -41,7 +41,7 @@
+ #include <wayland-client.h>
+ 
+ #include "compositor.h"
+-#include "weston.h"
++#include "ias.h"
+ #include "shared/helpers.h"
+ #include "shared/os-compatibility.h"
+ #include "shared/timespec-util.h"
+diff --git a/compositor/systemd-notify.c b/compositor/systemd-notify.c
+index 3eadaa8..d951403 100644
+--- a/compositor/systemd-notify.c
++++ b/compositor/systemd-notify.c
+@@ -34,7 +34,7 @@
+ #include "shared/string-helpers.h"
+ #include "shared/zalloc.h"
+ #include "compositor.h"
+-#include "weston.h"
++#include "ias.h"
+ 
+ struct systemd_notifier {
+ 	int watchdog_time;
+diff --git a/compositor/text-backend.c b/compositor/text-backend.c
+index 4d8c085..89e6ee0 100644
+--- a/compositor/text-backend.c
++++ b/compositor/text-backend.c
+@@ -34,7 +34,7 @@
+ #include <time.h>
+ 
+ #include "compositor.h"
+-#include "weston.h"
++#include "ias.h"
+ #include "text-input-unstable-v1-server-protocol.h"
+ #include "input-method-unstable-v1-server-protocol.h"
+ #include "shared/helpers.h"
+diff --git a/compositor/xwayland.c b/compositor/xwayland.c
+index 9881cd9..d832a35 100644
+--- a/compositor/xwayland.c
++++ b/compositor/xwayland.c
+@@ -30,7 +30,7 @@
+ #include <sys/socket.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ #include "xwayland/xwayland-api.h"
+ #include "shared/helpers.h"
+ 
+diff --git a/configure.ac b/configure.ac
+index 87a9af2..46e2a89 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,31 +1,31 @@
+-m4_define([weston_major_version], [4])
+-m4_define([weston_minor_version], [0])
+-m4_define([weston_micro_version], [0])
+-m4_define([weston_version],
+-          [weston_major_version.weston_minor_version.weston_micro_version])
+-m4_define([libweston_major_version], [4])
+-m4_define([libweston_minor_version], [0])
+-m4_define([libweston_patch_version], [0])
++m4_define([ias_major_version], [4])
++m4_define([ias_minor_version], [0])
++m4_define([ias_micro_version], [0])
++m4_define([ias_version],
++          [ias_major_version.ias_minor_version.ias_micro_version])
++m4_define([libias_major_version], [4])
++m4_define([libias_minor_version], [0])
++m4_define([libias_patch_version], [0])
+ 
+ AC_PREREQ([2.64])
+-AC_INIT([weston],
+-        [weston_version],
+-        [https://bugs.freedesktop.org/enter_bug.cgi?product=Wayland&component=weston&version=weston_version],
+-        [weston],
++AC_INIT([ias],
++        [ias_version],
++        [https://bugs.freedesktop.org/enter_bug.cgi?product=Wayland&component=ias&version=ias_version],
++        [ias],
+         [http://wayland.freedesktop.org])
+ 
+ WAYLAND_PREREQ_VERSION="1.12.0"
+ 
+-AC_SUBST([WESTON_VERSION_MAJOR], [weston_major_version])
+-AC_SUBST([WESTON_VERSION_MINOR], [weston_minor_version])
+-AC_SUBST([WESTON_VERSION_MICRO], [weston_micro_version])
+-AC_SUBST([WESTON_VERSION], [weston_version])
+-AC_SUBST([LIBWESTON_MAJOR], [libweston_major_version])
++AC_SUBST([WESTON_VERSION_MAJOR], [ias_major_version])
++AC_SUBST([WESTON_VERSION_MINOR], [ias_minor_version])
++AC_SUBST([WESTON_VERSION_MICRO], [ias_micro_version])
++AC_SUBST([WESTON_VERSION], [ias_version])
++AC_SUBST([LIBWESTON_MAJOR], [libias_major_version])
+ # We use minor as current and age since on ABI/API break/removal we bump major
+ # so minor will be reset to 0.
+-m4_define([lt_current], [libweston_minor_version])
+-m4_define([lt_revision], [libweston_patch_version])
+-m4_define([lt_age], [libweston_minor_version])
++m4_define([lt_current], [libias_minor_version])
++m4_define([lt_revision], [libias_patch_version])
++m4_define([lt_age], [libias_minor_version])
+ AC_SUBST([LT_VERSION_INFO], [lt_current:lt_revision:lt_age])
+ 
+ AC_CONFIG_AUX_DIR([build-aux])
+@@ -44,35 +44,35 @@ AM_INIT_AUTOMAKE([1.11 parallel-tests foreign no-dist-gzip dist-xz color-tests s
+ 
+ AM_SILENT_RULES([yes])
+ 
+-# Check Weston and libweston version consistency
+-m4_if(m4_cmp(weston_micro_version, [90]), [-1],
++# Check IAS and libias version consistency
++m4_if(m4_cmp(ias_micro_version, [90]), [-1],
+       [
+ 	dnl micro < 90
+ 	dnl A final or stable release, not a pre-release:
+-	dnl Weston and libweston versions must match.
+-	m4_if(weston_version, libweston_major_version[.]libweston_minor_version[.]libweston_patch_version,
++	dnl IAS and libias versions must match.
++	m4_if(ias_version, libias_major_version[.]libias_minor_version[.]libias_patch_version,
+ 	      [],
+-	      [AC_MSG_ERROR([Weston and libweston version mismatch for a final release])])
++	      [AC_MSG_ERROR([IAS and libias version mismatch for a final release])])
+       ],
+       [
+ 	dnl A pre-release:
+-	dnl libweston must be equal or greater than weston.
+-	m4_case(m4_list_cmp([weston_major_version, weston_minor_version, weston_micro_version],
+-			     [libweston_major_version, libweston_minor_version, libweston_patch_version]),
++	dnl libias must be equal or greater than ias.
++	m4_case(m4_list_cmp([ias_major_version, ias_minor_version, ias_micro_version],
++			     [libias_major_version, libias_minor_version, libias_patch_version]),
+ 		 [-1], [
+-			dnl weston < libweston
+-			dnl libweston must be weston_major+1.0.0
+-			m4_if(m4_eval(weston_major_version+1)[.0.0],
+-			      libweston_major_version[.]libweston_minor_version[.]libweston_patch_version,
++			dnl ias < libias
++			dnl libias must be ias_major+1.0.0
++			m4_if(m4_eval(ias_major_version+1)[.0.0],
++			      libias_major_version[.]libias_minor_version[.]libias_patch_version,
+ 			      [],
+-			      [AC_MSG_ERROR([libweston version is greater but not (weston_major+1).0.0])])
++			      [AC_MSG_ERROR([libias version is greater but not (ias_major+1).0.0])])
+ 		 ],
+ 		 [0], [
+-			dnl weston == libweston, all ok
++			dnl ias == libias, all ok
+ 		 ],
+ 		 [1], [
+-			dnl weston > libweston, wrong
+-			AC_MSG_ERROR([Weston version is greater than libweston.])
++			dnl ias > libias, wrong
++			AC_MSG_ERROR([IAS version is greater than libias.])
+ 		 ])
+        ])
+ 
+@@ -86,9 +86,9 @@ LT_PREREQ([2.2])
+ LT_INIT([disable-static])
+ 
+ AC_ARG_VAR([WESTON_NATIVE_BACKEND],
+-           [Set the native backend to use, if Weston is not running under Wayland nor X11. @<:@default=drm-backend.so@:>@])
++           [Set the native backend to use, if IAS is not running under Wayland nor X11. @<:@default=drm-backend.so@:>@])
+ AC_ARG_VAR([WESTON_SHELL_CLIENT],
+-           [Set the default desktop shell client to load if none is specified in weston.ini. @<:@default=weston-desktop-shell@:>@])
++           [Set the default desktop shell client to load if none is specified in ias.ini. @<:@default=ias-desktop-shell@:>@])
+ 
+ PKG_PROG_PKG_CONFIG()
+ 
+@@ -100,13 +100,13 @@ WESTON_SEARCH_LIBS([CLOCK_GETTIME], [rt], [clock_gettime])
+ WESTON_SEARCH_LIBS([CLOCK_GETRES], [rt], [clock_getres])
+ 
+ AC_CHECK_DECL(SFD_CLOEXEC,[],
+-	      [AC_MSG_ERROR("SFD_CLOEXEC is needed to compile weston")],
++	      [AC_MSG_ERROR("SFD_CLOEXEC is needed to compile ias")],
+ 	      [[#include <sys/signalfd.h>]])
+ AC_CHECK_DECL(TFD_CLOEXEC,[],
+-	      [AC_MSG_ERROR("TFD_CLOEXEC is needed to compile weston")],
++	      [AC_MSG_ERROR("TFD_CLOEXEC is needed to compile ias")],
+ 	      [[#include <sys/timerfd.h>]])
+ AC_CHECK_DECL(CLOCK_MONOTONIC,[],
+-	      [AC_MSG_ERROR("CLOCK_MONOTONIC is needed to compile weston")],
++	      [AC_MSG_ERROR("CLOCK_MONOTONIC is needed to compile ias")],
+ 	      [[#include <time.h>]])
+ AC_CHECK_HEADERS([execinfo.h])
+ 
+@@ -115,7 +115,7 @@ AC_CHECK_FUNCS([mkostemp strchrnul initgroups posix_fallocate])
+ # check for libdrm as a build-time dependency only
+ # libdrm 2.4.30 introduced drm_fourcc.h.
+ PKG_CHECK_MODULES(LIBDRM, [libdrm >= 2.4.30], [], [AC_MSG_ERROR([
+-     libdrm is a hard build-time dependency for libweston core,
++     libdrm is a hard build-time dependency for libias core,
+      but a sufficient version was not found. However, libdrm
+      is not a runtime dependency unless you have features
+      enabled that require it.])])
+@@ -145,7 +145,7 @@ AC_ARG_ENABLE(egl, [  --disable-egl],,
+               enable_egl=yes)
+ AM_CONDITIONAL(ENABLE_EGL, test x$enable_egl = xyes)
+ if test x$enable_egl = xyes; then
+-	AC_DEFINE([ENABLE_EGL], [1], [Build Weston with EGL support])
++	AC_DEFINE([ENABLE_EGL], [1], [Build IAS with EGL support])
+ 	PKG_CHECK_MODULES(EGL, [egl glesv2])
+         PKG_CHECK_MODULES([EGL_TESTS], [egl glesv2 wayland-client wayland-egl])
+ 	AC_CHECK_HEADERS([linux/sync_file.h])
+@@ -160,7 +160,7 @@ AC_ARG_ENABLE(xkbcommon,
+ 			      the keycode sent for any key event.]),,
+ 	      enable_xkbcommon=no)
+ if test x$enable_xkbcommon = xyes; then
+-	AC_DEFINE(ENABLE_XKBCOMMON, [1], [Build Weston with libxkbcommon support])
++	AC_DEFINE(ENABLE_XKBCOMMON, [1], [Build IAS with libxkbcommon support])
+ 	COMPOSITOR_MODULES="$COMPOSITOR_MODULES xkbcommon >= 0.3.0"
+ 	PKG_CHECK_MODULES(XKBCOMMON_COMPOSE, [xkbcommon >= 0.5.0],
+ 	                  [AC_DEFINE(HAVE_XKBCOMMON_COMPOSE, 1,
+@@ -527,12 +527,12 @@ AC_ARG_ENABLE(resize-optimization,
+ AS_IF([test "x$enable_resize_optimization" = "xyes"],
+       [AC_DEFINE([USE_RESIZE_POOL], [1], [Use resize memory pool as a performance optimization])])
+ 
+-AC_ARG_ENABLE(weston-launch, [  --enable-weston-launch],, enable_weston_launch=yes)
+-AM_CONDITIONAL(BUILD_WESTON_LAUNCH, test x$enable_weston_launch = xyes)
+-if test x$enable_weston_launch = xyes; then
++AC_ARG_ENABLE(ias-launch, [  --enable-ias-launch],, enable_ias_launch=yes)
++AM_CONDITIONAL(BUILD_WESTON_LAUNCH, test x$enable_ias_launch = xyes)
++if test x$enable_ias_launch = xyes; then
+   WESTON_SEARCH_LIBS([PAM], [pam], [pam_open_session], [have_pam=yes], [have_pam=no])
+   if test x$have_pam = xno; then
+-    AC_ERROR([weston-launch requires pam])
++    AC_ERROR([ias-launch requires pam])
+   fi
+ fi
+ 
+@@ -720,7 +720,7 @@ if test "x$enable_junit_xml" != "xno"; then
+ 	fi
+ 	if test "x$have_libxml2" = "xyes"; then
+ 		enable_junit_xml=yes
+-		AC_DEFINE(ENABLE_JUNIT_XML, [1], [Build Weston with JUnit output support])
++		AC_DEFINE(ENABLE_JUNIT_XML, [1], [Build IAS with JUnit output support])
+ 	else
+ 		enable_junit_xml=no
+ 	fi
+@@ -808,20 +808,20 @@ AC_SUBST(GCC_CFLAGS)
+ if test "x$WESTON_NATIVE_BACKEND" = "x"; then
+ 	WESTON_NATIVE_BACKEND="drm-backend.so"
+ fi
+-AC_MSG_NOTICE([Weston's native backend: $WESTON_NATIVE_BACKEND])
++AC_MSG_NOTICE([IAS's native backend: $WESTON_NATIVE_BACKEND])
+ AC_DEFINE_UNQUOTED([WESTON_NATIVE_BACKEND], ["$WESTON_NATIVE_BACKEND"],
+ 		   [The default backend to load, if not wayland nor x11.])
+ 
+ if test "x$WESTON_SHELL_CLIENT" = "x"; then
+-	WESTON_SHELL_CLIENT="weston-desktop-shell"
++	WESTON_SHELL_CLIENT="ias-desktop-shell"
+ fi
+-AC_MSG_NOTICE([Weston's default desktop shell client: $WESTON_SHELL_CLIENT])
++AC_MSG_NOTICE([IAS's default desktop shell client: $WESTON_SHELL_CLIENT])
+ AC_DEFINE_UNQUOTED([WESTON_SHELL_CLIENT], ["$WESTON_SHELL_CLIENT"],
+ 		   [The default desktop shell client to load.])
+ 
+ AC_ARG_ENABLE(demo-clients-install,
+               AS_HELP_STRING([--enable-demo-clients-install],
+-                             [Install demo clients built with weston]),,
++                             [Install demo clients built with ias]),,
+ 			     enable_demo_clients_install=no)
+ AM_CONDITIONAL(INSTALL_DEMO_CLIENTS, [test "x$enable_demo_clients_install" = "xyes"])
+ 
+@@ -854,7 +854,7 @@ fi
+ AC_ARG_ENABLE(systemd_notify,
+               AS_HELP_STRING([--enable-systemd-notify],
+                              [Enables systemd notifications to
+-                              notify systemd about weston state
++                              notify systemd about ias state
+                               and update watchdog.
+                               Also sockets provided by systemd
+                               in case of socket-base activation
+@@ -878,14 +878,14 @@ if test x$enable_ivi_share_protocol = xyes; then
+                     [libdrm gbm])
+ fi
+ 
+-AC_CONFIG_FILES([Makefile libweston/version.h compositor/weston.pc])
++AC_CONFIG_FILES([Makefile libias/version.h compositor/ias.pc])
+ 
+ # AC_CONFIG_FILES needs the full name when running autoconf, so we need to use
+-# libweston_abi_version here, and outside [] because of m4 quoting rules
+-AC_CONFIG_FILES([libweston/libweston-]libweston_major_version[.pc:libweston/libweston.pc.in])
+-AC_CONFIG_FILES([libweston/libweston-]libweston_major_version[-uninstalled.pc:libweston/libweston-uninstalled.pc.in])
+-AC_CONFIG_FILES([libweston-desktop/libweston-desktop-]libweston_major_version[.pc:libweston-desktop/libweston-desktop.pc.in])
+-AC_CONFIG_FILES([libweston-desktop/libweston-desktop-]libweston_major_version[-uninstalled.pc:libweston-desktop/libweston-desktop-uninstalled.pc.in])
++# libias_abi_version here, and outside [] because of m4 quoting rules
++AC_CONFIG_FILES([libias/libias-]libias_major_version[.pc:libias/libias.pc.in])
++AC_CONFIG_FILES([libias/libias-]libias_major_version[-uninstalled.pc:libias/libias-uninstalled.pc.in])
++AC_CONFIG_FILES([libias-desktop/libias-desktop-]libias_major_version[.pc:libias-desktop/libias-desktop.pc.in])
++AC_CONFIG_FILES([libias-desktop/libias-desktop-]libias_major_version[-uninstalled.pc:libias-desktop/libias-desktop-uninstalled.pc.in])
+ 
+ AM_CONDITIONAL([HAVE_GIT_REPO], [test -f $srcdir/.git/logs/HEAD])
+ 
+@@ -909,7 +909,7 @@ AC_MSG_RESULT([
+ 	Build Fullscreen Shell		${enable_fullscreen_shell}
+ 	Enable developer documentation	${enable_devdocs}
+ 
+-	weston-launch utility		${enable_weston_launch}
++	ias-launch utility		${enable_ias_launch}
+ 	systemd-login support		${have_systemd_login}
+ 	systemd notify support		${enable_systemd_notify}
+ 
+diff --git a/desktop-shell/shell.c b/desktop-shell/shell.c
+index ded600d..8c7ff2d 100644
+--- a/desktop-shell/shell.c
++++ b/desktop-shell/shell.c
+@@ -37,12 +37,12 @@
+ #include <sys/types.h>
+ 
+ #include "shell.h"
+-#include "compositor/weston.h"
+-#include "weston-desktop-shell-server-protocol.h"
++#include "compositor/ias.h"
++#include "ias-desktop-shell-server-protocol.h"
+ #include "shared/config-parser.h"
+ #include "shared/helpers.h"
+ #include "shared/timespec-util.h"
+-#include "libweston-desktop/libweston-desktop.h"
++#include "libias-desktop/libias-desktop.h"
+ 
+ #define DEFAULT_NUM_WORKSPACES 1
+ #define DEFAULT_WORKSPACE_CHANGE_ANIMATION_LENGTH 200
+diff --git a/desktop-shell/shell.h b/desktop-shell/shell.h
+index fb8c2bf..6eb06d8 100644
+--- a/desktop-shell/shell.h
++++ b/desktop-shell/shell.h
+@@ -30,7 +30,7 @@
+ #include "compositor.h"
+ #include "xwayland/xwayland-api.h"
+ 
+-#include "weston-desktop-shell-server-protocol.h"
++#include "ias-desktop-shell-server-protocol.h"
+ 
+ enum animation_type {
+ 	ANIMATION_NONE,
+diff --git a/fullscreen-shell/fullscreen-shell.c b/fullscreen-shell/fullscreen-shell.c
+index 6f4565a..159b9b7 100644
+--- a/fullscreen-shell/fullscreen-shell.c
++++ b/fullscreen-shell/fullscreen-shell.c
+@@ -34,7 +34,7 @@
+ #include <assert.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ #include "fullscreen-shell-unstable-v1-server-protocol.h"
+ #include "shared/helpers.h"
+ 
+diff --git a/weston.ini.in b/ias.ini.in
+similarity index 100%
+rename from weston.ini.in
+rename to ias.ini.in
+diff --git a/weston.ini.ivihmi b/ias.ini.ivihmi
+similarity index 100%
+rename from weston.ini.ivihmi
+rename to ias.ini.ivihmi
+diff --git a/weston.service b/ias.service
+similarity index 100%
+rename from weston.service
+rename to ias.service
+diff --git a/weston.service.snbvmware b/ias.service.snbvmware
+similarity index 100%
+rename from weston.service.snbvmware
+rename to ias.service.snbvmware
+diff --git a/ivi-shell/hmi-controller.c b/ivi-shell/hmi-controller.c
+index 0e44df8..edbe9b8 100644
+--- a/ivi-shell/hmi-controller.c
++++ b/ivi-shell/hmi-controller.c
+@@ -63,7 +63,7 @@
+ #include "ivi-hmi-controller-server-protocol.h"
+ #include "shared/helpers.h"
+ #include "shared/xalloc.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ 
+ /*****************************************************************************
+  *  structure, globals
+diff --git a/ivi-shell/weston.ini.in b/ivi-shell/ias.ini.in
+similarity index 100%
+rename from ivi-shell/weston.ini.in
+rename to ivi-shell/ias.ini.in
+diff --git a/ivi-shell/ivi-layout.c b/ivi-shell/ivi-layout.c
+index 643c7d0..9f08bd7 100644
+--- a/ivi-shell/ivi-layout.c
++++ b/ivi-shell/ivi-layout.c
+@@ -61,7 +61,7 @@
+ #include <assert.h>
+ #include <stdint.h>
+ 
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ #include "compositor.h"
+ #include "ivi-shell.h"
+ #include "ivi-layout-export.h"
+diff --git a/ivi-shell/ivi-shell.c b/ivi-shell/ivi-shell.c
+index fabbd3e..036f86a 100644
+--- a/ivi-shell/ivi-shell.c
++++ b/ivi-shell/ivi-shell.c
+@@ -47,7 +47,7 @@
+ #include "ivi-layout-export.h"
+ #include "ivi-layout-shell.h"
+ #include "shared/helpers.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ 
+ extern struct ivi_layout_interface ivi_layout_interface;
+ 
+diff --git a/libweston-desktop/client.c b/libias-desktop/client.c
+similarity index 99%
+rename from libweston-desktop/client.c
+rename to libias-desktop/client.c
+index 29c3c98..6f46462 100644
+--- a/libweston-desktop/client.c
++++ b/libias-desktop/client.c
+@@ -28,7 +28,7 @@
+ #include "compositor.h"
+ #include "zalloc.h"
+ 
+-#include "libweston-desktop.h"
++#include "libias-desktop.h"
+ #include "internal.h"
+ 
+ struct weston_desktop_client {
+diff --git a/libweston-desktop/internal.h b/libias-desktop/internal.h
+similarity index 100%
+rename from libweston-desktop/internal.h
+rename to libias-desktop/internal.h
+diff --git a/libweston-desktop/libweston-desktop-uninstalled.pc.in b/libias-desktop/libias-desktop-uninstalled.pc.in
+similarity index 100%
+rename from libweston-desktop/libweston-desktop-uninstalled.pc.in
+rename to libias-desktop/libias-desktop-uninstalled.pc.in
+diff --git a/libweston-desktop/libweston-desktop.c b/libias-desktop/libias-desktop.c
+similarity index 99%
+rename from libweston-desktop/libweston-desktop.c
+rename to libias-desktop/libias-desktop.c
+index c840a8a..2b8d409 100644
+--- a/libweston-desktop/libweston-desktop.c
++++ b/libias-desktop/libias-desktop.c
+@@ -32,7 +32,7 @@
+ #include "zalloc.h"
+ #include "helpers.h"
+ 
+-#include "libweston-desktop.h"
++#include "libias-desktop.h"
+ #include "internal.h"
+ 
+ 
+diff --git a/libweston-desktop/libweston-desktop.h b/libias-desktop/libias-desktop.h
+similarity index 100%
+rename from libweston-desktop/libweston-desktop.h
+rename to libias-desktop/libias-desktop.h
+diff --git a/libweston-desktop/libweston-desktop.pc.in b/libias-desktop/libias-desktop.pc.in
+similarity index 100%
+rename from libweston-desktop/libweston-desktop.pc.in
+rename to libias-desktop/libias-desktop.pc.in
+diff --git a/libweston-desktop/seat.c b/libias-desktop/seat.c
+similarity index 99%
+rename from libweston-desktop/seat.c
+rename to libias-desktop/seat.c
+index ae1c5e9..461aed5 100644
+--- a/libweston-desktop/seat.c
++++ b/libias-desktop/seat.c
+@@ -33,7 +33,7 @@
+ #include "compositor.h"
+ #include "zalloc.h"
+ 
+-#include "libweston-desktop.h"
++#include "libias-desktop.h"
+ #include "internal.h"
+ #include "shared/timespec-util.h"
+ 
+diff --git a/libweston-desktop/surface.c b/libias-desktop/surface.c
+similarity index 99%
+rename from libweston-desktop/surface.c
+rename to libias-desktop/surface.c
+index cbfa5ee..a1eaa31 100644
+--- a/libweston-desktop/surface.c
++++ b/libias-desktop/surface.c
+@@ -31,7 +31,7 @@
+ #include "compositor.h"
+ #include "zalloc.h"
+ 
+-#include "libweston-desktop.h"
++#include "libias-desktop.h"
+ #include "internal.h"
+ 
+ struct weston_desktop_view {
+diff --git a/libweston-desktop/wl-shell.c b/libias-desktop/wl-shell.c
+similarity index 99%
+rename from libweston-desktop/wl-shell.c
+rename to libias-desktop/wl-shell.c
+index 8467dfb..bd3be89 100644
+--- a/libweston-desktop/wl-shell.c
++++ b/libias-desktop/wl-shell.c
+@@ -33,7 +33,7 @@
+ #include "compositor.h"
+ #include "zalloc.h"
+ 
+-#include "libweston-desktop.h"
++#include "libias-desktop.h"
+ #include "internal.h"
+ 
+ #define WD_WL_SHELL_PROTOCOL_VERSION 1
+diff --git a/libweston-desktop/xdg-shell-v6.c b/libias-desktop/xdg-shell-v6.c
+similarity index 99%
+rename from libweston-desktop/xdg-shell-v6.c
+rename to libias-desktop/xdg-shell-v6.c
+index 8fa01a3..c09730a 100644
+--- a/libweston-desktop/xdg-shell-v6.c
++++ b/libias-desktop/xdg-shell-v6.c
+@@ -35,7 +35,7 @@
+ #include "zalloc.h"
+ #include "xdg-shell-unstable-v6-server-protocol.h"
+ 
+-#include "libweston-desktop.h"
++#include "libias-desktop.h"
+ #include "internal.h"
+ 
+ #define WD_XDG_SHELL_PROTOCOL_VERSION 1
+diff --git a/libweston-desktop/xwayland.c b/libias-desktop/xwayland.c
+similarity index 99%
+rename from libweston-desktop/xwayland.c
+rename to libias-desktop/xwayland.c
+index 4b4407b..b42ed1e 100644
+--- a/libweston-desktop/xwayland.c
++++ b/libias-desktop/xwayland.c
+@@ -33,7 +33,7 @@
+ #include "compositor.h"
+ #include "zalloc.h"
+ 
+-#include "libweston-desktop.h"
++#include "libias-desktop.h"
+ #include "internal.h"
+ #include "xwayland/xwayland-internal-interface.h"
+ 
+diff --git a/libweston/animation.c b/libias/animation.c
+similarity index 100%
+rename from libweston/animation.c
+rename to libias/animation.c
+diff --git a/libweston/backend-classic.c b/libias/backend-classic.c
+similarity index 100%
+rename from libweston/backend-classic.c
+rename to libias/backend-classic.c
+diff --git a/libweston/backend-flexible.c b/libias/backend-flexible.c
+similarity index 100%
+rename from libweston/backend-flexible.c
+rename to libias/backend-flexible.c
+diff --git a/libweston/bindings.c b/libias/bindings.c
+similarity index 100%
+rename from libweston/bindings.c
+rename to libias/bindings.c
+diff --git a/libweston/capture-proxy.c b/libias/capture-proxy.c
+similarity index 100%
+rename from libweston/capture-proxy.c
+rename to libias/capture-proxy.c
+diff --git a/libweston/capture-proxy.h b/libias/capture-proxy.h
+similarity index 100%
+rename from libweston/capture-proxy.h
+rename to libias/capture-proxy.h
+diff --git a/libweston/clipboard.c b/libias/clipboard.c
+similarity index 100%
+rename from libweston/clipboard.c
+rename to libias/clipboard.c
+diff --git a/libweston/compositor-drm.c b/libias/compositor-drm.c
+similarity index 99%
+rename from libweston/compositor-drm.c
+rename to libias/compositor-drm.c
+index 91cb7ff..9694978 100644
+--- a/libweston/compositor-drm.c
++++ b/libias/compositor-drm.c
+@@ -52,7 +52,7 @@
+ #include "shared/helpers.h"
+ #include "shared/timespec-util.h"
+ #include "gl-renderer.h"
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ #include "pixman-renderer.h"
+ #include "pixel-formats.h"
+ #include "libbacklight.h"
+diff --git a/libweston/compositor-drm.h b/libias/compositor-drm.h
+similarity index 100%
+rename from libweston/compositor-drm.h
+rename to libias/compositor-drm.h
+diff --git a/libweston/compositor-fbdev.c b/libias/compositor-fbdev.c
+similarity index 100%
+rename from libweston/compositor-fbdev.c
+rename to libias/compositor-fbdev.c
+diff --git a/libweston/compositor-fbdev.h b/libias/compositor-fbdev.h
+similarity index 100%
+rename from libweston/compositor-fbdev.h
+rename to libias/compositor-fbdev.h
+diff --git a/libweston/compositor-headless.c b/libias/compositor-headless.c
+similarity index 100%
+rename from libweston/compositor-headless.c
+rename to libias/compositor-headless.c
+diff --git a/libweston/compositor-headless.h b/libias/compositor-headless.h
+similarity index 100%
+rename from libweston/compositor-headless.h
+rename to libias/compositor-headless.h
+diff --git a/libweston/compositor-ias.c b/libias/compositor-ias.c
+similarity index 100%
+rename from libweston/compositor-ias.c
+rename to libias/compositor-ias.c
+diff --git a/libweston/compositor-ias.h b/libias/compositor-ias.h
+similarity index 100%
+rename from libweston/compositor-ias.h
+rename to libias/compositor-ias.h
+diff --git a/libweston/compositor-rdp.c b/libias/compositor-rdp.c
+similarity index 100%
+rename from libweston/compositor-rdp.c
+rename to libias/compositor-rdp.c
+diff --git a/libweston/compositor-rdp.h b/libias/compositor-rdp.h
+similarity index 100%
+rename from libweston/compositor-rdp.h
+rename to libias/compositor-rdp.h
+diff --git a/libweston/compositor-wayland.c b/libias/compositor-wayland.c
+similarity index 99%
+rename from libweston/compositor-wayland.c
+rename to libias/compositor-wayland.c
+index ea2ac72..44b4463 100644
+--- a/libweston/compositor-wayland.c
++++ b/libias/compositor-wayland.c
+@@ -47,7 +47,7 @@
+ #include "compositor.h"
+ #include "compositor-wayland.h"
+ #include "gl-renderer.h"
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ #include "pixman-renderer.h"
+ #include "shared/helpers.h"
+ #include "shared/image-loader.h"
+diff --git a/libweston/compositor-wayland.h b/libias/compositor-wayland.h
+similarity index 100%
+rename from libweston/compositor-wayland.h
+rename to libias/compositor-wayland.h
+diff --git a/libweston/compositor-x11.c b/libias/compositor-x11.c
+similarity index 99%
+rename from libweston/compositor-x11.c
+rename to libias/compositor-x11.c
+index f07e8c4..5ca7ab0 100644
+--- a/libweston/compositor-x11.c
++++ b/libias/compositor-x11.c
+@@ -58,7 +58,7 @@
+ #include "shared/timespec-util.h"
+ #include "shared/file-util.h"
+ #include "gl-renderer.h"
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ #include "pixman-renderer.h"
+ #include "presentation-time-server-protocol.h"
+ #include "linux-dmabuf.h"
+diff --git a/libweston/compositor-x11.h b/libias/compositor-x11.h
+similarity index 100%
+rename from libweston/compositor-x11.h
+rename to libias/compositor-x11.h
+diff --git a/libweston/compositor.c b/libias/compositor.c
+similarity index 100%
+rename from libweston/compositor.c
+rename to libias/compositor.c
+diff --git a/libweston/compositor.h b/libias/compositor.h
+similarity index 100%
+rename from libweston/compositor.h
+rename to libias/compositor.h
+diff --git a/libweston/data-device.c b/libias/data-device.c
+similarity index 100%
+rename from libweston/data-device.c
+rename to libias/data-device.c
+diff --git a/libweston/dbus.c b/libias/dbus.c
+similarity index 100%
+rename from libweston/dbus.c
+rename to libias/dbus.c
+diff --git a/libweston/dbus.h b/libias/dbus.h
+similarity index 100%
+rename from libweston/dbus.h
+rename to libias/dbus.h
+diff --git a/libweston/gl-renderer.c b/libias/gl-renderer.c
+similarity index 99%
+rename from libweston/gl-renderer.c
+rename to libias/gl-renderer.c
+index 69972c2..9b5b6a1 100644
+--- a/libweston/gl-renderer.c
++++ b/libias/gl-renderer.c
+@@ -46,7 +46,7 @@
+ #ifdef HAVE_LINUX_SYNC_FILE_H
+ #include <linux/sync_file.h>
+ #else
+-#include "weston-sync-file.h"
++#include "ias-sync-file.h"
+ #endif
+ 
+ #include "timeline.h"
+diff --git a/libweston/gl-renderer.h b/libias/gl-renderer.h
+similarity index 99%
+rename from libweston/gl-renderer.h
+rename to libias/gl-renderer.h
+index 0fe0269..21d92d7 100644
+--- a/libweston/gl-renderer.h
++++ b/libias/gl-renderer.h
+@@ -36,7 +36,7 @@
+ 
+ #include <EGL/egl.h>
+ #include <EGL/eglext.h>
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ #else
+ 
+ typedef int EGLint;
+diff --git a/libweston/ias-backend.h b/libias/ias-backend.h
+similarity index 100%
+rename from libweston/ias-backend.h
+rename to libias/ias-backend.h
+diff --git a/libweston/ias-common.c b/libias/ias-common.c
+similarity index 100%
+rename from libweston/ias-common.c
+rename to libias/ias-common.c
+diff --git a/libweston/ias-common.h b/libias/ias-common.h
+similarity index 99%
+rename from libweston/ias-common.h
+rename to libias/ias-common.h
+index b9bbf77..6d4bacb 100644
+--- a/libweston/ias-common.h
++++ b/libias/ias-common.h
+@@ -38,7 +38,7 @@
+ #include <xf86drmMode.h>
+ #include "compositor.h"
+ #include "libinput-seat.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ 
+ #include "ias-plugin-framework-definitions.h"
+ #include "ias-spug.h"
+diff --git a/libweston/ias-config.c b/libias/ias-config.c
+similarity index 100%
+rename from libweston/ias-config.c
+rename to libias/ias-config.c
+diff --git a/libweston/ias-hmi.c b/libias/ias-hmi.c
+similarity index 100%
+rename from libweston/ias-hmi.c
+rename to libias/ias-hmi.c
+diff --git a/libweston/ias-hmi.h b/libias/ias-hmi.h
+similarity index 100%
+rename from libweston/ias-hmi.h
+rename to libias/ias-hmi.h
+diff --git a/libweston/weston-launch.c b/libias/ias-launch.c
+similarity index 99%
+rename from libweston/weston-launch.c
+rename to libias/ias-launch.c
+index 7f03d51..c383b99 100644
+--- a/libweston/weston-launch.c
++++ b/libias/ias-launch.c
+@@ -58,7 +58,7 @@
+ #include <systemd/sd-login.h>
+ #endif
+ 
+-#include "weston-launch.h"
++#include "ias-launch.h"
+ 
+ #define DRM_MAJOR 226
+ 
+diff --git a/libweston/weston-launch.h b/libias/ias-launch.h
+similarity index 100%
+rename from libweston/weston-launch.h
+rename to libias/ias-launch.h
+diff --git a/libweston/ias-plugin-framework-definitions.h b/libias/ias-plugin-framework-definitions.h
+similarity index 100%
+rename from libweston/ias-plugin-framework-definitions.h
+rename to libias/ias-plugin-framework-definitions.h
+diff --git a/libweston/ias-plugin-framework-private.h b/libias/ias-plugin-framework-private.h
+similarity index 100%
+rename from libweston/ias-plugin-framework-private.h
+rename to libias/ias-plugin-framework-private.h
+diff --git a/libweston/ias-plugin-framework.c b/libias/ias-plugin-framework.c
+similarity index 100%
+rename from libweston/ias-plugin-framework.c
+rename to libias/ias-plugin-framework.c
+diff --git a/libweston/ias-plugin-framework.h b/libias/ias-plugin-framework.h
+similarity index 98%
+rename from libweston/ias-plugin-framework.h
+rename to libias/ias-plugin-framework.h
+index 1a814a4..7a8debe 100644
+--- a/libweston/ias-plugin-framework.h
++++ b/libias/ias-plugin-framework.h
+@@ -48,7 +48,7 @@
+ //#define GL_EXT_unpack_subimage;
+ #include <GLES2/gl2.h>
+ #include <GLES2/gl2ext.h>
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ #include <wayland-server.h>
+ #include "ias-plugin-framework-definitions.h"
+ #undef private
+diff --git a/libweston/ias-relay-input.c b/libias/ias-relay-input.c
+similarity index 100%
+rename from libweston/ias-relay-input.c
+rename to libias/ias-relay-input.c
+diff --git a/libweston/ias-relay-input.h b/libias/ias-relay-input.h
+similarity index 100%
+rename from libweston/ias-relay-input.h
+rename to libias/ias-relay-input.h
+diff --git a/libweston/ias-shell-config.c b/libias/ias-shell-config.c
+similarity index 100%
+rename from libweston/ias-shell-config.c
+rename to libias/ias-shell-config.c
+diff --git a/libweston/ias-shell.c b/libias/ias-shell.c
+similarity index 100%
+rename from libweston/ias-shell.c
+rename to libias/ias-shell.c
+diff --git a/libweston/ias-shell.h b/libias/ias-shell.h
+similarity index 100%
+rename from libweston/ias-shell.h
+rename to libias/ias-shell.h
+diff --git a/libweston/ias-sprite.c b/libias/ias-sprite.c
+similarity index 100%
+rename from libweston/ias-sprite.c
+rename to libias/ias-sprite.c
+diff --git a/libweston/ias-sprite.h b/libias/ias-sprite.h
+similarity index 100%
+rename from libweston/ias-sprite.h
+rename to libias/ias-sprite.h
+diff --git a/libweston/ias-spug.c b/libias/ias-spug.c
+similarity index 100%
+rename from libweston/ias-spug.c
+rename to libias/ias-spug.c
+diff --git a/libweston/ias-spug.h b/libias/ias-spug.h
+similarity index 100%
+rename from libweston/ias-spug.h
+rename to libias/ias-spug.h
+diff --git a/libweston/weston-sync-file.h b/libias/ias-sync-file.h
+similarity index 100%
+rename from libweston/weston-sync-file.h
+rename to libias/ias-sync-file.h
+diff --git a/libweston/input.c b/libias/input.c
+similarity index 100%
+rename from libweston/input.c
+rename to libias/input.c
+diff --git a/libweston/ivi-plugin-framework.c b/libias/ivi-plugin-framework.c
+similarity index 100%
+rename from libweston/ivi-plugin-framework.c
+rename to libias/ivi-plugin-framework.c
+diff --git a/libweston/launcher-direct.c b/libias/launcher-direct.c
+similarity index 100%
+rename from libweston/launcher-direct.c
+rename to libias/launcher-direct.c
+diff --git a/libweston/launcher-weston-launch.c b/libias/launcher-ias-launch.c
+similarity index 99%
+rename from libweston/launcher-weston-launch.c
+rename to libias/launcher-ias-launch.c
+index 65beb32..c8de923 100644
+--- a/libweston/launcher-weston-launch.c
++++ b/libias/launcher-ias-launch.c
+@@ -45,7 +45,7 @@
+ #include <linux/major.h>
+ 
+ #include "compositor.h"
+-#include "weston-launch.h"
++#include "ias-launch.h"
+ #include "launcher-impl.h"
+ 
+ #define DRM_MAJOR 226
+diff --git a/libweston/launcher-impl.h b/libias/launcher-impl.h
+similarity index 100%
+rename from libweston/launcher-impl.h
+rename to libias/launcher-impl.h
+diff --git a/libweston/launcher-logind.c b/libias/launcher-logind.c
+similarity index 100%
+rename from libweston/launcher-logind.c
+rename to libias/launcher-logind.c
+diff --git a/libweston/launcher-util.c b/libias/launcher-util.c
+similarity index 100%
+rename from libweston/launcher-util.c
+rename to libias/launcher-util.c
+diff --git a/libweston/launcher-util.h b/libias/launcher-util.h
+similarity index 100%
+rename from libweston/launcher-util.h
+rename to libias/launcher-util.h
+diff --git a/libweston/libbacklight.c b/libias/libbacklight.c
+similarity index 100%
+rename from libweston/libbacklight.c
+rename to libias/libbacklight.c
+diff --git a/libweston/libbacklight.h b/libias/libbacklight.h
+similarity index 100%
+rename from libweston/libbacklight.h
+rename to libias/libbacklight.h
+diff --git a/libweston/libweston-uninstalled.pc.in b/libias/libias-uninstalled.pc.in
+similarity index 100%
+rename from libweston/libweston-uninstalled.pc.in
+rename to libias/libias-uninstalled.pc.in
+diff --git a/libweston/libweston.pc.in b/libias/libias.pc.in
+similarity index 100%
+rename from libweston/libweston.pc.in
+rename to libias/libias.pc.in
+diff --git a/libweston/libinput-device.c b/libias/libinput-device.c
+similarity index 100%
+rename from libweston/libinput-device.c
+rename to libias/libinput-device.c
+diff --git a/libweston/libinput-device.h b/libias/libinput-device.h
+similarity index 100%
+rename from libweston/libinput-device.h
+rename to libias/libinput-device.h
+diff --git a/libweston/libinput-seat.c b/libias/libinput-seat.c
+similarity index 100%
+rename from libweston/libinput-seat.c
+rename to libias/libinput-seat.c
+diff --git a/libweston/libinput-seat.h b/libias/libinput-seat.h
+similarity index 100%
+rename from libweston/libinput-seat.h
+rename to libias/libinput-seat.h
+diff --git a/libweston/linux-dmabuf.c b/libias/linux-dmabuf.c
+similarity index 100%
+rename from libweston/linux-dmabuf.c
+rename to libias/linux-dmabuf.c
+diff --git a/libweston/linux-dmabuf.h b/libias/linux-dmabuf.h
+similarity index 100%
+rename from libweston/linux-dmabuf.h
+rename to libias/linux-dmabuf.h
+diff --git a/libweston/log.c b/libias/log.c
+similarity index 100%
+rename from libweston/log.c
+rename to libias/log.c
+diff --git a/libweston/noop-renderer.c b/libias/noop-renderer.c
+similarity index 100%
+rename from libweston/noop-renderer.c
+rename to libias/noop-renderer.c
+diff --git a/libweston/pixel-formats.c b/libias/pixel-formats.c
+similarity index 99%
+rename from libweston/pixel-formats.c
+rename to libias/pixel-formats.c
+index df84a9f..a9a9132 100644
+--- a/libweston/pixel-formats.c
++++ b/libias/pixel-formats.c
+@@ -49,7 +49,7 @@
+ #define SAMPLER_TYPE(type) .sampler_type = 0
+ #endif
+ 
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ 
+ /**
+  * Table of DRM formats supported by Weston; RGB, ARGB and YUV formats are
+diff --git a/libweston/pixel-formats.h b/libias/pixel-formats.h
+similarity index 100%
+rename from libweston/pixel-formats.h
+rename to libias/pixel-formats.h
+diff --git a/libweston/pixman-renderer.c b/libias/pixman-renderer.c
+similarity index 100%
+rename from libweston/pixman-renderer.c
+rename to libias/pixman-renderer.c
+diff --git a/libweston/pixman-renderer.h b/libias/pixman-renderer.h
+similarity index 100%
+rename from libweston/pixman-renderer.h
+rename to libias/pixman-renderer.h
+diff --git a/libweston/plugin-registry.c b/libias/plugin-registry.c
+similarity index 100%
+rename from libweston/plugin-registry.c
+rename to libias/plugin-registry.c
+diff --git a/libweston/plugin-registry.h b/libias/plugin-registry.h
+similarity index 100%
+rename from libweston/plugin-registry.h
+rename to libias/plugin-registry.h
+diff --git a/libweston/screenshooter.c b/libias/screenshooter.c
+similarity index 100%
+rename from libweston/screenshooter.c
+rename to libias/screenshooter.c
+diff --git a/libweston/spring-tool.c b/libias/spring-tool.c
+similarity index 100%
+rename from libweston/spring-tool.c
+rename to libias/spring-tool.c
+diff --git a/libweston/timeline-object.h b/libias/timeline-object.h
+similarity index 100%
+rename from libweston/timeline-object.h
+rename to libias/timeline-object.h
+diff --git a/libweston/timeline.c b/libias/timeline.c
+similarity index 100%
+rename from libweston/timeline.c
+rename to libias/timeline.c
+diff --git a/libweston/timeline.h b/libias/timeline.h
+similarity index 100%
+rename from libweston/timeline.h
+rename to libias/timeline.h
+diff --git a/libweston/trace-reporter.c b/libias/trace-reporter.c
+similarity index 100%
+rename from libweston/trace-reporter.c
+rename to libias/trace-reporter.c
+diff --git a/libweston/trace-reporter.h b/libias/trace-reporter.h
+similarity index 100%
+rename from libweston/trace-reporter.h
+rename to libias/trace-reporter.h
+diff --git a/libweston/vaapi-recorder.c b/libias/vaapi-recorder.c
+similarity index 100%
+rename from libweston/vaapi-recorder.c
+rename to libias/vaapi-recorder.c
+diff --git a/libweston/vaapi-recorder.h b/libias/vaapi-recorder.h
+similarity index 100%
+rename from libweston/vaapi-recorder.h
+rename to libias/vaapi-recorder.h
+diff --git a/libweston/version.h.in b/libias/version.h.in
+similarity index 100%
+rename from libweston/version.h.in
+rename to libias/version.h.in
+diff --git a/libweston/vertex-clipping.c b/libias/vertex-clipping.c
+similarity index 100%
+rename from libweston/vertex-clipping.c
+rename to libias/vertex-clipping.c
+diff --git a/libweston/vertex-clipping.h b/libias/vertex-clipping.h
+similarity index 100%
+rename from libweston/vertex-clipping.h
+rename to libias/vertex-clipping.h
+diff --git a/libweston/vm-shared.h b/libias/vm-shared.h
+similarity index 100%
+rename from libweston/vm-shared.h
+rename to libias/vm-shared.h
+diff --git a/libweston/vm.c b/libias/vm.c
+similarity index 100%
+rename from libweston/vm.c
+rename to libias/vm.c
+diff --git a/libweston/vm.h b/libias/vm.h
+similarity index 100%
+rename from libweston/vm.h
+rename to libias/vm.h
+diff --git a/libweston/vm_comm.h b/libias/vm_comm.h
+similarity index 100%
+rename from libweston/vm_comm.h
+rename to libias/vm_comm.h
+diff --git a/libweston/vm_network.c b/libias/vm_network.c
+similarity index 100%
+rename from libweston/vm_network.c
+rename to libias/vm_network.c
+diff --git a/libweston/vm_xen.c b/libias/vm_xen.c
+similarity index 100%
+rename from libweston/vm_xen.c
+rename to libias/vm_xen.c
+diff --git a/libweston/windowed-output-api.h b/libias/windowed-output-api.h
+similarity index 100%
+rename from libweston/windowed-output-api.h
+rename to libias/windowed-output-api.h
+diff --git a/libweston/zoom.c b/libias/zoom.c
+similarity index 100%
+rename from libweston/zoom.c
+rename to libias/zoom.c
+diff --git a/m4/weston.m4 b/m4/ias.m4
+similarity index 100%
+rename from m4/weston.m4
+rename to m4/ias.m4
+diff --git a/man/weston-drm.man b/man/ias-drm.man
+similarity index 100%
+rename from man/weston-drm.man
+rename to man/ias-drm.man
+diff --git a/man/weston-rdp.man b/man/ias-rdp.man
+similarity index 100%
+rename from man/weston-rdp.man
+rename to man/ias-rdp.man
+diff --git a/man/weston.ini.man b/man/ias.ini.man
+similarity index 100%
+rename from man/weston.ini.man
+rename to man/ias.ini.man
+diff --git a/man/weston.man b/man/ias.man
+similarity index 100%
+rename from man/weston.man
+rename to man/ias.man
+diff --git a/packaging/weston.spec b/packaging/ias.spec
+similarity index 100%
+rename from packaging/weston.spec
+rename to packaging/ias.spec
+diff --git a/protocol/weston-desktop-shell.xml b/protocol/ias-desktop-shell.xml
+similarity index 100%
+rename from protocol/weston-desktop-shell.xml
+rename to protocol/ias-desktop-shell.xml
+diff --git a/protocol/weston-screenshooter.xml b/protocol/ias-screenshooter.xml
+similarity index 100%
+rename from protocol/weston-screenshooter.xml
+rename to protocol/ias-screenshooter.xml
+diff --git a/protocol/weston-test.xml b/protocol/ias-test.xml
+similarity index 100%
+rename from protocol/weston-test.xml
+rename to protocol/ias-test.xml
+diff --git a/shared/weston-egl-ext.h b/shared/ias-egl-ext.h
+similarity index 100%
+rename from shared/weston-egl-ext.h
+rename to shared/ias-egl-ext.h
+diff --git a/shared/platform.h b/shared/platform.h
+index 40d9bf2..6c314d0 100644
+--- a/shared/platform.h
++++ b/shared/platform.h
+@@ -34,7 +34,7 @@
+ #include <EGL/egl.h>
+ #include <EGL/eglext.h>
+ 
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ #endif
+ 
+ #ifdef  __cplusplus
+diff --git a/tests/bad-buffer-test.c b/tests/bad-buffer-test.c
+index ee7b223..1cd54ba 100644
+--- a/tests/bad-buffer-test.c
++++ b/tests/bad-buffer-test.c
+@@ -29,7 +29,7 @@
+ #include <unistd.h>
+ 
+ #include "shared/os-compatibility.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ /* tests, that attempt to crash the compositor on purpose */
+ 
+diff --git a/tests/devices-test.c b/tests/devices-test.c
+index 147a279..ea1fe60 100644
+--- a/tests/devices-test.c
++++ b/tests/devices-test.c
+@@ -26,7 +26,7 @@
+ #include "config.h"
+ 
+ #include <string.h>
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ /**
+  * Test (un)plugging devices
+diff --git a/tests/event-test.c b/tests/event-test.c
+index c1ba3ac..2ff3d22 100644
+--- a/tests/event-test.c
++++ b/tests/event-test.c
+@@ -26,7 +26,7 @@
+ 
+ #include "config.h"
+ 
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ static int
+ output_contains_client(struct client *client)
+diff --git a/tests/weston-test-client-helper.c b/tests/ias-test-client-helper.c
+similarity index 99%
+rename from tests/weston-test-client-helper.c
+rename to tests/ias-test-client-helper.c
+index ea202c0..19ca700 100644
+--- a/tests/weston-test-client-helper.c
++++ b/tests/ias-test-client-helper.c
+@@ -37,7 +37,7 @@
+ #include "shared/os-compatibility.h"
+ #include "shared/xalloc.h"
+ #include "shared/zalloc.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ #define max(a, b) (((a) > (b)) ? (a) : (b))
+ #define min(a, b) (((a) > (b)) ? (b) : (a))
+diff --git a/tests/weston-test-client-helper.h b/tests/ias-test-client-helper.h
+similarity index 98%
+rename from tests/weston-test-client-helper.h
+rename to tests/ias-test-client-helper.h
+index 52e8a56..79cda2a 100644
+--- a/tests/weston-test-client-helper.h
++++ b/tests/ias-test-client-helper.h
+@@ -35,8 +35,8 @@
+ #include <pixman.h>
+ 
+ #include <wayland-client-protocol.h>
+-#include "weston-test-runner.h"
+-#include "weston-test-client-protocol.h"
++#include "ias-test-runner.h"
++#include "ias-test-client-protocol.h"
+ 
+ struct client {
+ 	struct wl_display *wl_display;
+diff --git a/tests/weston-test-desktop-shell.c b/tests/ias-test-desktop-shell.c
+similarity index 98%
+rename from tests/weston-test-desktop-shell.c
+rename to tests/ias-test-desktop-shell.c
+index de84425..467b109 100644
+--- a/tests/weston-test-desktop-shell.c
++++ b/tests/ias-test-desktop-shell.c
+@@ -36,10 +36,10 @@
+ #include <math.h>
+ #include <sys/types.h>
+ 
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ #include "shared/config-parser.h"
+ #include "shared/helpers.h"
+-#include "libweston-desktop/libweston-desktop.h"
++#include "libias-desktop/libias-desktop.h"
+ 
+ #ifndef static_assert
+ #define static_assert(cond, msg)
+diff --git a/tests/weston-test-runner.c b/tests/ias-test-runner.c
+similarity index 99%
+rename from tests/weston-test-runner.c
+rename to tests/ias-test-runner.c
+index f0566ac..ae78793 100644
+--- a/tests/weston-test-runner.c
++++ b/tests/ias-test-runner.c
+@@ -34,7 +34,7 @@
+ #include <errno.h>
+ #include <signal.h>
+ 
+-#include "weston-test-runner.h"
++#include "ias-test-runner.h"
+ 
+ #define SKIP 77
+ 
+diff --git a/tests/weston-test-runner.h b/tests/ias-test-runner.h
+similarity index 100%
+rename from tests/weston-test-runner.h
+rename to tests/ias-test-runner.h
+diff --git a/tests/weston-test.c b/tests/ias-test.c
+similarity index 99%
+rename from tests/weston-test.c
+rename to tests/ias-test.c
+index 9a2fd28..519d727 100644
+--- a/tests/weston-test.c
++++ b/tests/ias-test.c
+@@ -33,13 +33,13 @@
+ #include <string.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
+-#include "weston-test-server-protocol.h"
++#include "compositor/ias.h"
++#include "ias-test-server-protocol.h"
+ 
+ #ifdef ENABLE_EGL
+ #include <EGL/egl.h>
+ #include <EGL/eglext.h>
+-#include "weston-egl-ext.h"
++#include "ias-egl-ext.h"
+ #endif /* ENABLE_EGL */
+ 
+ #include "shared/helpers.h"
+diff --git a/tests/weston-tests-env b/tests/ias-tests-env
+similarity index 100%
+rename from tests/weston-tests-env
+rename to tests/ias-tests-env
+diff --git a/tests/input-timestamps-helper.c b/tests/input-timestamps-helper.c
+index 9e90fc0..fce1911 100644
+--- a/tests/input-timestamps-helper.c
++++ b/tests/input-timestamps-helper.c
+@@ -34,7 +34,7 @@
+ #include "protocol/input-timestamps-unstable-v1-client-protocol.h"
+ #include "shared/timespec-util.h"
+ #include "shared/zalloc.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ struct input_timestamps {
+ 	struct zwp_input_timestamps_v1 *proxy;
+diff --git a/tests/internal-screenshot-test.c b/tests/internal-screenshot-test.c
+index 2a7424b..d3fa91f 100644
+--- a/tests/internal-screenshot-test.c
++++ b/tests/internal-screenshot-test.c
+@@ -28,7 +28,7 @@
+ #include <stdint.h>
+ #include <stdio.h>
+ 
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ char *server_parameters="--use-pixman --width=320 --height=240";
+ 
+diff --git a/tests/ivi-shell-app-test.c b/tests/ivi-shell-app-test.c
+index 5bef765..f9bd5db 100644
+--- a/tests/ivi-shell-app-test.c
++++ b/tests/ivi-shell-app-test.c
+@@ -28,7 +28,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ 
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ #include "ivi-application-client-protocol.h"
+ 
+ static struct ivi_application *
+diff --git a/tests/ivi_layout-internal-test.c b/tests/ivi_layout-internal-test.c
+index 1054d97..372710c 100644
+--- a/tests/ivi_layout-internal-test.c
++++ b/tests/ivi_layout-internal-test.c
+@@ -33,7 +33,7 @@
+ #include <stdint.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ #include "ivi-shell/ivi-layout-export.h"
+ #include "ivi-shell/ivi-layout-private.h"
+ #include "ivi-test.h"
+diff --git a/tests/ivi_layout-test-plugin.c b/tests/ivi_layout-test-plugin.c
+index 1f19c55..20334eb 100644
+--- a/tests/ivi_layout-test-plugin.c
++++ b/tests/ivi_layout-test-plugin.c
+@@ -34,8 +34,8 @@
+ #include <assert.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
+-#include "weston-test-server-protocol.h"
++#include "compositor/ias.h"
++#include "ias-test-server-protocol.h"
+ #include "ivi-test.h"
+ #include "ivi-shell/ivi-layout-export.h"
+ #include "shared/helpers.h"
+diff --git a/tests/ivi_layout-test.c b/tests/ivi_layout-test.c
+index d2f4c93..9895ac1 100644
+--- a/tests/ivi_layout-test.c
++++ b/tests/ivi_layout-test.c
+@@ -31,7 +31,7 @@
+ 
+ #include "shared/helpers.h"
+ #include "shared/xalloc.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ #include "ivi-application-client-protocol.h"
+ #include "ivi-test.h"
+ 
+diff --git a/tests/keyboard-test.c b/tests/keyboard-test.c
+index 37ef83d..0af41ef 100644
+--- a/tests/keyboard-test.c
++++ b/tests/keyboard-test.c
+@@ -29,7 +29,7 @@
+ 
+ #include "input-timestamps-helper.h"
+ #include "shared/timespec-util.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ static const struct timespec t1 = { .tv_sec = 1, .tv_nsec = 1000001 };
+ static const struct timespec t2 = { .tv_sec = 2, .tv_nsec = 2000001 };
+diff --git a/tests/plugin-registry-test.c b/tests/plugin-registry-test.c
+index 81e26cd..ebd0fd5 100644
+--- a/tests/plugin-registry-test.c
++++ b/tests/plugin-registry-test.c
+@@ -28,7 +28,7 @@
+ #include <assert.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ #include "plugin-registry.h"
+ 
+ static void
+diff --git a/tests/pointer-test.c b/tests/pointer-test.c
+index eef5222..96c18e8 100644
+--- a/tests/pointer-test.c
++++ b/tests/pointer-test.c
+@@ -30,7 +30,7 @@
+ 
+ #include "input-timestamps-helper.h"
+ #include "shared/timespec-util.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ static const struct timespec t0 = { .tv_sec = 0, .tv_nsec = 100000000 };
+ static const struct timespec t1 = { .tv_sec = 1, .tv_nsec = 1000001 };
+diff --git a/tests/presentation-test.c b/tests/presentation-test.c
+index f6ffe48..271c2e5 100644
+--- a/tests/presentation-test.c
++++ b/tests/presentation-test.c
+@@ -35,7 +35,7 @@
+ #include "shared/helpers.h"
+ #include "shared/xalloc.h"
+ #include "shared/timespec-util.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ #include "presentation-time-client-protocol.h"
+ 
+ static struct wp_presentation *
+diff --git a/tests/roles-test.c b/tests/roles-test.c
+index e0c4377..929a56d 100644
+--- a/tests/roles-test.c
++++ b/tests/roles-test.c
+@@ -29,7 +29,7 @@
+ #include <string.h>
+ #include <assert.h>
+ 
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ static struct wl_subcompositor *
+ get_subcompositor(struct client *client)
+diff --git a/tests/string-test.c b/tests/string-test.c
+index 5571b52..f84c682 100644
+--- a/tests/string-test.c
++++ b/tests/string-test.c
+@@ -33,7 +33,7 @@
+ 
+ #include "shared/string-helpers.h"
+ 
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ TEST(strtol_conversions)
+ {
+diff --git a/tests/subsurface-shot-test.c b/tests/subsurface-shot-test.c
+index e8bab67..3e50e6c 100644
+--- a/tests/subsurface-shot-test.c
++++ b/tests/subsurface-shot-test.c
+@@ -30,7 +30,7 @@
+ #include <string.h>
+ #include <sys/mman.h>
+ 
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ char *server_parameters = "--use-pixman --width=320 --height=240"
+ 	" --shell=weston-test-desktop-shell.so";
+diff --git a/tests/subsurface-test.c b/tests/subsurface-test.c
+index 1a24ee3..8295617 100644
+--- a/tests/subsurface-test.c
++++ b/tests/subsurface-test.c
+@@ -28,7 +28,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ 
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ 
+ #define NUM_SUBSURFACES 3
+ 
+diff --git a/tests/surface-global-test.c b/tests/surface-global-test.c
+index 4604d19..a838155 100644
+--- a/tests/surface-global-test.c
++++ b/tests/surface-global-test.c
+@@ -29,7 +29,7 @@
+ #include <stdint.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ 
+ static void
+ surface_to_from_global(void *data)
+diff --git a/tests/surface-screenshot.c b/tests/surface-screenshot.c
+index 908022d..de24635 100644
+--- a/tests/surface-screenshot.c
++++ b/tests/surface-screenshot.c
+@@ -34,7 +34,7 @@
+ #include <linux/input.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ #include "file-util.h"
+ 
+ static char *
+diff --git a/tests/surface-test.c b/tests/surface-test.c
+index 28520aa..2a35c1a 100644
+--- a/tests/surface-test.c
++++ b/tests/surface-test.c
+@@ -29,7 +29,7 @@
+ #include <assert.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ 
+ static void
+ surface_transform(void *data)
+diff --git a/tests/text-test.c b/tests/text-test.c
+index 685a28d..4ca5c82 100644
+--- a/tests/text-test.c
++++ b/tests/text-test.c
+@@ -29,7 +29,7 @@
+ #include <stdint.h>
+ #include <stdio.h>
+ 
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ #include "text-input-unstable-v1-client-protocol.h"
+ 
+ struct text_input_state {
+diff --git a/tests/touch-test.c b/tests/touch-test.c
+index baf5bc5..90ab32b 100644
+--- a/tests/touch-test.c
++++ b/tests/touch-test.c
+@@ -29,7 +29,7 @@
+ 
+ #include "input-timestamps-helper.h"
+ #include "shared/timespec-util.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ #include "wayland-server-protocol.h"
+ 
+ static const struct timespec t1 = { .tv_sec = 1, .tv_nsec = 1000001 };
+diff --git a/tests/vertex-clip-test.c b/tests/vertex-clip-test.c
+index ce876ce..c11a318 100644
+--- a/tests/vertex-clip-test.c
++++ b/tests/vertex-clip-test.c
+@@ -28,7 +28,7 @@
+ #include <assert.h>
+ #include <string.h>
+ 
+-#include "weston-test-runner.h"
++#include "ias-test-runner.h"
+ 
+ #include "shared/helpers.h"
+ #include "vertex-clipping.h"
+diff --git a/tests/viewporter-test.c b/tests/viewporter-test.c
+index 95fb9b4..127333e 100644
+--- a/tests/viewporter-test.c
++++ b/tests/viewporter-test.c
+@@ -33,7 +33,7 @@
+ 
+ #include "shared/helpers.h"
+ #include "shared/xalloc.h"
+-#include "weston-test-client-helper.h"
++#include "ias-test-client-helper.h"
+ #include "viewporter-client-protocol.h"
+ 
+ static struct wp_viewporter *
+diff --git a/tests/xwayland-test.c b/tests/xwayland-test.c
+index d9d4a2d..2602433 100644
+--- a/tests/xwayland-test.c
++++ b/tests/xwayland-test.c
+@@ -41,7 +41,7 @@
+ #include <X11/Xatom.h>
+ #include <string.h>
+ 
+-#include "weston-test-runner.h"
++#include "ias-test-runner.h"
+ 
+ TEST(xwayland_client_test)
+ {
+diff --git a/xwayland/launcher.c b/xwayland/launcher.c
+index 0ecdb20..17a2400 100644
+--- a/xwayland/launcher.c
++++ b/xwayland/launcher.c
+@@ -40,7 +40,7 @@
+ #include "xwayland-api.h"
+ #include "shared/helpers.h"
+ #include "shared/string-helpers.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ 
+ static int
+ weston_xserver_handle_event(int listen_fd, uint32_t mask, void *data)
+diff --git a/xwayland/xwayland.h b/xwayland/xwayland.h
+index ca75f5b..c803781 100644
+--- a/xwayland/xwayland.h
++++ b/xwayland/xwayland.h
+@@ -30,7 +30,7 @@
+ #include <cairo/cairo-xcb.h>
+ 
+ #include "compositor.h"
+-#include "compositor/weston.h"
++#include "compositor/ias.h"
+ #include "xwayland-api.h"
+ 
+ #define SEND_EVENT_MASK (0x80)
+-- 
+2.17.1
+
