@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 17
+Release  : 18
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias@.service
@@ -153,7 +153,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1537382969
+export SOURCE_DATE_EPOCH=1537385503
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -180,7 +180,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1537382969
+export SOURCE_DATE_EPOCH=1537385503
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
@@ -192,6 +192,7 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias@.service
 mkdir -p %{buildroot}/usr/share/xdg/ias/
 install -m 0644 ias.ini.in %{buildroot}/usr/share/xdg/ias/ias.ini
 install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/ias/ias.conf
+mv %{buildroot}/usr/bin/wcap-decode %{buildroot}/usr/bin/ias-wcap-decode
 ## install_append end
 
 %files
@@ -230,11 +231,11 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/ias/ias.conf
 /usr/bin/ias-subsurfaces
 /usr/bin/ias-terminal
 /usr/bin/ias-transformed
+/usr/bin/ias-wcap-decode
 /usr/bin/inputctrl
 /usr/bin/layoutctrl
 /usr/bin/surfctrl
 /usr/bin/traceinfo
-/usr/bin/wcap-decode
 /usr/bin/wrandr
 /usr/libexec/ias-desktop-shell
 /usr/libexec/ias-ivi-shell-user-interface
