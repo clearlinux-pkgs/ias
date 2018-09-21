@@ -1,4 +1,3 @@
---libdir=/usr/lib64/ias
 --disable-setuid-install
 --enable-ias-shell
 --disable-xkbcommon

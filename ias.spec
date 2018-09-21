@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 21
+Release  : 22
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias.service
@@ -153,9 +153,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1537565340
-%autogen --disable-static --libdir=/usr/lib64/ias \
---disable-setuid-install \
+export SOURCE_DATE_EPOCH=1537566710
+%autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
 --enable-simple-clients \
@@ -181,7 +180,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1537565340
+export SOURCE_DATE_EPOCH=1537566710
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
@@ -198,9 +197,6 @@ rm %{buildroot}/usr/libexec/weston*
 
 %files
 %defattr(-,root,root,-)
-/usr/lib64/ias/pkgconfig/libweston-4.pc
-/usr/lib64/ias/pkgconfig/libweston-desktop-4.pc
-/usr/lib64/ias/pkgconfig/weston.pc
 
 %files bin
 %defattr(-,root,root,-)
@@ -303,6 +299,11 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/include/libias-4/zalloc.h
 /usr/include/weston/ivi-layout-export.h
 /usr/include/weston/weston.h
+/usr/lib64/libweston-4.so
+/usr/lib64/libweston-desktop-4.so
+/usr/lib64/pkgconfig/libweston-4.pc
+/usr/lib64/pkgconfig/libweston-desktop-4.pc
+/usr/lib64/pkgconfig/weston.pc
 
 %files doc
 %defattr(0644,root,root,0755)
@@ -310,47 +311,45 @@ rm %{buildroot}/usr/libexec/weston*
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/ias/ias/cms-static.so
-/usr/lib64/ias/ias/cpp_example.so
-/usr/lib64/ias/ias/cpp_example.so.0
-/usr/lib64/ias/ias/cpp_example.so.0.0.0
-/usr/lib64/ias/ias/desktop-shell.so
-/usr/lib64/ias/ias/extension_sample.so
-/usr/lib64/ias/ias/extension_sample.so.0
-/usr/lib64/ias/ias/extension_sample.so.0.0.0
-/usr/lib64/ias/ias/fullscreen-shell.so
-/usr/lib64/ias/ias/grid_layout.so
-/usr/lib64/ias/ias/grid_layout.so.0
-/usr/lib64/ias/ias/grid_layout.so.0.0.0
-/usr/lib64/ias/ias/hmi-controller.so
-/usr/lib64/ias/ias/ias-shell-protocol.so
-/usr/lib64/ias/ias/ias-shell.so
-/usr/lib64/ias/ias/ias_plugin_framework.so
-/usr/lib64/ias/ias/input.so
-/usr/lib64/ias/ias/input.so.0
-/usr/lib64/ias/ias/input.so.0.0.0
-/usr/lib64/ias/ias/ivi-shell.so
-/usr/lib64/ias/ias/ivi_plugin_framework.so
-/usr/lib64/ias/ias/sprite_example.so
-/usr/lib64/ias/ias/sprite_example.so.0
-/usr/lib64/ias/ias/sprite_example.so.0.0.0
-/usr/lib64/ias/ias/surface_gbc_control.so
-/usr/lib64/ias/ias/surface_gbc_control.so.0
-/usr/lib64/ias/ias/surface_gbc_control.so.0.0.0
-/usr/lib64/ias/ias/thumbnail_layout.so
-/usr/lib64/ias/ias/thumbnail_layout.so.0
-/usr/lib64/ias/ias/thumbnail_layout.so.0.0.0
-/usr/lib64/ias/libias-4/drm-backend.so
-/usr/lib64/ias/libias-4/fbdev-backend.so
-/usr/lib64/ias/libias-4/gl-renderer.so
-/usr/lib64/ias/libias-4/headless-backend.so
-/usr/lib64/ias/libias-4/ias-backend.so
-/usr/lib64/ias/libweston-4.so
-/usr/lib64/ias/libweston-4.so.0
-/usr/lib64/ias/libweston-4.so.0.0.0
-/usr/lib64/ias/libweston-desktop-4.so
-/usr/lib64/ias/libweston-desktop-4.so.0
-/usr/lib64/ias/libweston-desktop-4.so.0.0.0
+/usr/lib64/ias/cms-static.so
+/usr/lib64/ias/cpp_example.so
+/usr/lib64/ias/cpp_example.so.0
+/usr/lib64/ias/cpp_example.so.0.0.0
+/usr/lib64/ias/desktop-shell.so
+/usr/lib64/ias/extension_sample.so
+/usr/lib64/ias/extension_sample.so.0
+/usr/lib64/ias/extension_sample.so.0.0.0
+/usr/lib64/ias/fullscreen-shell.so
+/usr/lib64/ias/grid_layout.so
+/usr/lib64/ias/grid_layout.so.0
+/usr/lib64/ias/grid_layout.so.0.0.0
+/usr/lib64/ias/hmi-controller.so
+/usr/lib64/ias/ias-shell-protocol.so
+/usr/lib64/ias/ias-shell.so
+/usr/lib64/ias/ias_plugin_framework.so
+/usr/lib64/ias/input.so
+/usr/lib64/ias/input.so.0
+/usr/lib64/ias/input.so.0.0.0
+/usr/lib64/ias/ivi-shell.so
+/usr/lib64/ias/ivi_plugin_framework.so
+/usr/lib64/ias/sprite_example.so
+/usr/lib64/ias/sprite_example.so.0
+/usr/lib64/ias/sprite_example.so.0.0.0
+/usr/lib64/ias/surface_gbc_control.so
+/usr/lib64/ias/surface_gbc_control.so.0
+/usr/lib64/ias/surface_gbc_control.so.0.0.0
+/usr/lib64/ias/thumbnail_layout.so
+/usr/lib64/ias/thumbnail_layout.so.0
+/usr/lib64/ias/thumbnail_layout.so.0.0.0
+/usr/lib64/libias-4/drm-backend.so
+/usr/lib64/libias-4/fbdev-backend.so
+/usr/lib64/libias-4/gl-renderer.so
+/usr/lib64/libias-4/headless-backend.so
+/usr/lib64/libias-4/ias-backend.so
+/usr/lib64/libweston-4.so.0
+/usr/lib64/libweston-4.so.0.0.0
+/usr/lib64/libweston-desktop-4.so.0
+/usr/lib64/libweston-desktop-4.so.0.0.0
 
 %files license
 %defattr(-,root,root,-)
