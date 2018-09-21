@@ -1,6 +1,6 @@
-mkdir -p %{buildroot}/usr/share/xdg/ias/
-install -m 0644 ias.ini.in %{buildroot}/usr/share/xdg/ias/ias.ini
-install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/ias/ias.conf
+mkdir -p %{buildroot}/usr/share/xdg/weston/
+install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
+install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 
 # move 
-mv %{buildroot}/usr/bin/wcap-decode %{buildroot}/usr/bin/ias-wcap-decode
+# mv %{buildroot}/usr/bin/wcap-decode %{buildroot}/usr/bin/ias-wcap-decode

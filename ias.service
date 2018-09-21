@@ -1,10 +1,6 @@
 #
 # ias.service
 #
-# enable ias to run as <user> by running
-# # cp /lib/systemd/system/ias@.service /lib/systemd/system/ias@<user>.service
-# # systemctl enable ias@<user>.service
-#
 #
 # NOTE NOTE NOTE
 #
@@ -17,9 +13,9 @@
 Description=Start weston session on demand
 
 [Service]
+User ias
 WorkingDirectory=/tmp
-Environment="XDG_CONFIG_HOME=/usr/share/xdg/weston" "XDG_RUNTIME_DIR=/run/wayland"
-ExecStartPre=-/bin/mkdir -p /run/wayland
+Environment="XDG_CONFIG_HOME=/usr/share/xdg/weston" "XDG_RUNTIME_DIR=/run/ias"
 ExecStart=/opt/ias/usr/bin/weston-launch
 StandardInput=tty
 StandardOutput=journal

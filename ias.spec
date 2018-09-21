@@ -4,10 +4,10 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 18
+Release  : 19
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
-Source1  : ias@.service
+Source1  : ias.service
 Summary  : Weston Compositor
 Group    : Development/Tools
 License  : CC-BY-SA-3.0 MIT
@@ -64,7 +64,7 @@ BuildRequires : pkgconfig(xcb-xkb)
 BuildRequires : pkgconfig(xcursor)
 BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : sed
-Patch1: 0001-Rename-to-IAS.patch
+Patch1: 0001-change-module-directories.patch
 
 %description
 Weston compositor
@@ -153,7 +153,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1537385503
+export SOURCE_DATE_EPOCH=1537562861
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -180,19 +180,18 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1537385503
+export SOURCE_DATE_EPOCH=1537562861
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
 cp data/COPYING %{buildroot}/usr/share/doc/ias/data_COPYING
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
-install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias@.service
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias.service
 ## install_append content
-mkdir -p %{buildroot}/usr/share/xdg/ias/
-install -m 0644 ias.ini.in %{buildroot}/usr/share/xdg/ias/ias.ini
-install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/ias/ias.conf
-mv %{buildroot}/usr/bin/wcap-decode %{buildroot}/usr/bin/ias-wcap-decode
+mkdir -p %{buildroot}/usr/share/xdg/weston/
+install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
+install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 ## install_append end
 
 %files
@@ -200,90 +199,88 @@ mv %{buildroot}/usr/bin/wcap-decode %{buildroot}/usr/bin/ias-wcap-decode
 
 %files bin
 %defattr(-,root,root,-)
-/usr/bin/extension_test_client
-/usr/bin/ias
-/usr/bin/ias-calibrator
-/usr/bin/ias-clickdot
-/usr/bin/ias-cliptest
-/usr/bin/ias-confine
-/usr/bin/ias-dnd
-/usr/bin/ias-editor
-/usr/bin/ias-es2gears
-/usr/bin/ias-eventdemo
-/usr/bin/ias-flower
-/usr/bin/ias-fullscreen
-/usr/bin/ias-image
-/usr/bin/ias-info
-/usr/bin/ias-launch
-/usr/bin/ias-multi-resource
-/usr/bin/ias-presentation-shm
-/usr/bin/ias-resizor
-/usr/bin/ias-scaler
-/usr/bin/ias-simple-clock
-/usr/bin/ias-simple-damage
-/usr/bin/ias-simple-dmabuf-drm
-/usr/bin/ias-simple-dmabuf-v4l
-/usr/bin/ias-simple-egl
-/usr/bin/ias-simple-shm
-/usr/bin/ias-simple-touch
-/usr/bin/ias-smoke
-/usr/bin/ias-stacking
-/usr/bin/ias-subsurfaces
-/usr/bin/ias-terminal
-/usr/bin/ias-transformed
-/usr/bin/ias-wcap-decode
-/usr/bin/inputctrl
-/usr/bin/layoutctrl
-/usr/bin/surfctrl
-/usr/bin/traceinfo
-/usr/bin/wrandr
-/usr/libexec/ias-desktop-shell
-/usr/libexec/ias-ivi-shell-user-interface
-/usr/libexec/ias-keyboard
-/usr/libexec/ias-screenshooter
-/usr/libexec/ias-simple-im
+/usr/bin/ias-weston
+/usr/bin/ias-weston-launch
 /usr/libexec/ias-test-hmi
+/usr/libexec/weston-desktop-shell
+/usr/libexec/weston-ivi-shell-user-interface
+/usr/libexec/weston-keyboard
+/usr/libexec/weston-screenshooter
+/usr/libexec/weston-simple-im
 
 %files config
 %defattr(-,root,root,-)
-/usr/lib/systemd/system/ias@.service
+/usr/lib/systemd/system/ias.service
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/ias/background.png
-/usr/share/ias/border.png
-/usr/share/ias/fullscreen.png
-/usr/share/ias/home.png
-/usr/share/ias/icon_editor.png
-/usr/share/ias/icon_flower.png
-/usr/share/ias/icon_ivi_clickdot.png
-/usr/share/ias/icon_ivi_flower.png
-/usr/share/ias/icon_ivi_simple-egl.png
-/usr/share/ias/icon_ivi_simple-shm.png
-/usr/share/ias/icon_ivi_smoke.png
-/usr/share/ias/icon_terminal.png
-/usr/share/ias/icon_window.png
-/usr/share/ias/intel.png
-/usr/share/ias/panel.png
-/usr/share/ias/pattern.png
-/usr/share/ias/random.png
-/usr/share/ias/sidebyside.png
-/usr/share/ias/sign_close.png
-/usr/share/ias/sign_maximize.png
-/usr/share/ias/sign_minimize.png
-/usr/share/ias/terminal.png
-/usr/share/ias/tiling.png
-/usr/share/ias/wayland.png
-/usr/share/ias/wayland.svg
-/usr/share/wayland-sessions/ias.desktop
-/usr/share/xdg/ias/ias.conf
-/usr/share/xdg/ias/ias.ini
+/usr/share/ias/examples/extension_test_client
+/usr/share/ias/examples/inputctrl
+/usr/share/ias/examples/layoutctrl
+/usr/share/ias/examples/surfctrl
+/usr/share/ias/examples/traceinfo
+/usr/share/ias/examples/wcap-decode
+/usr/share/ias/examples/weston-calibrator
+/usr/share/ias/examples/weston-clickdot
+/usr/share/ias/examples/weston-cliptest
+/usr/share/ias/examples/weston-confine
+/usr/share/ias/examples/weston-dnd
+/usr/share/ias/examples/weston-editor
+/usr/share/ias/examples/weston-es2gears
+/usr/share/ias/examples/weston-eventdemo
+/usr/share/ias/examples/weston-flower
+/usr/share/ias/examples/weston-fullscreen
+/usr/share/ias/examples/weston-image
+/usr/share/ias/examples/weston-info
+/usr/share/ias/examples/weston-multi-resource
+/usr/share/ias/examples/weston-presentation-shm
+/usr/share/ias/examples/weston-resizor
+/usr/share/ias/examples/weston-scaler
+/usr/share/ias/examples/weston-simple-clock
+/usr/share/ias/examples/weston-simple-damage
+/usr/share/ias/examples/weston-simple-dmabuf-drm
+/usr/share/ias/examples/weston-simple-dmabuf-v4l
+/usr/share/ias/examples/weston-simple-egl
+/usr/share/ias/examples/weston-simple-shm
+/usr/share/ias/examples/weston-simple-touch
+/usr/share/ias/examples/weston-smoke
+/usr/share/ias/examples/weston-stacking
+/usr/share/ias/examples/weston-subsurfaces
+/usr/share/ias/examples/weston-terminal
+/usr/share/ias/examples/weston-transformed
+/usr/share/ias/examples/wrandr
+/usr/share/wayland-sessions/weston.desktop
+/usr/share/weston/background.png
+/usr/share/weston/border.png
+/usr/share/weston/fullscreen.png
+/usr/share/weston/home.png
+/usr/share/weston/icon_editor.png
+/usr/share/weston/icon_flower.png
+/usr/share/weston/icon_ivi_clickdot.png
+/usr/share/weston/icon_ivi_flower.png
+/usr/share/weston/icon_ivi_simple-egl.png
+/usr/share/weston/icon_ivi_simple-shm.png
+/usr/share/weston/icon_ivi_smoke.png
+/usr/share/weston/icon_terminal.png
+/usr/share/weston/icon_window.png
+/usr/share/weston/intel.png
+/usr/share/weston/panel.png
+/usr/share/weston/pattern.png
+/usr/share/weston/random.png
+/usr/share/weston/sidebyside.png
+/usr/share/weston/sign_close.png
+/usr/share/weston/sign_maximize.png
+/usr/share/weston/sign_minimize.png
+/usr/share/weston/terminal.png
+/usr/share/weston/tiling.png
+/usr/share/weston/wayland.png
+/usr/share/weston/wayland.svg
+/usr/share/xdg/weston/ias.conf
+/usr/share/xdg/weston/weston.ini
 
 %files dev
 %defattr(-,root,root,-)
 /usr/include/*.h
-/usr/include/ias/ias.h
-/usr/include/ias/ivi-layout-export.h
 /usr/include/libias-4/compositor-drm.h
 /usr/include/libias-4/compositor-fbdev.h
 /usr/include/libias-4/compositor-headless.h
@@ -294,21 +291,23 @@ mv %{buildroot}/usr/bin/wcap-decode %{buildroot}/usr/bin/ias-wcap-decode
 /usr/include/libias-4/compositor.h
 /usr/include/libias-4/config-parser.h
 /usr/include/libias-4/ias-common.h
-/usr/include/libias-4/ias-egl-ext.h
 /usr/include/libias-4/ias-plugin-framework-definitions.h
 /usr/include/libias-4/ias-spug.h
-/usr/include/libias-4/libias-desktop.h
+/usr/include/libias-4/libweston-desktop.h
 /usr/include/libias-4/matrix.h
 /usr/include/libias-4/plugin-registry.h
 /usr/include/libias-4/timeline-object.h
 /usr/include/libias-4/version.h
+/usr/include/libias-4/weston-egl-ext.h
 /usr/include/libias-4/windowed-output-api.h
 /usr/include/libias-4/zalloc.h
-/usr/lib64/libias-4.so
-/usr/lib64/libias-desktop-4.so
-/usr/lib64/pkgconfig/ias.pc
-/usr/lib64/pkgconfig/libias-4.pc
-/usr/lib64/pkgconfig/libias-desktop-4.pc
+/usr/include/weston/ivi-layout-export.h
+/usr/include/weston/weston.h
+/usr/lib64/libweston-4.so
+/usr/lib64/libweston-desktop-4.so
+/usr/lib64/pkgconfig/libweston-4.pc
+/usr/lib64/pkgconfig/libweston-desktop-4.pc
+/usr/lib64/pkgconfig/weston.pc
 
 %files doc
 %defattr(0644,root,root,0755)
@@ -346,15 +345,15 @@ mv %{buildroot}/usr/bin/wcap-decode %{buildroot}/usr/bin/ias-wcap-decode
 /usr/lib64/ias/thumbnail_layout.so
 /usr/lib64/ias/thumbnail_layout.so.0
 /usr/lib64/ias/thumbnail_layout.so.0.0.0
-/usr/lib64/libias-4.so.0
-/usr/lib64/libias-4.so.0.0.0
 /usr/lib64/libias-4/drm-backend.so
 /usr/lib64/libias-4/fbdev-backend.so
 /usr/lib64/libias-4/gl-renderer.so
 /usr/lib64/libias-4/headless-backend.so
 /usr/lib64/libias-4/ias-backend.so
-/usr/lib64/libias-desktop-4.so.0
-/usr/lib64/libias-desktop-4.so.0.0.0
+/usr/lib64/libweston-4.so.0
+/usr/lib64/libweston-4.so.0.0.0
+/usr/lib64/libweston-desktop-4.so.0
+/usr/lib64/libweston-desktop-4.so.0.0.0
 
 %files license
 %defattr(-,root,root,-)
@@ -363,6 +362,6 @@ mv %{buildroot}/usr/bin/wcap-decode %{buildroot}/usr/bin/ias-wcap-decode
 
 %files man
 %defattr(-,root,root,-)
-/usr/share/man/man1/ias.1
-/usr/share/man/man5/ias.ini.5
-/usr/share/man/man7/ias-drm.7
+/usr/share/man/man1/weston.1
+/usr/share/man/man5/weston.ini.5
+/usr/share/man/man7/weston-drm.7
