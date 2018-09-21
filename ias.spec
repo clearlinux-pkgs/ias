@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 20
+Release  : 21
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias.service
@@ -153,7 +153,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1537564129
+export SOURCE_DATE_EPOCH=1537565340
 %autogen --disable-static --libdir=/usr/lib64/ias \
 --disable-setuid-install \
 --enable-ias-shell \
@@ -181,7 +181,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1537564129
+export SOURCE_DATE_EPOCH=1537565340
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
@@ -193,6 +193,7 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias.service
 mkdir -p %{buildroot}/usr/share/xdg/weston/
 install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
 install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
+rm %{buildroot}/usr/libexec/weston*
 ## install_append end
 
 %files
@@ -206,11 +207,6 @@ install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 /usr/bin/ias-weston
 /usr/bin/ias-weston-launch
 /usr/libexec/ias-test-hmi
-/usr/libexec/weston-desktop-shell
-/usr/libexec/weston-ivi-shell-user-interface
-/usr/libexec/weston-keyboard
-/usr/libexec/weston-screenshooter
-/usr/libexec/weston-simple-im
 
 %files config
 %defattr(-,root,root,-)
