@@ -16,7 +16,7 @@ Description=Start weston session on demand
 User ias
 WorkingDirectory=/tmp
 Environment="XDG_CONFIG_HOME=/usr/share/xdg/weston" "XDG_RUNTIME_DIR=/run/ias"
-ExecStart=/opt/ias/usr/bin/weston-launch
+ExecStart=/usr/bin/ias-weston-launch
 StandardInput=tty
 StandardOutput=journal
 StandardError=journal
