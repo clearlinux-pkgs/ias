@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+id -u ias && exit 0
+
+useradd -u 1000 -g 1000 ias

@@ -1,0 +1,35 @@
+From eebed7b1eeeb219b1232e3211b20242db0987d51 Mon Sep 17 00:00:00 2001
+From: Kevron Rees <kevron.m.rees@intel.com>
+Date: Mon, 24 Sep 2018 10:01:26 -0700
+Subject: [PATCH] weston-launch to call ias-weston
+
+Signed-off-by: Kevron Rees <kevron.m.rees@intel.com>
+---
+ libweston/weston-launch.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libweston/weston-launch.c b/libweston/weston-launch.c
+index 7f03d51..83097a7 100644
+--- a/libweston/weston-launch.c
++++ b/libweston/weston-launch.c
+@@ -626,7 +626,7 @@ setup_session(struct weston_launch *wl, char **child_argv)
+ 	child_argv[0] = "/bin/sh";
+ 	child_argv[1] = "-l";
+ 	child_argv[2] = "-c";
+-	child_argv[3] = BINDIR "/weston \"$@\"";
++	child_argv[3] = BINDIR "/ias-weston \"$@\"";
+ 	child_argv[4] = "weston";
+ 	return 5;
+ }
+@@ -654,7 +654,7 @@ launch_compositor(struct weston_launch *wl, int argc, char *argv[])
+ 	if (wl->new_user) {
+ 		o = setup_session(wl, child_argv);
+ 	} else {
+-		child_argv[0] = BINDIR "/weston";
++		child_argv[0] = BINDIR "/ias-weston";
+ 		o = 1;
+ 	}
+ 	for (i = 0; i < argc; ++i)
+-- 
+2.17.1
+
