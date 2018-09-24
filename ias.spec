@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 25
+Release  : 26
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias.service
@@ -66,6 +66,7 @@ BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : sed
 Patch1: 0001-change-module-directories.patch
 Patch2: 0002-rename-libweston-to-libias.patch
+Patch3: 0001-weston-launch-to-call-ias-weston.patch
 
 %description
 Weston compositor
@@ -149,13 +150,14 @@ man components for the ias package.
 %setup -q -n ias-4.0.2_dev_plane_blend
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1537808873
+export SOURCE_DATE_EPOCH=1537811219
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -182,7 +184,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1537808873
+export SOURCE_DATE_EPOCH=1537811219
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
