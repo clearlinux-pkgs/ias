@@ -1,3 +1,4 @@
 0001-change-module-directories.patch
 0002-rename-libweston-to-libias.patch
 0001-weston-launch-to-call-ias-weston.patch
+0001-add-example-ias-setup-script.patch

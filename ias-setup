@@ -2,4 +2,7 @@
 
 id -u ias && exit 0
 
-useradd -u 1000 -g 1000 ias
+useradd -u 1000 -g 1000 -d /home/ias ias
+mkdir /home/ias/.config
+chown ias:ias /home/ias/.config
+cp /usr/share/xdg/ias.conf /home/ias/.config/
