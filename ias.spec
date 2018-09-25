@@ -4,10 +4,11 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 27
+Release  : 28
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
-Source1  : ias.service
+Source1  : ias-test-hmi.service
+Source2  : ias.service
 Summary  : Weston Compositor
 Group    : Development/Tools
 License  : CC-BY-SA-3.0 MIT
@@ -159,7 +160,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1537895766
+export SOURCE_DATE_EPOCH=1537897686
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -186,14 +187,15 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1537895766
+export SOURCE_DATE_EPOCH=1537897686
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
 cp data/COPYING %{buildroot}/usr/share/doc/ias/data_COPYING
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
-install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias.service
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias-test-hmi.service
+install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/ias.service
 ## install_append content
 mkdir -p %{buildroot}/usr/share/xdg/weston/
 install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
@@ -217,6 +219,7 @@ rm %{buildroot}/usr/libexec/weston*
 
 %files config
 %defattr(-,root,root,-)
+/usr/lib/systemd/system/ias-test-hmi.service
 /usr/lib/systemd/system/ias.service
 
 %files data

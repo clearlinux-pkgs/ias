@@ -1,0 +1,15 @@
+#
+# ias-test-hmi.service
+#
+[Unit]
+Description=Start ias test hmi
+After=ias.service
+
+[Service]
+User=ias
+WorkingDirectory=/tmp
+Environment="XDG_CONFIG_HOME=/usr/share/xdg/weston" "XDG_RUNTIME_DIR=/run/ias"
+ExecStart=/usr/libexec/ias-test-hmi
+
+[Install]
+WantedBy=graphical.target
