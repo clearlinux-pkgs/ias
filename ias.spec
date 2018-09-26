@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 30
+Release  : 31
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias-test-hmi.service
@@ -160,7 +160,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1537982868
+export SOURCE_DATE_EPOCH=1537991360
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -187,7 +187,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1537982868
+export SOURCE_DATE_EPOCH=1537991360
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
@@ -204,6 +204,7 @@ install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
 mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-4.pc
 mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
 mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
+mv %{buildroot}/usr/share/weston/* %{buildroot}/usr/share/ias/
 rm %{buildroot}/usr/libexec/weston*
 ## install_append end
 
@@ -224,6 +225,8 @@ rm %{buildroot}/usr/libexec/weston*
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/ias/background.png
+/usr/share/ias/border.png
 /usr/share/ias/examples/extension_test_client
 /usr/share/ias/examples/inputctrl
 /usr/share/ias/examples/layoutctrl
@@ -259,32 +262,30 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/share/ias/examples/weston-terminal
 /usr/share/ias/examples/weston-transformed
 /usr/share/ias/examples/wrandr
+/usr/share/ias/fullscreen.png
+/usr/share/ias/home.png
+/usr/share/ias/icon_editor.png
+/usr/share/ias/icon_flower.png
+/usr/share/ias/icon_ivi_clickdot.png
+/usr/share/ias/icon_ivi_flower.png
+/usr/share/ias/icon_ivi_simple-egl.png
+/usr/share/ias/icon_ivi_simple-shm.png
+/usr/share/ias/icon_ivi_smoke.png
+/usr/share/ias/icon_terminal.png
+/usr/share/ias/icon_window.png
+/usr/share/ias/intel.png
+/usr/share/ias/panel.png
+/usr/share/ias/pattern.png
+/usr/share/ias/random.png
+/usr/share/ias/sidebyside.png
+/usr/share/ias/sign_close.png
+/usr/share/ias/sign_maximize.png
+/usr/share/ias/sign_minimize.png
+/usr/share/ias/terminal.png
+/usr/share/ias/tiling.png
+/usr/share/ias/wayland.png
+/usr/share/ias/wayland.svg
 /usr/share/wayland-sessions/weston.desktop
-/usr/share/weston/background.png
-/usr/share/weston/border.png
-/usr/share/weston/fullscreen.png
-/usr/share/weston/home.png
-/usr/share/weston/icon_editor.png
-/usr/share/weston/icon_flower.png
-/usr/share/weston/icon_ivi_clickdot.png
-/usr/share/weston/icon_ivi_flower.png
-/usr/share/weston/icon_ivi_simple-egl.png
-/usr/share/weston/icon_ivi_simple-shm.png
-/usr/share/weston/icon_ivi_smoke.png
-/usr/share/weston/icon_terminal.png
-/usr/share/weston/icon_window.png
-/usr/share/weston/intel.png
-/usr/share/weston/panel.png
-/usr/share/weston/pattern.png
-/usr/share/weston/random.png
-/usr/share/weston/sidebyside.png
-/usr/share/weston/sign_close.png
-/usr/share/weston/sign_maximize.png
-/usr/share/weston/sign_minimize.png
-/usr/share/weston/terminal.png
-/usr/share/weston/tiling.png
-/usr/share/weston/wayland.png
-/usr/share/weston/wayland.svg
 /usr/share/xdg/weston/ias.conf
 /usr/share/xdg/weston/weston.ini
 
