@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 31
+Release  : 32
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias-test-hmi.service
@@ -160,7 +160,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1537991360
+export SOURCE_DATE_EPOCH=1537991596
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -187,7 +187,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1537991360
+export SOURCE_DATE_EPOCH=1537991596
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
@@ -205,6 +205,8 @@ mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgcon
 mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
 mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
 mv %{buildroot}/usr/share/weston/* %{buildroot}/usr/share/ias/
+mv %{buildroot}/usr/include/weston %{buildroot}/usr/include/ias
+mv %{buildroot}/usr/share/man/man5/weston.ini.5 %{buildroot}/usr/share/man/man5/ias.ini.5
 rm %{buildroot}/usr/libexec/weston*
 ## install_append end
 
@@ -292,6 +294,8 @@ rm %{buildroot}/usr/libexec/weston*
 %files dev
 %defattr(-,root,root,-)
 /usr/include/*.h
+/usr/include/ias/ivi-layout-export.h
+/usr/include/ias/weston.h
 /usr/include/libias-4/compositor-drm.h
 /usr/include/libias-4/compositor-fbdev.h
 /usr/include/libias-4/compositor-headless.h
@@ -312,8 +316,6 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/include/libias-4/weston-egl-ext.h
 /usr/include/libias-4/windowed-output-api.h
 /usr/include/libias-4/zalloc.h
-/usr/include/weston/ivi-layout-export.h
-/usr/include/weston/weston.h
 /usr/lib64/libias-4.so
 /usr/lib64/libias-desktop-4.so
 /usr/lib64/pkgconfig/ias.pc
@@ -374,5 +376,5 @@ rm %{buildroot}/usr/libexec/weston*
 %files man
 %defattr(-,root,root,-)
 /usr/share/man/man1/weston.1
-/usr/share/man/man5/weston.ini.5
+/usr/share/man/man5/ias.ini.5
 /usr/share/man/man7/weston-drm.7
