@@ -1,4 +1,4 @@
-From 1cdd9e8e279bd496b31dacb85aac7c970a53c5a5 Mon Sep 17 00:00:00 2001
+From 469120bb4cde347272e1317e9382e0dae3131597 Mon Sep 17 00:00:00 2001
 From: Kevron Rees <kevron.m.rees@intel.com>
 Date: Thu, 27 Sep 2018 08:25:00 -0700
 Subject: [PATCH] allow setting xdg env vars in command line args to
@@ -6,11 +6,11 @@ Subject: [PATCH] allow setting xdg env vars in command line args to
 
 Signed-off-by: Kevron Rees <kevron.m.rees@intel.com>
 ---
- libweston/weston-launch.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+ libweston/weston-launch.c | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
 
 diff --git a/libweston/weston-launch.c b/libweston/weston-launch.c
-index 83097a7..f20144a 100644
+index 83097a7..be0c2c0 100644
 --- a/libweston/weston-launch.c
 +++ b/libweston/weston-launch.c
 @@ -116,6 +116,8 @@ struct weston_launch {
@@ -65,11 +65,11 @@ index 83097a7..f20144a 100644
  	memset(&wl, 0, sizeof wl);
  
 -	while ((c = getopt_long(argc, argv, "u:t:vh", opts, &i)) != -1) {
-+	while ((c = getopt_long(argc, argv, "u:t:vhx:m:", opts, &i)) != -1) {
++	while ((c = getopt_long(argc, argv, "x:m:u:t:vh", opts, &i)) != -1) {
  		switch (c) {
  		case 'u':
  			wl.new_user = optarg;
-@@ -722,6 +735,11 @@ main(int argc, char *argv[])
+@@ -722,6 +735,12 @@ main(int argc, char *argv[])
  		case 'v':
  			wl.verbose = 1;
  			break;
@@ -78,6 +78,7 @@ index 83097a7..f20144a 100644
 +			break;
 +		case 'm':
 +			wl.xdg_config_home = optarg;
++			break;
  		case 'h':
  			help("weston-launch");
  			exit(EXIT_FAILURE);
