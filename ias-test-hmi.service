@@ -7,7 +7,6 @@ After=ias.service
 
 [Service]
 User=ias
-WorkingDirectory=/tmp
 Environment="XDG_RUNTIME_DIR=/run/ias"
 ExecStart=/usr/libexec/ias-test-hmi
 
