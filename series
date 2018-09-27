@@ -2,4 +2,3 @@
 0002-rename-libweston-to-libias.patch
 0001-weston-launch-to-call-ias-weston.patch
 0001-add-example-ias-setup-script.patch
-0001-allow-setting-xdg-env-vars-in-command-line-args-to-w.patch

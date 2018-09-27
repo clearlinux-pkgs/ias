@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 38
+Release  : 39
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias-test-hmi.service
@@ -69,7 +69,6 @@ Patch1: 0001-change-module-directories.patch
 Patch2: 0002-rename-libweston-to-libias.patch
 Patch3: 0001-weston-launch-to-call-ias-weston.patch
 Patch4: 0001-add-example-ias-setup-script.patch
-Patch5: 0001-allow-setting-xdg-env-vars-in-command-line-args-to-w.patch
 
 %description
 Weston compositor
@@ -155,14 +154,13 @@ man components for the ias package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1538075728
+export SOURCE_DATE_EPOCH=1538079278
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -189,7 +187,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1538075728
+export SOURCE_DATE_EPOCH=1538079278
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ias
 cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
