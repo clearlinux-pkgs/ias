@@ -1,31 +1,35 @@
-From f2a508c21e38a686b3c7c6da91ddb128f4520e4b Mon Sep 17 00:00:00 2001
+From f04090ab7314767ef8669a70516e2e0997e14000 Mon Sep 17 00:00:00 2001
 From: Kevron Rees <kevron.m.rees@intel.com>
 Date: Tue, 25 Sep 2018 10:12:53 -0700
 Subject: [PATCH] add example ias-setup script
 
 Signed-off-by: Kevron Rees <kevron.m.rees@intel.com>
 ---
- ias-setup | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ ias-setup | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
  create mode 100644 ias-setup
 
 diff --git a/ias-setup b/ias-setup
 new file mode 100644
-index 0000000..285d919
+index 0000000..6cda7d8
 --- /dev/null
 +++ b/ias-setup
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,15 @@
 +#!/usr/bin/env bash
 +
-+-/bin/mkdir -p /run/ias
++mkdir -p /run/ias
++chmod 0700 /run/ias
++chown ias:ias /run/ias || echo "may not have ias user yet..."
 +
 +#user setup if necessary
 +id -u ias && exit 0
 +
-+useradd -u 1000 -d /home/ias ias
++useradd -u 1099 -d /home/ias ias
 +mkdir /home/ias/.config
 +chown ias:ias /home/ias/.config
 +cp /usr/share/xdg/weston/ias.conf /home/ias/.config/
++
++chown ias:ias /run/ias
 -- 
 2.17.1
 
