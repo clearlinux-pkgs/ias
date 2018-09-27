@@ -1,0 +1,40 @@
+From 90ce4e99ea89404cac5b053a3ec626003a373e5d Mon Sep 17 00:00:00 2001
+From: Kevron Rees <kevron.m.rees@intel.com>
+Date: Thu, 27 Sep 2018 13:20:40 -0700
+Subject: [PATCH] install image data to ias subfolder
+
+Signed-off-by: Kevron Rees <kevron.m.rees@intel.com>
+---
+ Makefile.am            | 2 +-
+ clients/ias-test-hmi.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 075ff33..41fd1c3 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1462,7 +1462,7 @@ BUILT_SOURCES +=					\
+ 	protocol/input-timestamps-unstable-v1-protocol.c		\
+ 	protocol/input-timestamps-unstable-v1-client-protocol.h
+ 
+-westondatadir = $(datadir)/weston
++westondatadir = $(datadir)/ias
+ dist_westondata_DATA =				\
+ 	data/wayland.svg			\
+ 	data/wayland.png			\
+diff --git a/clients/ias-test-hmi.c b/clients/ias-test-hmi.c
+index dc80808..b0b2af9 100755
+--- a/clients/ias-test-hmi.c
++++ b/clients/ias-test-hmi.c
+@@ -142,7 +142,7 @@ struct output {
+ 	struct popup *popup;
+ };
+ 
+-static char *key_background_image = DATADIR "/weston/intel.png";
++static char *key_background_image = DATADIR "/ias/intel.png";
+ static char *key_background_type = "center";
+ static uint32_t key_background_color = 0xffffffff;
+ //static int popup_priority = 0;
+-- 
+2.17.1
+

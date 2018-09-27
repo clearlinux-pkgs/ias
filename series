@@ -2,3 +2,4 @@
 0002-rename-libweston-to-libias.patch
 0001-weston-launch-to-call-ias-weston.patch
 0001-add-example-ias-setup-script.patch
+0001-install-image-data-to-ias-subfolder.patch

@@ -1,0 +1,87 @@
+From 469120bb4cde347272e1317e9382e0dae3131597 Mon Sep 17 00:00:00 2001
+From: Kevron Rees <kevron.m.rees@intel.com>
+Date: Thu, 27 Sep 2018 08:25:00 -0700
+Subject: [PATCH] allow setting xdg env vars in command line args to
+ weston-launch
+
+Signed-off-by: Kevron Rees <kevron.m.rees@intel.com>
+---
+ libweston/weston-launch.c | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
+
+diff --git a/libweston/weston-launch.c b/libweston/weston-launch.c
+index 83097a7..be0c2c0 100644
+--- a/libweston/weston-launch.c
++++ b/libweston/weston-launch.c
+@@ -116,6 +116,8 @@ struct weston_launch {
+ 	pid_t child;
+ 	int verbose;
+ 	char *new_user;
++	char *xdg_runtime_dir;
++	char *xdg_config_home;
+ };
+ 
+ union cmsg_data { unsigned char b[4]; int fd; };
+@@ -610,6 +612,12 @@ setup_session(struct weston_launch *wl, char **child_argv)
+ 	setenv("HOME", wl->pw->pw_dir, 1);
+ 	setenv("SHELL", wl->pw->pw_shell, 1);
+ 
++	if (wl->xdg_runtime_dir)
++		setenv("XDG_RUNTIME_DIR", wl->xdg_runtime_dir, 1);
++
++	if (wl->xdg_config_home)
++		setenv("XDG_CONFIG_HOME", wl->xdg_config_home, 1);
++
+ 	env = pam_getenvlist(wl->ph);
+ 	if (env) {
+ 		for (i = 0; env[i]; ++i) {
+@@ -691,6 +699,9 @@ help(const char *name)
+ 			"                  e.g. -t /dev/tty4, requires -u option.\n");
+ 	fprintf(stderr, "  -v, --verbose   Be verbose\n");
+ 	fprintf(stderr, "  -h, --help      Display this help message\n");
++	fprintf(stderr, "  -x, --xdg-runtime-dir   Sets XDG_RUNTIME_DIR for weston environment\n");
++	fprintf(stderr, "  -m, --xdg-config-home   Sets XDG_CONFIG_HOME for weston environment\n");
++	fprintf(stderr, "  -v, --verbose   Be verbose\n");
+ }
+ 
+ int
+@@ -700,16 +711,18 @@ main(int argc, char *argv[])
+ 	int i, c;
+ 	char *tty = NULL;
+ 	struct option opts[] = {
+-		{ "user",    required_argument, NULL, 'u' },
+-		{ "tty",     required_argument, NULL, 't' },
+-		{ "verbose", no_argument,       NULL, 'v' },
+-		{ "help",    no_argument,       NULL, 'h' },
++		{ "user",            required_argument, NULL, 'u' },
++		{ "tty",             required_argument, NULL, 't' },
++		{ "verbose",         no_argument,       NULL, 'v' },
++		{ "help",            no_argument,       NULL, 'h' },
++		{ "xdg-runtime-dir", required_argument, NULL, 'x' },
++		{ "xdg-config-home", required_argument, NULL, 'm' },
+ 		{ 0,         0,                 NULL,  0  }
+ 	};
+ 
+ 	memset(&wl, 0, sizeof wl);
+ 
+-	while ((c = getopt_long(argc, argv, "u:t:vh", opts, &i)) != -1) {
++	while ((c = getopt_long(argc, argv, "x:m:u:t:vh", opts, &i)) != -1) {
+ 		switch (c) {
+ 		case 'u':
+ 			wl.new_user = optarg;
+@@ -722,6 +735,12 @@ main(int argc, char *argv[])
+ 		case 'v':
+ 			wl.verbose = 1;
+ 			break;
++		case 'x':
++			wl.xdg_runtime_dir = optarg;
++			break;
++		case 'm':
++			wl.xdg_config_home = optarg;
++			break;
+ 		case 'h':
+ 			help("weston-launch");
+ 			exit(EXIT_FAILURE);
+-- 
+2.17.1
+
