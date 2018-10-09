@@ -1,4 +1,4 @@
-From 8f7f2d2714e3c6e5270632f21d9f3477924c63cf Mon Sep 17 00:00:00 2001
+From ab0f7d33c9ba8fe7557dc89bb490bee837652af9 Mon Sep 17 00:00:00 2001
 From: Kevron Rees <kevron.m.rees@intel.com>
 Date: Tue, 25 Sep 2018 10:12:53 -0700
 Subject: [PATCH] add example ias-setup script
@@ -11,7 +11,7 @@ Signed-off-by: Kevron Rees <kevron.m.rees@intel.com>
 
 diff --git a/ias-setup b/ias-setup
 new file mode 100644
-index 0000000..0350408
+index 0000000..2219f23
 --- /dev/null
 +++ b/ias-setup
 @@ -0,0 +1,17 @@
@@ -24,7 +24,7 @@ index 0000000..0350408
 +#user setup if necessary
 +id -u ias && exit 0
 +
-+useradd -u 1099 -d /home/ias ias
++useradd -u 1099 -G video -d /home/ias ias
 +mkdir /home/ias/.config
 +chown ias:ias /home/ias/.config
 +cp /usr/share/xdg/weston/ias.conf /home/ias/.config/
