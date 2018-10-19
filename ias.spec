@@ -4,19 +4,20 @@
 #
 Name     : ias
 Version  : 4.0.2.dev.plane.blend
-Release  : 44
+Release  : 45
 URL      : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
 Source1  : ias.service
 Summary  : Weston Compositor
 Group    : Development/Tools
 License  : CC-BY-SA-3.0 MIT
-Requires: ias-bin
-Requires: ias-config
-Requires: ias-lib
-Requires: ias-license
-Requires: ias-data
-Requires: ias-man
+Requires: ias-bin = %{version}-%{release}
+Requires: ias-config = %{version}-%{release}
+Requires: ias-data = %{version}-%{release}
+Requires: ias-lib = %{version}-%{release}
+Requires: ias-libexec = %{version}-%{release}
+Requires: ias-license = %{version}-%{release}
+Requires: ias-man = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
 BuildRequires : automake
 BuildRequires : automake-dev
@@ -76,10 +77,11 @@ Weston compositor
 %package bin
 Summary: bin components for the ias package.
 Group: Binaries
-Requires: ias-data
-Requires: ias-config
-Requires: ias-license
-Requires: ias-man
+Requires: ias-data = %{version}-%{release}
+Requires: ias-libexec = %{version}-%{release}
+Requires: ias-config = %{version}-%{release}
+Requires: ias-license = %{version}-%{release}
+Requires: ias-man = %{version}-%{release}
 
 %description bin
 bin components for the ias package.
@@ -104,10 +106,10 @@ data components for the ias package.
 %package dev
 Summary: dev components for the ias package.
 Group: Development
-Requires: ias-lib
-Requires: ias-bin
-Requires: ias-data
-Provides: ias-devel
+Requires: ias-lib = %{version}-%{release}
+Requires: ias-bin = %{version}-%{release}
+Requires: ias-data = %{version}-%{release}
+Provides: ias-devel = %{version}-%{release}
 
 %description dev
 dev components for the ias package.
@@ -116,7 +118,7 @@ dev components for the ias package.
 %package doc
 Summary: doc components for the ias package.
 Group: Documentation
-Requires: ias-man
+Requires: ias-man = %{version}-%{release}
 
 %description doc
 doc components for the ias package.
@@ -125,11 +127,22 @@ doc components for the ias package.
 %package lib
 Summary: lib components for the ias package.
 Group: Libraries
-Requires: ias-data
-Requires: ias-license
+Requires: ias-data = %{version}-%{release}
+Requires: ias-libexec = %{version}-%{release}
+Requires: ias-license = %{version}-%{release}
 
 %description lib
 lib components for the ias package.
+
+
+%package libexec
+Summary: libexec components for the ias package.
+Group: Default
+Requires: ias-config = %{version}-%{release}
+Requires: ias-license = %{version}-%{release}
+
+%description libexec
+libexec components for the ias package.
 
 
 %package license
@@ -161,7 +174,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1539118515
+export SOURCE_DATE_EPOCH=1539968496
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -188,11 +201,11 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1539118515
+export SOURCE_DATE_EPOCH=1539968496
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/ias
-cp COPYING %{buildroot}/usr/share/doc/ias/COPYING
-cp data/COPYING %{buildroot}/usr/share/doc/ias/data_COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/ias
+cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
+cp data/COPYING %{buildroot}/usr/share/package-licenses/ias/data_COPYING
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias.service
@@ -220,7 +233,6 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/bin/ias-setup
 /usr/bin/ias-weston
 /usr/bin/ias-weston-launch
-/usr/libexec/ias-test-hmi
 
 %files config
 %defattr(-,root,root,-)
@@ -369,13 +381,17 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/lib64/libias-desktop-4.so.0
 /usr/lib64/libias-desktop-4.so.0.0.0
 
-%files license
+%files libexec
 %defattr(-,root,root,-)
-/usr/share/doc/ias/COPYING
-/usr/share/doc/ias/data_COPYING
+/usr/libexec/ias-test-hmi
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/ias/COPYING
+/usr/share/package-licenses/ias/data_COPYING
 
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man1/ias-weston.1
 /usr/share/man/man5/ias.ini.5
 /usr/share/man/man7/ias-weston-drm.7
