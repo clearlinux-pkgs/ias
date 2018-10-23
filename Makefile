@@ -1,5 +1,5 @@
 PKG_NAME := ias
-URL = https://github.com/intel/ias/archive/4.0.2_dev_plane_blend.tar.gz
+URL = https://github.com/intel/ias/archive/4.0.7.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common

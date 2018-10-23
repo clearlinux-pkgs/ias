@@ -8,7 +8,7 @@ mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgcon
 mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
 mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
 
-mv %{buildroot}/usr/share/wayland-sessions/weston.desktop %{buildroot}/usr/share/wayland-sessions/ias-weston.desktop
+#mv %{buildroot}/usr/share/wayland-sessions/weston.desktop %{buildroot}/usr/share/wayland-sessions/ias-weston.desktop
 mv %{buildroot}/usr/include/weston %{buildroot}/usr/include/ias
 mv %{buildroot}/usr/share/man/man5/weston.ini.5 %{buildroot}/usr/share/man/man5/ias.ini.5
 mv %{buildroot}/usr/share/man/man7/weston-drm.7 %{buildroot}/usr/share/man/man7/ias-weston-drm.7
