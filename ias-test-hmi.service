@@ -1,0 +1,7 @@
+[Unit]
+Description = ias test hmi
+
+[Service]
+User = ias
+Environment = "XDG_RUNTIME_DIR=/run/ias"
+ExecStart = /usr/libexec/ias-test-hmi

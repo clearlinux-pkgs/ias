@@ -1,0 +1,8 @@
+[Unit]
+Description=start ias-test-hmi when wayland socket is created
+
+[Path]
+PathModified=/run/ias/wayland-0
+
+[Install]
+WantedBy=multi-user.target
