@@ -1,0 +1,9 @@
+[Unit]
+Description=ias-setup script one-time
+Before=ias.service
+
+[Service]
+ExecStart=/usr/bin/ias-setup
+
+[Install]
+WantedBy=ias.service

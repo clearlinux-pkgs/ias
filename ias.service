@@ -14,13 +14,15 @@ Description=ias weston compositor
 
 [Service]
 Environment="XDG_CONFIG_HOME=/usr/share/xdg/weston" "XDG_RUNTIME_DIR=/run/ias"
-ExecStartPre=/usr/bin/ias-setup
-ExecStart=/usr/bin/ias-weston-launch -u ias
+User=ias
+RuntimeDirectory=ias
+RuntimeDirectoryMode=0700
+ExecStart=/usr/bin/ias-weston-launch -- -i 0
 StandardInput=tty
 StandardOutput=journal
 StandardError=journal
 TTYPath=/dev/tty2
-SupplementaryGroups=input
+SupplementaryGroups=input weston-launch
 
 [Install]
 WantedBy=graphical.target

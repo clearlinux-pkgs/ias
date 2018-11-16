@@ -4,16 +4,16 @@
 #
 Name     : ias
 Version  : 4.0.9
-Release  : 52
+Release  : 53
 URL      : https://github.com/intel/ias/archive/4.0.9.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.9.tar.gz
-Source1  : ias-test-hmi.path
-Source2  : ias-test-hmi.service
-Source3  : ias.service
+Source1  : ias-setup.service
+Source2  : ias-test-hmi.path
+Source3  : ias-test-hmi.service
+Source4  : ias.service
 Summary  : Weston Compositor
 Group    : Development/Tools
 License  : CC-BY-SA-3.0 MIT
-Requires: ias-autostart = %{version}-%{release}
 Requires: ias-bin = %{version}-%{release}
 Requires: ias-data = %{version}-%{release}
 Requires: ias-lib = %{version}-%{release}
@@ -65,14 +65,6 @@ Patch1: 0001-add-example-ias-setup-script.patch
 
 %description
 Weston compositor
-
-%package autostart
-Summary: autostart components for the ias package.
-Group: Default
-
-%description autostart
-autostart components for the ias package.
-
 
 %package bin
 Summary: bin components for the ias package.
@@ -169,7 +161,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542205568
+export SOURCE_DATE_EPOCH=1542365316
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -196,22 +188,24 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1542205568
+export SOURCE_DATE_EPOCH=1542365316
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ias
 cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
 cp data/COPYING %{buildroot}/usr/share/package-licenses/ias/data_COPYING
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
-install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias-test-hmi.path
-install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/ias-test-hmi.service
-install -m 0644 %{SOURCE3} %{buildroot}/usr/lib/systemd/system/ias.service
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias-setup.service
+install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/ias-test-hmi.path
+install -m 0644 %{SOURCE3} %{buildroot}/usr/lib/systemd/system/ias-test-hmi.service
+install -m 0644 %{SOURCE4} %{buildroot}/usr/lib/systemd/system/ias.service
 ## install_append content
 mkdir -p %{buildroot}/usr/share/xdg/weston/
 install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
 install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
-mkdir -p %{buildroot}/usr/lib/systemd/system/multi-user.target.wants
-ln -s ../ias-test-hmi.path %{buildroot}/usr/lib/systemd/system/multi-user.target.wants/ias-test-hmi.path
+mkdir -p %{buildroot}/usr/lib/systemd/system/ias.service.wants
+ln -s ../ias-test-hmi.path %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-test-hmi.path
+ln -s ../ias-setup.service %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-setup.service
 install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
 mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-4.pc
 mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
@@ -225,10 +219,6 @@ rm %{buildroot}/usr/libexec/weston*
 
 %files
 %defattr(-,root,root,-)
-
-%files autostart
-%defattr(-,root,root,-)
-/usr/lib/systemd/system/multi-user.target.wants/ias-test-hmi.path
 
 %files bin
 %defattr(-,root,root,-)
@@ -398,7 +388,9 @@ rm %{buildroot}/usr/libexec/weston*
 
 %files services
 %defattr(-,root,root,-)
-%exclude /usr/lib/systemd/system/multi-user.target.wants/ias-test-hmi.path
+/usr/lib/systemd/system/ias-setup.service
 /usr/lib/systemd/system/ias-test-hmi.path
 /usr/lib/systemd/system/ias-test-hmi.service
 /usr/lib/systemd/system/ias.service
+/usr/lib/systemd/system/ias.service.wants/ias-setup.service
+/usr/lib/systemd/system/ias.service.wants/ias-test-hmi.path
