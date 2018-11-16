@@ -16,7 +16,6 @@ Description=ias weston compositor
 Environment="XDG_CONFIG_HOME=/usr/share/xdg/weston" "XDG_RUNTIME_DIR=/run/ias"
 User=ias
 Group=weston-launch
-DynamicUser=true
 RuntimeDirectory=ias
 RuntimeDirectoryMode=0700
 ExecStart=/usr/bin/ias-weston-launch -- -i 0

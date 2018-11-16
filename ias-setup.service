@@ -1,9 +1,9 @@
 [Unit]
 Description=ias-setup script one-time
-Before=ias.service
 
 [Service]
+Type=oneshot
 ExecStart=/usr/bin/ias-setup
 
 [Install]
-WantedBy=ias.service
+WantedBy=basic.target

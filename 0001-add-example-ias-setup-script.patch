@@ -1,20 +1,20 @@
-From fb9a4e684cb5147ee313c7c265c01074dc3b03f1 Mon Sep 17 00:00:00 2001
+From 5cd83b02342a43e9c667aa7e3cb863000aef34d0 Mon Sep 17 00:00:00 2001
 From: Kevron Rees <kevron.m.rees@intel.com>
 Date: Tue, 25 Sep 2018 10:12:53 -0700
 Subject: [PATCH] add example ias-setup script
 
 Signed-off-by: Kevron Rees <kevron.m.rees@intel.com>
 ---
- ias-setup | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ ias-setup | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
  create mode 100644 ias-setup
 
 diff --git a/ias-setup b/ias-setup
 new file mode 100644
-index 0000000..35e4c88
+index 0000000..7cfc857
 --- /dev/null
 +++ b/ias-setup
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,12 @@
 +#!/usr/bin/env bash
 +
 +#user setup if necessary
@@ -24,9 +24,6 @@ index 0000000..35e4c88
 +groupadd weston-launch
 +
 +useradd -u 1099 -G video -d /home/ias ias
-+mkdir /home/ias/.config
-+cp /usr/share/xdg/weston/ias.conf /home/ias/.config/
-+chown -R ias:ias /home/ias/.config/
 +
 +echo "XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR" >> /home/ias/.bashrc
 +

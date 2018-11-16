@@ -3,8 +3,9 @@ install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
 install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 
 mkdir -p %{buildroot}/usr/lib/systemd/system/ias.service.wants
+mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 ln -s ../ias-test-hmi.path %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-test-hmi.path
-#ln -s ../ias-setup.service %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-setup.service
+ln -s ../ias-setup.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/ias-setup.service
 
 install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
 
