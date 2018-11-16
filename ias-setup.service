@@ -3,6 +3,7 @@ Description=ias-setup script one-time
 
 [Service]
 Type=oneshot
+Environment="XDG_RUNTIME_DIR=/run/ias"
 ExecStart=/usr/bin/ias-setup
 
 [Install]
