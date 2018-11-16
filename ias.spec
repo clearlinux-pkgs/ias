@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.9
-Release  : 53
+Release  : 54
 URL      : https://github.com/intel/ias/archive/4.0.9.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.9.tar.gz
 Source1  : ias-setup.service
@@ -161,7 +161,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542365316
+export SOURCE_DATE_EPOCH=1542369708
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -188,7 +188,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1542365316
+export SOURCE_DATE_EPOCH=1542369708
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ias
 cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
@@ -205,7 +205,6 @@ install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
 install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
 mkdir -p %{buildroot}/usr/lib/systemd/system/ias.service.wants
 ln -s ../ias-test-hmi.path %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-test-hmi.path
-ln -s ../ias-setup.service %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-setup.service
 install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
 mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-4.pc
 mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
@@ -392,5 +391,4 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/lib/systemd/system/ias-test-hmi.path
 /usr/lib/systemd/system/ias-test-hmi.service
 /usr/lib/systemd/system/ias.service
-/usr/lib/systemd/system/ias.service.wants/ias-setup.service
 /usr/lib/systemd/system/ias.service.wants/ias-test-hmi.path
