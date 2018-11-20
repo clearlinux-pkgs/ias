@@ -11,6 +11,6 @@
 --disable-rpi-compositor
 --enable-ivi-plugin-manager
 --enable-layer-manager-control
---disable-tracing
+--enable-tracing
 --enable-shadergen
 --enable-demo-clients-install
