@@ -24,6 +24,7 @@ StandardOutput=journal
 StandardError=journal
 TTYPath=/dev/tty2
 SupplementaryGroups=input
+StartupCPUShares=2048
 
 [Install]
 WantedBy=graphical.target
