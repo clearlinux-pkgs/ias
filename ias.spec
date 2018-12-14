@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.9
-Release  : 58
+Release  : 59
 URL      : https://github.com/intel/ias/archive/4.0.9.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.9.tar.gz
 Source1  : ias-setup.service
@@ -170,7 +170,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1543942039
+export SOURCE_DATE_EPOCH=1544815520
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -186,7 +186,8 @@ export SOURCE_DATE_EPOCH=1543942039
 --enable-layer-manager-control \
 --enable-tracing \
 --enable-shadergen \
---enable-demo-clients-install
+--enable-demo-clients-install \
+--enable-vm
 make  %{?_smp_mflags}
 
 %check
@@ -197,7 +198,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1543942039
+export SOURCE_DATE_EPOCH=1544815520
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ias
 cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
@@ -376,6 +377,7 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/lib64/ias/thumbnail_layout.so.0
 /usr/lib64/ias/thumbnail_layout.so.0.0.0
 /usr/lib64/ias/trace-reporter.so
+/usr/lib64/ias/vm-comm-network.so
 /usr/lib64/libias-4.so.0
 /usr/lib64/libias-4.so.0.0.2
 /usr/lib64/libias-4/drm-backend.so

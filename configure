@@ -14,3 +14,4 @@
 --enable-tracing
 --enable-shadergen
 --enable-demo-clients-install
+--enable-vm
