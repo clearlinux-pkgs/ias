@@ -133,3 +133,14 @@ index 1e48e7e..2b5fa15 100644
 -- 
 2.17.1
 
+--- ias-4.0.18/ias.conf.example~	2019-02-21 22:54:41.000000000 +0000
++++ ias-4.0.18/ias.conf.example	2019-02-28 14:50:05.325306300 +0000
+@@ -1,7 +1,7 @@
+ <?xml version='1.0' encoding='UTF-8'?>
+ <iasconfig>
+   <shell>
+-    <plugin name='grid' lib='/usr/lib/ias/grid_layout.so' defer="1" />
++    <plugin name='grid' lib='/usr/lib64/ias/grid_layout.so' defer="1" />
+   </shell>
+ 
+   <backend raw_keyboards='1' use_nuclear_flip='1'>
