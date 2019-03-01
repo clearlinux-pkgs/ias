@@ -1,0 +1,105 @@
+From 7592a0f6646b924ec3e3b36d9dbfff5102f6bf2d Mon Sep 17 00:00:00 2001
+From: Kevron Rees <kevron.m.rees@intel.com>
+Date: Fri, 1 Mar 2019 09:53:23 -0800
+Subject: [PATCH] Revert "gl-renderer: Only provide RBC modifiers if
+ specifically asked for"
+
+This reverts commit e4707ed34da3682001c8b017a02b5738c5220949.
+---
+ libweston/compositor-ias.c |  5 -----
+ libweston/gl-renderer.c    | 34 ++++++----------------------------
+ libweston/gl-renderer.h    |  2 --
+ 3 files changed, 6 insertions(+), 35 deletions(-)
+
+diff --git a/libweston/compositor-ias.c b/libweston/compositor-ias.c
+index aefad4a..732837b 100644
+--- a/libweston/compositor-ias.c
++++ b/libweston/compositor-ias.c
+@@ -4574,11 +4574,6 @@ ias_compositor_create(struct weston_compositor *compositor,
+ 	centre_pointer(backend);
+ 
+ 	if (backend->has_nuclear_pageflip) {
+-		/*
+-		 * The renderer needs to know if it should filter out RBC modes so provide a
+-		 * flag to it.
+-		 */
+-		gl_renderer->rbc = use_rbc;
+ 		backend->rbc_supported = render_buffer_compression_supported(backend);
+ 		backend->rbc_enabled = backend->rbc_supported && use_rbc && !has_overlapping_outputs(backend);
+ 		if (backend->rbc_debug) {
+diff --git a/libweston/gl-renderer.c b/libweston/gl-renderer.c
+index e9137b8..e8b921e 100644
+--- a/libweston/gl-renderer.c
++++ b/libweston/gl-renderer.c
+@@ -2021,8 +2021,7 @@ gl_renderer_query_dmabuf_modifiers(struct weston_compositor *wc, int format,
+ 					int *num_modifiers)
+ {
+ 	struct gl_renderer *gr = get_renderer(wc);
+-	int num, i, j;
+-	uint64_t *temp_modifiers;
++	int num;
+ 
+ 	assert(gr->has_dmabuf_import);
+ 
+@@ -2033,40 +2032,19 @@ gl_renderer_query_dmabuf_modifiers(struct weston_compositor *wc, int format,
+ 		return;
+ 	}
+ 
+-	temp_modifiers = calloc(num, sizeof(uint64_t));
+-	if (temp_modifiers == NULL) {
++	*modifiers = calloc(num, sizeof(uint64_t));
++	if (*modifiers == NULL) {
+ 		*num_modifiers = 0;
+ 		return;
+ 	}
+ 	if (!gr->query_dmabuf_modifiers(gr->egl_display, format,
+-				num, temp_modifiers, NULL, &num)) {
++				num, *modifiers, NULL, &num)) {
+ 		*num_modifiers = 0;
+-		free(temp_modifiers);
++		free(*modifiers);
+ 		return;
+ 	}
+ 
+-	*modifiers = calloc(num, sizeof(uint64_t));
+-	if (*modifiers == NULL) {
+-		*num_modifiers = 0;
+-		free(temp_modifiers);
+-		return;
+-	}
+-
+-	for(i = 0, j = 0; i < num; i++) {
+-		/*
+-		 * Either the rbc flag is turned on, in which case we shouldn't filter
+-		 * out RBC modifiers. OR if it is turned off, then we should filter
+-		 * them out.
+-		 */
+-		if(gl_renderer_interface.rbc ||
+-			(temp_modifiers[i] != I915_FORMAT_MOD_Y_TILED_CCS &&
+-			temp_modifiers[i] != I915_FORMAT_MOD_Yf_TILED_CCS)) {
+-			(*modifiers)[j++] = temp_modifiers[i];
+-		}
+-	}
+-
+-	*num_modifiers = j;
+-	free(temp_modifiers);
++	*num_modifiers = num;
+ }
+ 
+ static bool
+diff --git a/libweston/gl-renderer.h b/libweston/gl-renderer.h
+index f2d1141..39315f3 100644
+--- a/libweston/gl-renderer.h
++++ b/libweston/gl-renderer.h
+@@ -141,8 +141,6 @@ struct gl_renderer_interface {
+ 			           struct wl_resource *buffer,
+ 				   EGLint attribute, EGLint *value);
+ 
+-	int rbc;
+-
+ #ifdef USE_VM
+ 	int vm_exec;
+ 	int vm_dbg;
+-- 
+2.17.1
+
