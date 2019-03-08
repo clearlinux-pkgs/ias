@@ -16,4 +16,3 @@
 --enable-demo-clients-install
 --enable-vm
 --enable-vmdisplay
---enable-shadergen

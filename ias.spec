@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.18
-Release  : 70
+Release  : 71
 URL      : https://github.com/intel/ias/archive/4.0.18.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.18.tar.gz
 Source1  : ias-setup.service
@@ -176,7 +176,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1552073029
+export SOURCE_DATE_EPOCH=1552085185
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -194,8 +194,7 @@ export SOURCE_DATE_EPOCH=1552073029
 --enable-shadergen \
 --enable-demo-clients-install \
 --enable-vm \
---enable-vmdisplay \
---enable-shadergen
+--enable-vmdisplay
 make  %{?_smp_mflags}
 
 %check
@@ -206,7 +205,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1552073029
+export SOURCE_DATE_EPOCH=1552085185
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ias
 cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
