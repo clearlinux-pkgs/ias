@@ -1,0 +1,25 @@
+From 66fd78e914c3f82795a3987eb2c1a064f99a68a1 Mon Sep 17 00:00:00 2001
+From: Kevron Rees <kevron.m.rees@intel.com>
+Date: Fri, 8 Mar 2019 08:52:22 -0800
+Subject: [PATCH] truncate instead of append log file
+
+---
+ compositor/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/compositor/main.c b/compositor/main.c
+index db9d20e..6cd2cc7 100644
+--- a/compositor/main.c
++++ b/compositor/main.c
+@@ -120,7 +120,7 @@ weston_log_file_open(const char *filename)
+ 	wl_log_set_handler_server(custom_handler);
+ 
+ 	if (filename != NULL) {
+-		weston_logfile = fopen(filename, "a");
++		weston_logfile = fopen(filename, "w");
+ 		if (weston_logfile)
+ 			os_fd_set_cloexec(fileno(weston_logfile));
+ 	}
+-- 
+2.17.1
+
