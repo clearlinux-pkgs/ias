@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.18
-Release  : 69
+Release  : 70
 URL      : https://github.com/intel/ias/archive/4.0.18.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.18.tar.gz
 Source1  : ias-setup.service
@@ -176,7 +176,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1552070872
+export SOURCE_DATE_EPOCH=1552073029
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -206,7 +206,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1552070872
+export SOURCE_DATE_EPOCH=1552073029
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ias
 cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
@@ -234,6 +234,7 @@ mv %{buildroot}/usr/share/man/man5/weston.ini.5 %{buildroot}/usr/share/man/man5/
 mv %{buildroot}/usr/share/man/man7/weston-drm.7 %{buildroot}/usr/share/man/man7/ias-weston-drm.7
 mv %{buildroot}/usr/share/man/man1/weston.1 %{buildroot}/usr/share/man/man1/ias-weston.1
 rm %{buildroot}/usr/libexec/weston*
+chmod 775 %{buildroot}/usr/lib64/libias-4
 ## install_append end
 
 %files
