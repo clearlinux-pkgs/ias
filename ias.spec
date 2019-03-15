@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.18
-Release  : 71
+Release  : 72
 URL      : https://github.com/intel/ias/archive/4.0.18.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.18.tar.gz
 Source1  : ias-setup.service
@@ -23,8 +23,10 @@ Requires: ias-license = %{version}-%{release}
 Requires: ias-man = %{version}-%{release}
 Requires: ias-services = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
+BuildRequires : colord-dev
 BuildRequires : doxygen
 BuildRequires : lcms2-dev
+BuildRequires : libdrm-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : pkgconfig(cairo)
 BuildRequires : pkgconfig(cairo-xcb)
@@ -85,7 +87,6 @@ Group: Binaries
 Requires: ias-data = %{version}-%{release}
 Requires: ias-libexec = %{version}-%{release}
 Requires: ias-license = %{version}-%{release}
-Requires: ias-man = %{version}-%{release}
 Requires: ias-services = %{version}-%{release}
 
 %description bin
@@ -176,7 +177,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1552085185
+export SOURCE_DATE_EPOCH=1552674612
+export LDFLAGS="${LDFLAGS} -fno-lto"
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
 --disable-xkbcommon \
@@ -194,7 +196,9 @@ export SOURCE_DATE_EPOCH=1552085185
 --enable-shadergen \
 --enable-demo-clients-install \
 --enable-vm \
---enable-vmdisplay
+--enable-vmdisplay \
+--enable-frame-capture \
+--enable-remote-display
 make  %{?_smp_mflags}
 
 %check
@@ -205,7 +209,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1552085185
+export SOURCE_DATE_EPOCH=1552674612
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ias
 cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
@@ -257,6 +261,9 @@ chmod 775 %{buildroot}/usr/lib64/libias-4
 /usr/share/ias/examples/extension_test_client
 /usr/share/ias/examples/inputctrl
 /usr/share/ias/examples/layoutctrl
+/usr/share/ias/examples/mediaplayer
+/usr/share/ias/examples/remote-display
+/usr/share/ias/examples/remote-display-show
 /usr/share/ias/examples/surfctrl
 /usr/share/ias/examples/traceinfo
 /usr/share/ias/examples/wcap-decode
@@ -355,6 +362,7 @@ chmod 775 %{buildroot}/usr/lib64/libias-4
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/ias/cms-colord.so
 /usr/lib64/ias/cms-static.so
 /usr/lib64/ias/cpp_example.so
 /usr/lib64/ias/cpp_example.so.0
@@ -389,6 +397,11 @@ chmod 775 %{buildroot}/usr/lib64/libias-4
 /usr/lib64/ias/thumbnail_layout.so.0
 /usr/lib64/ias/thumbnail_layout.so.0.0.0
 /usr/lib64/ias/trace-reporter.so
+/usr/lib64/ias/transport_plugin_avb.so
+/usr/lib64/ias/transport_plugin_file.so
+/usr/lib64/ias/transport_plugin_stub.so
+/usr/lib64/ias/transport_plugin_tcp.so
+/usr/lib64/ias/transport_plugin_udp.so
 /usr/lib64/ias/vm-comm-network.so
 /usr/lib64/libias-4.so.0
 /usr/lib64/libias-4.so.0.0.18
