@@ -1,0 +1,28 @@
+From 5ba908015276caf7f16f7b4f6caaccb10d53e028 Mon Sep 17 00:00:00 2001
+From: Satyeshwar Singh <satyeshwar.singh@intel.com>
+Date: Fri, 29 Mar 2019 23:49:54 +0000
+Subject: [PATCH] ias: Updating ias.service to include new env vars.
+
+If remote display is to be used, then IAS requires
+LIBVA_DRIVERS_PATH and LIBVA_DRIVER_NAME to be set.
+
+Signed-off-by: Satyeshwar Singh <satyeshwar.singh@intel.com>
+---
+ ias.service | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/ias.service b/ias.service
+index dfe9862..85bdcee 100644
+--- a/ias.service
++++ b/ias.service
+@@ -14,6 +14,7 @@ Description=ias weston compositor
+ 
+ [Service]
+ Environment="XDG_CONFIG_HOME=/usr/share/xdg/weston" "XDG_RUNTIME_DIR=/run/ias"
++Environment="LIBVA_DRIVERS_PATH=/usr/lib64/dri/" "LIBVA_DRIVER_NAME=iHD"
+ User=ias
+ Group=weston-launch
+ RuntimeDirectory=ias
+-- 
+2.17.1
+
