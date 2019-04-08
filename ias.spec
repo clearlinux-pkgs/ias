@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 4.0.18
-Release  : 74
+Release  : 75
 URL      : https://github.com/intel/ias/archive/4.0.18.tar.gz
 Source0  : https://github.com/intel/ias/archive/4.0.18.tar.gz
 Source1  : ias-setup.service
@@ -67,8 +67,7 @@ BuildRequires : pkgconfig(xcursor)
 BuildRequires : pkgconfig(xkbcommon)
 BuildRequires : sed
 Patch1: 0001-add-example-ias-setup-script.patch
-Patch2: 0001-Revert-gl-renderer-Only-provide-RBC-modifiers-if-spe.patch
-Patch3: 0001-truncate-instead-of-append-log-file.patch
+Patch2: 0001-truncate-instead-of-append-log-file.patch
 
 %description
 Weston compositor
@@ -170,14 +169,13 @@ services components for the ias package.
 %setup -q -n ias-4.0.18
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554142429
+export SOURCE_DATE_EPOCH=1554747920
 export LDFLAGS="${LDFLAGS} -fno-lto"
 %autogen --disable-static --disable-setuid-install \
 --enable-ias-shell \
@@ -209,7 +207,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 :
 
 %install
-export SOURCE_DATE_EPOCH=1554142429
+export SOURCE_DATE_EPOCH=1554747920
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ias
 cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
