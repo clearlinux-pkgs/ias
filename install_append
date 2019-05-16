@@ -15,7 +15,7 @@ install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
 
 #mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-4.pc
 #mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
-#mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
+mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
 
 #mv %{buildroot}/usr/share/wayland-sessions/weston.desktop %{buildroot}/usr/share/wayland-sessions/ias-weston.desktop
 mv %{buildroot}/usr/include/weston %{buildroot}/usr/include/ias
