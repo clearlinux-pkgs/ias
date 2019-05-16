@@ -9,17 +9,18 @@ ln -s ../ias-setup.service %{buildroot}/usr/lib/systemd/system/basic.target.want
 
 install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
 
-mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-4.pc
-mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
-mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
+#mv %{buildroot}/usr/lib64/libweston-desktop.so %{buildroot}/usr/lib64/libias-desktop.so
+#mv %{buildroot}/usr/lib64/libweston-desktop.so.6 %{buildroot}/usr/lib64/libias-desktop.so.6
+
+
+#mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-4.pc
+#mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
+#mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
 
 #mv %{buildroot}/usr/share/wayland-sessions/weston.desktop %{buildroot}/usr/share/wayland-sessions/ias-weston.desktop
 mv %{buildroot}/usr/include/weston %{buildroot}/usr/include/ias
-mv %{buildroot}/usr/share/man/man5/weston.ini.5 %{buildroot}/usr/share/man/man5/ias.ini.5
-mv %{buildroot}/usr/share/man/man7/weston-drm.7 %{buildroot}/usr/share/man/man7/ias-weston-drm.7
-mv %{buildroot}/usr/share/man/man1/weston.1 %{buildroot}/usr/share/man/man1/ias-weston.1
 
 rm %{buildroot}/usr/libexec/weston*
 
 # required for shader gen to work:
-chmod 775 %{buildroot}/usr/lib64/libias-4
+# chmod 775 %{buildroot}/usr/lib64/libias-4
