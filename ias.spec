@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 6.0.1
-Release  : 78
+Release  : 79
 URL      : https://github.com/intel/ias/archive/6.0.1.tar.gz
 Source0  : https://github.com/intel/ias/archive/6.0.1.tar.gz
 Source1  : ias-setup.service
@@ -161,7 +161,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1566939997
+export SOURCE_DATE_EPOCH=1566941198
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -202,6 +202,7 @@ install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
 mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
 mv %{buildroot}/usr/include/weston %{buildroot}/usr/include/ias
 rm %{buildroot}/usr/libexec/weston*
+mv %{buildroot}/usr/bin/weston-screenshooter %{buildroot}/usr/bin/ias-screenshooter
 ## install_append end
 
 %files
@@ -213,10 +214,10 @@ rm %{buildroot}/usr/libexec/weston*
 
 %files bin
 %defattr(-,root,root,-)
+/usr/bin/ias-screenshooter
 /usr/bin/ias-setup
 /usr/bin/ias-weston
 /usr/bin/ias-weston-launch
-/usr/bin/weston-screenshooter
 
 %files data
 %defattr(-,root,root,-)

@@ -22,5 +22,8 @@ mv %{buildroot}/usr/include/weston %{buildroot}/usr/include/ias
 
 rm %{buildroot}/usr/libexec/weston*
 
+# temp fix for conflict:
+mv %{buildroot}/usr/bin/weston-screenshooter %{buildroot}/usr/bin/ias-screenshooter
+
 # required for shader gen to work:
 # chmod 775 %{buildroot}/usr/lib64/libias-4
