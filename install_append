@@ -7,7 +7,7 @@ mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 ln -s ../ias-test-hmi.path %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-test-hmi.path
 ln -s ../ias-setup.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/ias-setup.service
 
-install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
+install -m 0755 ias-setup %{buildroot}/usr/bin/ias-setup
 
 #mv %{buildroot}/usr/lib64/libweston-desktop.so %{buildroot}/usr/lib64/libias-desktop.so
 #mv %{buildroot}/usr/lib64/libweston-desktop.so.6 %{buildroot}/usr/lib64/libias-desktop.so.6

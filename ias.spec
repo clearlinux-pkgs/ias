@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 6.0.1
-Release  : 79
+Release  : 80
 URL      : https://github.com/intel/ias/archive/6.0.1.tar.gz
 Source0  : https://github.com/intel/ias/archive/6.0.1.tar.gz
 Source1  : ias-setup.service
@@ -161,7 +161,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1566941198
+export SOURCE_DATE_EPOCH=1567009316
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -198,7 +198,7 @@ mkdir -p %{buildroot}/usr/lib/systemd/system/ias.service.wants
 mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 ln -s ../ias-test-hmi.path %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-test-hmi.path
 ln -s ../ias-setup.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/ias-setup.service
-install -m 0550 ias-setup %{buildroot}/usr/bin/ias-setup
+install -m 0755 ias-setup %{buildroot}/usr/bin/ias-setup
 mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
 mv %{buildroot}/usr/include/weston %{buildroot}/usr/include/ias
 rm %{buildroot}/usr/libexec/weston*
