@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 6.0.4
-Release  : 81
+Release  : 82
 URL      : https://github.com/intel/ias/archive/6.0.4.tar.gz
 Source0  : https://github.com/intel/ias/archive/6.0.4.tar.gz
 Source1  : ias-setup.service
