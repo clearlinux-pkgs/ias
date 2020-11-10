@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 6.0.4
-Release  : 82
+Release  : 83
 URL      : https://github.com/intel/ias/archive/6.0.4.tar.gz
 Source0  : https://github.com/intel/ias/archive/6.0.4.tar.gz
 Source1  : ias-setup.service
@@ -153,19 +153,23 @@ services components for the ias package.
 
 %prep
 %setup -q -n ias-6.0.4
+cd %{_builddir}/ias-6.0.4
 %patch1 -p1
 %patch2 -p1
 
 %build
+## build_prepend content
+export CFLAGS="$CFLAGS -fcommon"
+## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570727480
+export SOURCE_DATE_EPOCH=1605030810
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dsimple-dmabuf-drm=intel \
 -Dbackend-rdp=false \
@@ -182,8 +186,8 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/ias
-cp COPYING %{buildroot}/usr/share/package-licenses/ias/COPYING
-cp data/COPYING %{buildroot}/usr/share/package-licenses/ias/data_COPYING
+cp %{_builddir}/ias-6.0.4/COPYING %{buildroot}/usr/share/package-licenses/ias/3cdd630da43ea78f8ca83b291afcce3fa388a804
+cp %{_builddir}/ias-6.0.4/data/COPYING %{buildroot}/usr/share/package-licenses/ias/5648ca4646a6d77ee875a10a0f8a576f59d8cb44
 DESTDIR=%{buildroot} ninja -C builddir install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/ias-setup.service
@@ -194,14 +198,29 @@ install -m 0644 %{SOURCE4} %{buildroot}/usr/lib/systemd/system/ias.service
 mkdir -p %{buildroot}/usr/share/xdg/weston/
 install -m 0644 weston.ini.in %{buildroot}/usr/share/xdg/weston/weston.ini
 install -m 0644 ias.conf.example %{buildroot}/usr/share/xdg/weston/ias.conf
+
 mkdir -p %{buildroot}/usr/lib/systemd/system/ias.service.wants
 mkdir -p %{buildroot}/usr/lib/systemd/system/basic.target.wants
 ln -s ../ias-test-hmi.path %{buildroot}/usr/lib/systemd/system/ias.service.wants/ias-test-hmi.path
 ln -s ../ias-setup.service %{buildroot}/usr/lib/systemd/system/basic.target.wants/ias-setup.service
+
 install -m 0755 ias-setup %{buildroot}/usr/bin/ias-setup
+
+#mv %{buildroot}/usr/lib64/libweston-desktop.so %{buildroot}/usr/lib64/libias-desktop.so
+#mv %{buildroot}/usr/lib64/libweston-desktop.so.6 %{buildroot}/usr/lib64/libias-desktop.so.6
+
+
+#mv %{buildroot}/usr/lib64/pkgconfig/libweston-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-4.pc
+#mv %{buildroot}/usr/lib64/pkgconfig/libweston-desktop-4.pc %{buildroot}/usr/lib64/pkgconfig/libias-desktop-4.pc
 mv %{buildroot}/usr/lib64/pkgconfig/weston.pc %{buildroot}/usr/lib64/pkgconfig/ias.pc
+
+#mv %{buildroot}/usr/share/wayland-sessions/weston.desktop %{buildroot}/usr/share/wayland-sessions/ias-weston.desktop
 mv %{buildroot}/usr/include/weston %{buildroot}/usr/include/ias
+
 rm %{buildroot}/usr/libexec/weston*
+
+# required for shader gen to work:
+# chmod 775 %{buildroot}/usr/lib64/libias-4
 ## install_append end
 
 %files
@@ -378,8 +397,8 @@ rm %{buildroot}/usr/libexec/weston*
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/ias/COPYING
-/usr/share/package-licenses/ias/data_COPYING
+/usr/share/package-licenses/ias/3cdd630da43ea78f8ca83b291afcce3fa388a804
+/usr/share/package-licenses/ias/5648ca4646a6d77ee875a10a0f8a576f59d8cb44
 
 %files services
 %defattr(-,root,root,-)
