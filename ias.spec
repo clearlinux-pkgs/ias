@@ -4,7 +4,7 @@
 #
 Name     : ias
 Version  : 6.0.4
-Release  : 83
+Release  : 84
 URL      : https://github.com/intel/ias/archive/6.0.4.tar.gz
 Source0  : https://github.com/intel/ias/archive/6.0.4.tar.gz
 Source1  : ias-setup.service
@@ -165,7 +165,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1605030810
+export SOURCE_DATE_EPOCH=1632163157
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -312,7 +312,6 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/share/ias/tiling.png
 /usr/share/ias/wayland.png
 /usr/share/ias/wayland.svg
-/usr/share/pkgconfig/libias-6-protocols.pc
 /usr/share/wayland-sessions/ias-weston.desktop
 /usr/share/xdg/weston/ias.conf
 /usr/share/xdg/weston/weston.ini
@@ -349,6 +348,7 @@ rm %{buildroot}/usr/libexec/weston*
 /usr/lib64/pkgconfig/ias.pc
 /usr/lib64/pkgconfig/libias-6.pc
 /usr/lib64/pkgconfig/libias-desktop-6.pc
+/usr/share/pkgconfig/libias-6-protocols.pc
 
 %files lib
 %defattr(-,root,root,-)

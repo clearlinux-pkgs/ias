@@ -5,7 +5,6 @@ libXcursor.so.1
 libc.so.6
 libcairo.so.2
 libdbus-1.so.3
-libdl.so.2
 libdrm.so.2
 libdrm_intel.so.1
 libevdev.so.2
@@ -26,11 +25,9 @@ libpango-1.0.so.0
 libpangocairo-1.0.so.0
 libpixman-1.so.0
 libpng16.so.16
-libpthread.so.0
 libstdc++.so.6
 libsystemd.so.0
 libudev.so.1
-libutil.so.1
 libva-drm.so.2
 libva.so.2
 libwayland-client.so.0
